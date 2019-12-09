@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".common.MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录注册"
+        android:id="@+id/activity_main_login"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="对Record的操作"
+        android:id="@+id/activity_main_record"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="对Book的操作"
+        android:id="@+id/activity_main_book"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="添加账本"
+            android:id="@+id/activity_book_add"/>
+    </LinearLayout>
+    <EditText
+        android:id="@+id/activity_book_updateId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="更新账本的ID" />
+
+    <Button
+        android:id="@+id/activity_book_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="更新" />
+    <Button
+        android:id="@+id/activity_main_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="筛选Record" />
+</LinearLayout>
