@@ -4,6 +4,7 @@ import com.lyh.guanbei.bean.BookBean;
 import com.lyh.guanbei.bean.RecordBean;
 import com.lyh.guanbei.bean.UserBean;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.http.api.BookServiceApi;
 import com.lyh.guanbei.http.api.RecordServiceApi;
 import com.lyh.guanbei.http.api.UserServiceApi;
@@ -43,7 +44,7 @@ public class APIManager {
                 BaseResponse<List<RecordBean>> baseResponse=(BaseResponse<List<RecordBean>>)o;
                 List<RecordBean> list=baseResponse.getData();
                 for(RecordBean r:list)
-                    r.setCommit(true);
+                    r.setStatus(DBManager.CLIENT_SERVER_STATUS);
                 return baseResponse;
             }
         }).subscribe(baseObscriber);
@@ -67,7 +68,7 @@ public class APIManager {
                 BaseResponse<List<RecordBean>> baseResponse=(BaseResponse<List<RecordBean>>)o;
                 List<RecordBean> list=baseResponse.getData();
                 for(RecordBean r:list)
-                    r.setCommit(true);
+                    r.setStatus(DBManager.CLIENT_SERVER_STATUS);
                 return baseResponse;
             }
         }).subscribe(baseObscriber);
@@ -80,7 +81,7 @@ public class APIManager {
                 BaseResponse<List<RecordBean>> baseResponse=(BaseResponse<List<RecordBean>>)o;
                 List<RecordBean> list=baseResponse.getData();
                 for(RecordBean r:list)
-                    r.setCommit(true);
+                    r.setStatus(DBManager.CLIENT_SERVER_STATUS);
                 return baseResponse;
             }
         }).subscribe(baseObscriber);
@@ -93,7 +94,7 @@ public class APIManager {
                 BaseResponse<List<BookBean>> baseResponse=(BaseResponse<List<BookBean>>)o;
                 List<BookBean> data=baseResponse.getData();
                 for(BookBean book:data)
-                    book.setCommit(true);
+                    book.setStatus(DBManager.CLIENT_SERVER_STATUS);
                 return baseResponse;
             }
         }).subscribe(baseObscriber);
@@ -103,8 +104,8 @@ public class APIManager {
             @Override
             public Object apply(Object o) throws Exception {
                 BaseResponse<List<BookBean>> baseResponse=(BaseResponse<List<BookBean>>)o;
-                for(BookBean b:baseResponse.getData())
-                    b.setCommit(true);
+                for(BookBean book:baseResponse.getData())
+                    book.setStatus(DBManager.CLIENT_SERVER_STATUS);
                 return baseResponse;
             }
         }).subscribe(baseObscriber);
@@ -135,7 +136,7 @@ public class APIManager {
             @Override
             public Object apply(Object o) throws Exception {
                 BaseResponse<BookBean> baseResponse=(BaseResponse<BookBean>)o;
-                baseResponse.getData().setCommit(true);
+                baseResponse.getData().setStatus(DBManager.CLIENT_SERVER_STATUS);
                 return baseResponse;
             }
         }).subscribe(baseObscriber);

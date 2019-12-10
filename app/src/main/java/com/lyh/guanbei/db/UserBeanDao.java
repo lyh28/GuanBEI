@@ -32,8 +32,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         public final static Property User_pwd = new Property(5, String.class, "user_pwd", false, "USER_PWD");
         public final static Property Last_login_time = new Property(6, String.class, "last_login_time", false, "LAST_LOGIN_TIME");
         public final static Property Book_id = new Property(7, String.class, "book_id", false, "BOOK_ID");
-        public final static Property Commit = new Property(8, boolean.class, "commit", false, "COMMIT");
-        public final static Property Update = new Property(9, boolean.class, "update", false, "UPDATE");
     }
 
 
@@ -56,9 +54,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
                 "\"CREATE_TIME\" TEXT," + // 4: create_time
                 "\"USER_PWD\" TEXT," + // 5: user_pwd
                 "\"LAST_LOGIN_TIME\" TEXT," + // 6: last_login_time
-                "\"BOOK_ID\" TEXT," + // 7: book_id
-                "\"COMMIT\" INTEGER NOT NULL ," + // 8: commit
-                "\"UPDATE\" INTEGER NOT NULL );"); // 9: update
+                "\"BOOK_ID\" TEXT);"); // 7: book_id
     }
 
     /** Drops the underlying database table. */
@@ -102,8 +98,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (book_id != null) {
             stmt.bindString(8, book_id);
         }
-        stmt.bindLong(9, entity.getCommit() ? 1L: 0L);
-        stmt.bindLong(10, entity.getUpdate() ? 1L: 0L);
     }
 
     @Override
@@ -141,8 +135,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (book_id != null) {
             stmt.bindString(8, book_id);
         }
-        stmt.bindLong(9, entity.getCommit() ? 1L: 0L);
-        stmt.bindLong(10, entity.getUpdate() ? 1L: 0L);
     }
 
     @Override
@@ -160,9 +152,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // create_time
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // user_pwd
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // last_login_time
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // book_id
-            cursor.getShort(offset + 8) != 0, // commit
-            cursor.getShort(offset + 9) != 0 // update
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // book_id
         );
         return entity;
     }
@@ -177,8 +167,6 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         entity.setUser_pwd(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setLast_login_time(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setBook_id(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setCommit(cursor.getShort(offset + 8) != 0);
-        entity.setUpdate(cursor.getShort(offset + 9) != 0);
      }
     
     @Override

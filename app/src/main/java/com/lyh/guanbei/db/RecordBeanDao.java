@@ -33,8 +33,7 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
         public final static Property Content = new Property(6, String.class, "content", false, "CONTENT");
         public final static Property Remark = new Property(7, String.class, "remark", false, "REMARK");
         public final static Property Category = new Property(8, String.class, "category", false, "CATEGORY");
-        public final static Property Commit = new Property(9, boolean.class, "commit", false, "COMMIT");
-        public final static Property Change = new Property(10, boolean.class, "change", false, "CHANGE");
+        public final static Property Status = new Property(9, int.class, "status", false, "STATUS");
     }
 
 
@@ -59,8 +58,7 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
                 "\"CONTENT\" TEXT," + // 6: content
                 "\"REMARK\" TEXT," + // 7: remark
                 "\"CATEGORY\" TEXT," + // 8: category
-                "\"COMMIT\" INTEGER NOT NULL ," + // 9: commit
-                "\"CHANGE\" INTEGER NOT NULL );"); // 10: change
+                "\"STATUS\" INTEGER NOT NULL );"); // 9: status
     }
 
     /** Drops the underlying database table. */
@@ -105,8 +103,7 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
         if (category != null) {
             stmt.bindString(9, category);
         }
-        stmt.bindLong(10, entity.getCommit() ? 1L: 0L);
-        stmt.bindLong(11, entity.getChange() ? 1L: 0L);
+        stmt.bindLong(10, entity.getStatus());
     }
 
     @Override
@@ -145,8 +142,7 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
         if (category != null) {
             stmt.bindString(9, category);
         }
-        stmt.bindLong(10, entity.getCommit() ? 1L: 0L);
-        stmt.bindLong(11, entity.getChange() ? 1L: 0L);
+        stmt.bindLong(10, entity.getStatus());
     }
 
     @Override
@@ -166,8 +162,7 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // content
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // remark
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // category
-            cursor.getShort(offset + 9) != 0, // commit
-            cursor.getShort(offset + 10) != 0 // change
+            cursor.getInt(offset + 9) // status
         );
         return entity;
     }
@@ -183,8 +178,7 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
         entity.setContent(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setRemark(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setCategory(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setCommit(cursor.getShort(offset + 9) != 0);
-        entity.setChange(cursor.getShort(offset + 10) != 0);
+        entity.setStatus(cursor.getInt(offset + 9));
      }
     
     @Override

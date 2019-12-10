@@ -1,7 +1,6 @@
 package com.lyh.guanbei.mvp.presenter;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;

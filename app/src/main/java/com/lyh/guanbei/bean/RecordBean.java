@@ -26,9 +26,14 @@ public class RecordBean {
     private String content;
     private String remark;      //备注
     private String category;    //分类
-    private boolean commit;     //是否上传服务端       为ture时即与服务端同步
-    private boolean change;     //是否更新服务端       为false时即不需要同步，没有改变
-
+    private int status;         //DB状态
+    /*
+        状态描述：
+        0：  仅客户端拥有，服务端未拥有
+        1：  客户端和服务端共同拥有     正常状态
+        2：  客户端进行了修改，未同步至服务端
+        -1： 删除状态，仅客户端已经删除，需要同步至服务端
+     */
     public RecordBean(String time, String amount, String payto, String content, String remark) {
         this.time = time;
         this.amount = amount;
@@ -48,10 +53,9 @@ public class RecordBean {
         this.category = category;
     }
 
-    @Generated(hash = 1797708838)
-    public RecordBean(Long record_id, long user_id, long book_id, String time, @NotNull String amount,
-            String payto, String content, String remark, String category, boolean commit,
-            boolean change) {
+    @Generated(hash = 264246353)
+    public RecordBean(Long record_id, long user_id, long book_id, String time, @NotNull String amount, String payto, String content,
+            String remark, String category, int status) {
         this.record_id = record_id;
         this.user_id = user_id;
         this.book_id = book_id;
@@ -61,8 +65,7 @@ public class RecordBean {
         this.content = content;
         this.remark = remark;
         this.category = category;
-        this.commit = commit;
-        this.change = change;
+        this.status = status;
     }
 
     @Generated(hash = 96196931)
@@ -141,33 +144,18 @@ public class RecordBean {
         this.category = category;
     }
 
-    public boolean getCommit() {
-        return this.commit;
-    }
-
-    public void setCommit(boolean commit) {
-        this.commit = commit;
-    }
-
-    public boolean getChange() {
-        return this.change;
-    }
-
-    public void setChange(boolean change) {
-        this.change = change;
-    }
-
     public static List<RecordBean> query(WhereCondition cond,WhereCondition... condMore){
         return GuanBeiApplication.getDaoSession().getRecordBeanDao().queryBuilder().where(cond,condMore).list();
     }
-    public static void deleteByBookId(List<Long> ids){
-        List<RecordBean> recordBeans=query(RecordBeanDao.Properties.Book_id.in(ids));
-        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(recordBeans);
-    }
-    public static void deleteByUserId(List<Long> ids){
-        List<RecordBean> recordBeans=query(RecordBeanDao.Properties.User_id.in(ids),RecordBeanDao.Properties.Commit.eq(true));
-        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(recordBeans);
-    }
+//    public static void deleteByBookId(List<Long> ids){
+//        List<RecordBean> recordBeans=query(RecordBeanDao.Properties.Book_id.in(ids));
+//        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(recordBeans);
+//    }
+//    public static void deleteByUserId(List<Long> ids){
+//        List<RecordBean> recordBeans=query(RecordBeanDao.Properties.User_id.in(ids),RecordBeanDao.Properties.Commit.eq(true));
+//        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(recordBeans);
+//    }
+
     @Override
     public String toString() {
         return "RecordBean{" +
@@ -180,8 +168,15 @@ public class RecordBean {
                 ", content='" + content + '\'' +
                 ", remark='" + remark + '\'' +
                 ", category='" + category + '\'' +
-                ", commit=" + commit +
-                ", change=" + change +
+                ", status=" + status +
                 '}';
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

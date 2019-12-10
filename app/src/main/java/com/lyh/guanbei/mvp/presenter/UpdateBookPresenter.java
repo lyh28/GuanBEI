@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.mvp.contract.UpdateBookContract;
 import com.lyh.guanbei.mvp.model.UpdateBookModel;
 import com.lyh.guanbei.util.NetUtil;
@@ -33,8 +34,8 @@ public class UpdateBookPresenter extends BasePresenter<UpdateBookContract.IUpdat
         final List<BookBean> serviceList=new ArrayList<>(bookList.size());
 
         for(BookBean book:bookList){
-            if(book.getCommit()){
-                book.setChange(true);
+            if(DBManager.isClientServer(book.getStatus())){
+                book.setStatus(DBManager.CLIENT_UPDATE_STATUS);
                 serviceList.add(book);
             }
         }
@@ -51,7 +52,7 @@ public class UpdateBookPresenter extends BasePresenter<UpdateBookContract.IUpdat
             @Override
             public void onSuccess(String data) {
                 for(BookBean book:bookList)
-                    book.setChange(false);
+                    book.setStatus(DBManager.CLIENT_SERVER_STATUS);
                 getmModel().updateBookLocal(bookList);
             }
 

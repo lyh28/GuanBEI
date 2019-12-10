@@ -8,6 +8,7 @@ import com.lyh.guanbei.bean.DeleteBookBean;
 import com.lyh.guanbei.bean.DeleteRecordBean;
 import com.lyh.guanbei.bean.RecordBean;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.db.DeleteBookBeanDao;
 import com.lyh.guanbei.db.RecordBeanDao;
 import com.lyh.guanbei.mvp.contract.DeleteBookContract;
@@ -35,8 +36,9 @@ public class DeleteBookPresenter extends BasePresenter<DeleteBookContract.IDelet
         getmModel().deleteBookLocal(book.getBook_id());
         //删除Record表相关记录
         mDeleteRecordPresenter.delete(RecordBean.query(RecordBeanDao.Properties.Book_id.eq(book.getBook_id())));
-
-        if(!book.getCommit()) return;
+        if(DBManager.isClientOnly(book.getStatus())){
+            return;
+        }
         if(NetUtil.isNetWorkAvailable()){
             getmModel().deleteBookService(book.getBook_id());
         }else
@@ -48,7 +50,7 @@ public class DeleteBookPresenter extends BasePresenter<DeleteBookContract.IDelet
         final List<Long> idList=new ArrayList<>(bookList.size());
         List<Long> localList=new ArrayList<>(bookList.size());
         for(BookBean bookBean:bookList){
-            if(bookBean.getCommit()){
+            if(DBManager.isClientServer(bookBean.getStatus())){
                 idList.add(bookBean.getBook_id());
             }
             localList.add(bookBean.getBook_id());

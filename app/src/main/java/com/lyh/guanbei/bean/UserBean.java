@@ -19,13 +19,10 @@ public class UserBean {
     private String user_pwd;
     private String last_login_time;
     private String book_id;     //以-分割
-    private boolean commit;     //是否上传服务端
-    private boolean update;     //是否更新服务端
-    @Generated(hash = 1975288180)
+    @Generated(hash = 1522956954)
     public UserBean(long user_id, String user_name, String user_icon,
             @NotNull String user_phone, String create_time, String user_pwd,
-            String last_login_time, String book_id, boolean commit,
-            boolean update) {
+            String last_login_time, String book_id) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.user_icon = user_icon;
@@ -34,8 +31,6 @@ public class UserBean {
         this.user_pwd = user_pwd;
         this.last_login_time = last_login_time;
         this.book_id = book_id;
-        this.commit = commit;
-        this.update = update;
     }
     @Generated(hash = 1203313951)
     public UserBean() {
@@ -100,17 +95,5 @@ public class UserBean {
     }
     public void setBook_id(String book_id) {
         this.book_id = book_id;
-    }
-    public boolean getCommit() {
-        return this.commit;
-    }
-    public void setCommit(boolean commit) {
-        this.commit = commit;
-    }
-    public boolean getUpdate() {
-        return this.update;
-    }
-    public void setUpdate(boolean update) {
-        this.update = update;
     }
 }

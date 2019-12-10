@@ -21,23 +21,29 @@ public class BookBean {
     private String person_id;   //以-分割
     private String max_sum;        //限额
     private String now_sum;         //现在金额
-    private boolean commit;     //是否上传了
-    private boolean change;     //是否更新服务端
-    @Generated(hash = 284668111)
+    private int status;         //DB状态
+    @Generated(hash = 1223477755)
     public BookBean(Long book_id, @NotNull String book_name, long manager_id, String person_id, String max_sum,
-            String now_sum, boolean commit, boolean change) {
+            String now_sum, int status) {
         this.book_id = book_id;
         this.book_name = book_name;
         this.manager_id = manager_id;
         this.person_id = person_id;
         this.max_sum = max_sum;
         this.now_sum = now_sum;
-        this.commit = commit;
-        this.change = change;
+        this.status = status;
     }
     @Generated(hash = 269018259)
     public BookBean() {
     }
+    /*
+        状态描述：
+        0：  仅客户端拥有，服务端未拥有
+        1：  客户端和服务端共同拥有     正常状态
+        2：  客户端进行了修改，未同步至服务端
+        -1： 删除状态，仅客户端已经删除，需要同步至服务端
+
+     */
     public Long getBook_id() {
         return this.book_id;
     }
@@ -68,18 +74,6 @@ public class BookBean {
     public void setMax_sum(String max_sum) {
         this.max_sum = max_sum;
     }
-    public boolean getCommit() {
-        return this.commit;
-    }
-    public void setCommit(boolean commit) {
-        this.commit = commit;
-    }
-    public boolean getChange() {
-        return this.change;
-    }
-    public void setChange(boolean change) {
-        this.change = change;
-    }
 
     @Override
     public String toString() {
@@ -90,8 +84,7 @@ public class BookBean {
                 ", person_id='" + person_id + '\'' +
                 ", max_sum='" + max_sum + '\'' +
                 ", now_sum='" + now_sum + '\'' +
-                ", commit=" + commit +
-                ", change=" + change +
+                ", status=" + status +
                 '}';
     }
 
@@ -103,5 +96,11 @@ public class BookBean {
     }
     public void setNow_sum(String now_sum) {
         this.now_sum = now_sum;
+    }
+    public int getStatus() {
+        return this.status;
+    }
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

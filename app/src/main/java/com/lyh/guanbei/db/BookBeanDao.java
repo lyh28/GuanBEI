@@ -30,8 +30,7 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
         public final static Property Person_id = new Property(3, String.class, "person_id", false, "PERSON_ID");
         public final static Property Max_sum = new Property(4, String.class, "max_sum", false, "MAX_SUM");
         public final static Property Now_sum = new Property(5, String.class, "now_sum", false, "NOW_SUM");
-        public final static Property Commit = new Property(6, boolean.class, "commit", false, "COMMIT");
-        public final static Property Change = new Property(7, boolean.class, "change", false, "CHANGE");
+        public final static Property Status = new Property(6, int.class, "status", false, "STATUS");
     }
 
 
@@ -53,8 +52,7 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
                 "\"PERSON_ID\" TEXT," + // 3: person_id
                 "\"MAX_SUM\" TEXT," + // 4: max_sum
                 "\"NOW_SUM\" TEXT," + // 5: now_sum
-                "\"COMMIT\" INTEGER NOT NULL ," + // 6: commit
-                "\"CHANGE\" INTEGER NOT NULL );"); // 7: change
+                "\"STATUS\" INTEGER NOT NULL );"); // 6: status
     }
 
     /** Drops the underlying database table. */
@@ -88,8 +86,7 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
         if (now_sum != null) {
             stmt.bindString(6, now_sum);
         }
-        stmt.bindLong(7, entity.getCommit() ? 1L: 0L);
-        stmt.bindLong(8, entity.getChange() ? 1L: 0L);
+        stmt.bindLong(7, entity.getStatus());
     }
 
     @Override
@@ -117,8 +114,7 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
         if (now_sum != null) {
             stmt.bindString(6, now_sum);
         }
-        stmt.bindLong(7, entity.getCommit() ? 1L: 0L);
-        stmt.bindLong(8, entity.getChange() ? 1L: 0L);
+        stmt.bindLong(7, entity.getStatus());
     }
 
     @Override
@@ -135,8 +131,7 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // person_id
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // max_sum
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // now_sum
-            cursor.getShort(offset + 6) != 0, // commit
-            cursor.getShort(offset + 7) != 0 // change
+            cursor.getInt(offset + 6) // status
         );
         return entity;
     }
@@ -149,8 +144,7 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
         entity.setPerson_id(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setMax_sum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setNow_sum(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setCommit(cursor.getShort(offset + 6) != 0);
-        entity.setChange(cursor.getShort(offset + 7) != 0);
+        entity.setStatus(cursor.getInt(offset + 6));
      }
     
     @Override
