@@ -12,51 +12,53 @@ import com.lyh.guanbei.util.NetUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-
-import static com.lyh.guanbei.mvp.contract.QueryRecordContract.IQueryRecordModel.BOOKID;
-import static com.lyh.guanbei.mvp.contract.QueryRecordContract.IQueryRecordModel.USERID;
-
 public class QueryRecordPresenter extends BasePresenter<QueryRecordContract.IQueryRecordView, QueryRecordContract.IQueryRecordModel> implements QueryRecordContract.IQueryRecordPresenter {
     @Override
     public void queryRecordById(String type, long id) {
-        List<Long> idList=new ArrayList<>();
+        List<Long> idList = new ArrayList<>();
         idList.add(id);
-        queryRecordById(type,idList);
+        queryRecordById(type, idList);
     }
 
     @Override
-    public void queryRecordById(final String type,final List<Long> ids) {
+    public void queryRecordById(final String type, final List<Long> ids) {
         getmView().startLoading();
-        getmModel().queryRecordFromLocalById(type,ids, new ICallbackListener<List<RecordBean>>() {
+        getmModel().queryRecordFromLocalById(type, ids, new ICallbackListener<List<RecordBean>>() {
             @Override
             public void onSuccess(List<RecordBean> data) {
-                getmView().onQueryRecordSuccess(data);
+                if (checkAttach())
+                    getmView().onQueryRecordSuccess(data);
             }
 
             @Override
-            public void onFailed(String msg) {}
+            public void onFailed(String msg) {
+            }
         });
         if (NetUtil.isNetWorkAvailable())
-            getmModel().queryRecordFromServiceById(type,ids, new ICallbackListener<List<RecordBean>>() {
+            getmModel().queryRecordFromServiceById(type, ids, new ICallbackListener<List<RecordBean>>() {
                 @Override
                 public void onSuccess(final List<RecordBean> data) {
-                    getmView().onQueryRecordSuccess(data);
-                    getmView().endLoading();
+                    if (checkAttach()) {
+                        getmView().onQueryRecordSuccess(data);
+                        getmView().endLoading();
+                    }
                     GuanBeiApplication.getDaoSession().getRecordBeanDao().insertOrReplaceInTx(data);
                 }
+
                 @Override
                 public void onFailed(String msg) {
-                    getmView().onQueryRecordFailed(msg);
-                    getmView().endLoading();
+                    if (checkAttach()) {
+                        getmView().onQueryRecordFailed(msg);
+                        getmView().endLoading();
+                    }
                 }
             });
-        else
-            getmView().endLoading();
+        else {
+            if (checkAttach())
+                getmView().endLoading();
+        }
     }
+
     @Override
     public QueryRecordContract.IQueryRecordModel createModel() {
         return new QueryRecordModel();

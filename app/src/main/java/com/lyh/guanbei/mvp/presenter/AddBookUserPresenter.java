@@ -6,6 +6,7 @@ import com.lyh.guanbei.bean.BookBean;
 import com.lyh.guanbei.common.GuanBeiApplication;
 import com.lyh.guanbei.mvp.contract.AddBookUserContract;
 import com.lyh.guanbei.mvp.model.AddBookUserModel;
+import com.lyh.guanbei.util.NetUtil;
 
 public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAddBookUserView, AddBookUserContract.IAddBookUserModel> implements AddBookUserContract.IAddBookUserPresenter {
     @Override
@@ -16,17 +17,22 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
             getmView().onNoAccount();
             return;
         }
-        getmModel().addUserRequest(userId, requestId, bookId, new ICallbackListener<String>() {
-            @Override
-            public void onSuccess(String data) {
-                getmView().onAddUserRequestSuccess();
-            }
+        if (!NetUtil.isNetWorkAvailable())
+            getmView().onAddBookUserFailed("网络异常");
+        else
+            getmModel().addUserRequest(userId, requestId, bookId, new ICallbackListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    if (checkAttach())
+                        getmView().onAddUserRequestSuccess();
+                }
 
-            @Override
-            public void onFailed(String msg) {
-                getmView().onAddBookUserFailed("网络异常");
-            }
-        });
+                @Override
+                public void onFailed(String msg) {
+                    if (checkAttach())
+                        getmView().onAddBookUserFailed("网络异常");
+                }
+            });
     }
 
     @Override
@@ -37,18 +43,23 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
             getmView().onNoAccount();
             return;
         }
-        getmModel().changeManager(oldId, newId, bookId, new ICallbackListener<BookBean>() {
-            @Override
-            public void onSuccess(BookBean data) {
-                getmView().onChangeManagerSuccess();
-                updateBook(data);
-            }
+        if (!NetUtil.isNetWorkAvailable())
+            getmView().onAddBookUserFailed("网络异常");
+        else
+            getmModel().changeManager(oldId, newId, bookId, new ICallbackListener<BookBean>() {
+                @Override
+                public void onSuccess(BookBean data) {
+                    if (checkAttach())
+                        getmView().onChangeManagerSuccess();
+                    updateBook(data);
+                }
 
-            @Override
-            public void onFailed(String msg) {
-                getmView().onAddBookUserFailed("网络异常");
-            }
-        });
+                @Override
+                public void onFailed(String msg) {
+                    if (checkAttach())
+                        getmView().onAddBookUserFailed("网络异常");
+                }
+            });
     }
 
     @Override
@@ -56,7 +67,7 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
         return new AddBookUserModel();
     }
 
-    public void updateBook(BookBean bookBean){
+    public void updateBook(BookBean bookBean) {
         GuanBeiApplication.getDaoSession().getBookBeanDao().update(bookBean);
     }
 }

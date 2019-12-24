@@ -1,6 +1,13 @@
 package com.lyh.guanbei.util;
 
+import android.text.TextUtils;
+
 import com.lyh.guanbei.common.Contact;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class Util {
     //从"A-B-C"格式中删除其中一个数据
@@ -29,5 +36,88 @@ public class Util {
             str = str + Contact.SEPARATOR + data;
         }
         return str;
+    }
+    //得到数量
+    public static int getCountFormData(String data){
+        if(TextUtils.isEmpty(data))
+            return 0;
+        return data.split(Contact.SEPARATOR).length;
+    }
+    public static String[] splitData(String data){
+        return data.split(Contact.SEPARATOR);
+    }
+    public static List<Long> getLongFromData(String data){
+        List<Long> list=new ArrayList<>();
+        if(TextUtils.isEmpty(data))
+            return list;
+        String[] arr=splitData(data);
+        if(arr==null||arr.length==0)
+            return list;
+        for(String b:arr)
+            list.add(Long.parseLong(b));
+        return list;
+    }
+    //计算加法减法        最后一个数可能为+-符号
+    public static int calculate(String amount){
+        int res=0;
+        //操作数队列
+        LinkedList<Integer> numList=new LinkedList<>();
+        //符号栈
+        LinkedList<Character> methodList=new LinkedList<>();
+        int left=0;
+        for(int i=0;i<amount.length();i++){
+            char c=amount.charAt(i);
+            if(c=='-'||c=='+'){
+                if(i==0){
+                    left++;
+                    continue;
+                }
+                methodList.addLast(c);
+                numList.addLast(Integer.parseInt(amount.substring(left,i)));
+                left=i+1;
+            }
+        }
+        if(left<amount.length())
+            numList.addLast(Integer.parseInt(amount.substring(left)));
+
+        res=numList.pollFirst();
+        if(amount.charAt(0)=='-')   res=0-res;
+        while(numList.size()!=0){
+            res=calculate(res,numList.pollFirst(),methodList.pollFirst());
+        }
+        return res;
+//        int res=0;
+//        int start=0;
+//        char deal;
+//        //寻找第一个数
+//        for(int i=0;i<amount.length();i++){
+//            char c=amount.charAt(i);
+//            if(c=='+'||c=='-'){
+//                deal=c;
+//                res=Integer.parseInt(amount.substring(start,i));
+//                start=i+1;
+//                if(start>=amount.length())
+//                    break;
+//            }
+//        }
+//        for(int i=start;i<amount.length();i++){
+//            char c=amount.charAt(i);
+//            if(c=='+'||c=='-'){
+//                deal=c;
+//                //获得左边的数
+//                int left=Integer.parseInt(amount.substring(start,i));
+//                if(res==0)  res=left;
+//                if(start>=amount.length())
+//                    break;
+//
+//            }
+//        }
+//        return res;
+    }
+    private static int calculate(int num1,int num2,char c){
+        if(c=='+')
+            return num1+num2;
+        else
+            return num1-num2;
     }
 }

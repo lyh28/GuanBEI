@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lyh.guanbei">
     <!-- Required -->
     <permission
         android:name="com.lyh.guanbei.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" /> <!-- Required -->
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="com.lyh.guanbei.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,22 +22,30 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".test.FilterActivity"></activity>
-        <activity android:name=".test.BookIUActivity" />
-        <activity android:name=".test.BookActivity" />
-        <activity android:name=".test.RecordIUActivity" />
-        <activity android:name=".test.RecordActivity" />
-        <activity android:name=".test.LoginActivity" />
-        <activity android:name=".common.MainActivity">
+        <activity android:name=".ui.activity.RegisterActivity"></activity>
+        <activity android:name=".ui.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.AddUserActivity" />
+        <activity android:name=".ui.activity.MemberActivity" />
+        <activity android:name=".ui.activity.BookDetailActivity" />
+        <activity android:name=".ui.activity.AddBookActivity" />
+        <activity android:name=".ui.activity.IndexActivity" />
+        <activity android:name=".ui.activity.AddBySMSActivity" />
+        <activity
+            android:name=".ui.activity.ChangeBookActivity"
+            android:theme="@style/CustomActivityDialog" />
+        <activity android:name=".ui.activity.AddByMyselfActivity" />
+        <activity android:name=".common.MainActivity" />
 
         <service
             android:name=".jpush.PushCommonService"

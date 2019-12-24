@@ -1,5 +1,7 @@
 package com.lyh.guanbei.mvp.presenter;
 
+import android.text.TextUtils;
+
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
@@ -11,6 +13,7 @@ import com.lyh.guanbei.common.GuanBeiApplication;
 import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.db.DeleteBookBeanDao;
 import com.lyh.guanbei.db.RecordBeanDao;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.DeleteBookContract;
 import com.lyh.guanbei.mvp.model.DeleteBookModel;
 import com.lyh.guanbei.util.LogUtil;
@@ -33,9 +36,20 @@ public class DeleteBookPresenter extends BasePresenter<DeleteBookContract.IDelet
     public void deleteBook(BookBean book) {
         if(book==null)
             return;
+        if(book.getManager_id()!= CustomSharedPreferencesManager.getInstance(getmContext()).getUser().getUser_id()){
+            if (checkAttach())
+                getmView().onDeleteError("您不是该账本管理员，无权限进行删除");
+            return;
+        }
+        if(!TextUtils.isEmpty(book.getPerson_id())&&!NetUtil.isNetWorkAvailable()){
+            if (checkAttach())
+                getmView().onDeleteError("该账本为共享账本，需要联网进行删除");
+            return;
+        }
         getmModel().deleteBookLocal(book.getBook_id());
         //删除Record表相关记录
         mDeleteRecordPresenter.delete(RecordBean.query(RecordBeanDao.Properties.Book_id.eq(book.getBook_id())));
+        getmView().onDeleteSuccess();
         if(DBManager.isClientOnly(book.getStatus())){
             return;
         }

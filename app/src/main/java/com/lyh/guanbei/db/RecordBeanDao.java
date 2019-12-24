@@ -59,6 +59,11 @@ public class RecordBeanDao extends AbstractDao<RecordBean, Long> {
                 "\"REMARK\" TEXT," + // 7: remark
                 "\"CATEGORY\" TEXT," + // 8: category
                 "\"STATUS\" INTEGER NOT NULL );"); // 9: status
+        // Add Indexes
+        db.execSQL("CREATE INDEX " + constraint + "IDX_RECORD_BEAN_USER_ID ON \"RECORD_BEAN\"" +
+                " (\"USER_ID\" ASC);");
+        db.execSQL("CREATE INDEX " + constraint + "IDX_RECORD_BEAN_BOOK_ID ON \"RECORD_BEAN\"" +
+                " (\"BOOK_ID\" ASC);");
     }
 
     /** Drops the underlying database table. */

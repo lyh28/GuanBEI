@@ -30,6 +30,12 @@ public class APIManager {
     public static void register(UserBean user,BaseObscriber<UserBean> baseObscriber){
         getRetrofit().create(UserServiceApi.class).register(user).compose(getMainThreadTransformer()).subscribe(baseObscriber);
     }
+    public static void queryUserById(List<Long> id,BaseObscriber<List<UserBean>> baseObscriber){
+        getRetrofit().create(UserServiceApi.class).queryById(id).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
+    public static void queryUserByPhone(String phone,BaseObscriber<UserBean> baseObscriber){
+        getRetrofit().create(UserServiceApi.class).queryByPhone(phone).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
     //账单记录操作
     public static void commitRecord(RecordBean recordBean, BaseObscriber<List<RecordBean>> baseObscriber){
         List<RecordBean> list=new ArrayList<>();
@@ -40,7 +46,6 @@ public class APIManager {
         getRetrofit().create(RecordServiceApi.class).insert(recordBean).compose(getIOThreadTransformer()).map(new Function() {
             @Override
             public Object apply(Object o) throws Exception {
-                LogUtil.logD("设置commit已上传服务端");
                 BaseResponse<List<RecordBean>> baseResponse=(BaseResponse<List<RecordBean>>)o;
                 List<RecordBean> list=baseResponse.getData();
                 for(RecordBean r:list)
@@ -64,7 +69,6 @@ public class APIManager {
         getRetrofit().create(RecordServiceApi.class).queryByUserId(userId).compose(getMainThreadTransformer()).map(new Function() {
             @Override
             public Object apply(Object o) throws Exception {
-                LogUtil.logD("设置commit已上传服务端");
                 BaseResponse<List<RecordBean>> baseResponse=(BaseResponse<List<RecordBean>>)o;
                 List<RecordBean> list=baseResponse.getData();
                 for(RecordBean r:list)
@@ -77,7 +81,6 @@ public class APIManager {
         getRetrofit().create(RecordServiceApi.class).queryByBookId(bookId).compose(getMainThreadTransformer()).map(new Function() {
             @Override
             public Object apply(Object o) throws Exception {
-                LogUtil.logD("设置commit已上传服务端");
                 BaseResponse<List<RecordBean>> baseResponse=(BaseResponse<List<RecordBean>>)o;
                 List<RecordBean> list=baseResponse.getData();
                 for(RecordBean r:list)

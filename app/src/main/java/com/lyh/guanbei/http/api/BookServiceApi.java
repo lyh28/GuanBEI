@@ -17,26 +17,26 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface BookServiceApi {
-    @POST("/book/insert")
+    @POST("book/insert")
     Observable<BaseResponse<List<BookBean>>> insert(@Body List<BookBean> bookList);
-    @POST("/book/queryForList")
+    @POST("book/queryForList")
     Observable<BaseResponse<List<BookBean>>> query(@Body List<Long> idList);
-    @POST("/book/update")
+    @POST("book/update")
     Observable<BaseResponse<String>> update(@Body List<BookBean> bookList);
-    @POST("/book/deleteFromList")
+    @POST("book/deleteFromList")
     Observable<BaseResponse<String>> deleteFromList(@Body List<Long> ids);
-    @GET("/book/delete/{id}")
+    @GET("book/delete/{id}")
     Observable<BaseResponse<String>> delete(@Path("id") long id);
-    @POST("/book/deleteUser")
+    @POST("book/deleteUser")
     @FormUrlEncoded
     Observable<BaseResponse<String>> deleteUser(@Field("userId") long userId,@Field("bookId") long bookId);
-    @POST("/book/addUser")
+    @POST("book/addUser")
     @FormUrlEncoded
     Observable<BaseResponse<String>> addUser(@Field("userId") long userId, @Field("bookId") long bookId);
-    @POST("/book/addUserRequest")
+    @POST("book/addUserRequest")
     @FormUrlEncoded
     Observable<BaseResponse<String>> addUserRequest(@Field("userId") long userId,@Field("requestId")long requestId,@Field("bookId") long bookId);
-    @POST("/book/changeManager")
+    @POST("book/changeManager")
     @FormUrlEncoded
     Observable<BaseResponse<BookBean>> changeManager(@Field("oldId") long oldId,@Field("newId") long newId,@Field("bookId") long bookId);
 }

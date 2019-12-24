@@ -1,13 +1,19 @@
 package com.lyh.guanbei.bean;
 
+import com.lyh.guanbei.common.GuanBeiApplication;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Unique;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+import java.util.List;
+
 @Entity
-public class UserBean {
+public class UserBean implements Serializable {
+    public static final long serialVersionUID=11111L;
     @Id(autoincrement = true)
     private long user_id;
     private String user_name;
@@ -95,5 +101,8 @@ public class UserBean {
     }
     public void setBook_id(String book_id) {
         this.book_id = book_id;
+    }
+    public static UserBean queryById(long id){
+        return GuanBeiApplication.getDaoSession().getUserBeanDao().load(id);
     }
 }

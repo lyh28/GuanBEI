@@ -5,6 +5,7 @@ import com.lyh.guanbei.db.RecordBeanDao;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.query.WhereCondition;
@@ -16,8 +17,10 @@ public class RecordBean {
     @Id(autoincrement = true)
     private Long record_id;
     @NotNull
+    @Index
     private long user_id;
     @NotNull
+    @Index
     private long book_id;
     private String time;
     @NotNull
@@ -40,6 +43,14 @@ public class RecordBean {
         this.payto = payto;
         this.content = content;
         this.remark = remark;
+    }
+
+    public RecordBean(long user_id, long book_id, String time, String amount, String category) {
+        this.user_id = user_id;
+        this.book_id = book_id;
+        this.time = time;
+        this.amount = amount;
+        this.category = category;
     }
 
     public RecordBean(long user_id, long book_id, String time, String amount, String payto, String content, String remark, String category) {
@@ -76,7 +87,7 @@ public class RecordBean {
         return this.record_id;
     }
 
-    public void setRecord_id(Long record_id) {
+    public void setRecord_id(long record_id) {
         this.record_id = record_id;
     }
 
@@ -147,15 +158,6 @@ public class RecordBean {
     public static List<RecordBean> query(WhereCondition cond,WhereCondition... condMore){
         return GuanBeiApplication.getDaoSession().getRecordBeanDao().queryBuilder().where(cond,condMore).list();
     }
-//    public static void deleteByBookId(List<Long> ids){
-//        List<RecordBean> recordBeans=query(RecordBeanDao.Properties.Book_id.in(ids));
-//        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(recordBeans);
-//    }
-//    public static void deleteByUserId(List<Long> ids){
-//        List<RecordBean> recordBeans=query(RecordBeanDao.Properties.User_id.in(ids),RecordBeanDao.Properties.Commit.eq(true));
-//        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(recordBeans);
-//    }
-
     @Override
     public String toString() {
         return "RecordBean{" +
@@ -178,5 +180,9 @@ public class RecordBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setRecord_id(Long record_id) {
+        this.record_id = record_id;
     }
 }

@@ -43,10 +43,10 @@ public class NetListenerPresenter extends BasePresenter<NetListenerContract.INet
         if (Build.VERSION.SDK_INT >= 21) {
             ConnectivityManager connectivityManager = (ConnectivityManager) getmContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             connectivityManager.unregisterNetworkCallback(networkCallback);
-            networkCallback=null;
+            networkCallback = null;
         } else {
             getmContext().unregisterReceiver(receiver);
-            receiver=null;
+            receiver = null;
         }
     }
 
@@ -60,13 +60,15 @@ public class NetListenerPresenter extends BasePresenter<NetListenerContract.INet
                 @Override
                 public void onAvailable(Network network) {
                     super.onAvailable(network);
-                    getmView().onNetAvailable();
+                    if (checkAttach())
+                        getmView().onNetAvailable();
                 }
 
                 @Override
                 public void onLost(Network network) {
                     super.onLost(network);
-                    getmView().onNetUnavailable();
+                    if (checkAttach())
+                        getmView().onNetUnavailable();
                 }
             };
     }
@@ -79,10 +81,13 @@ public class NetListenerPresenter extends BasePresenter<NetListenerContract.INet
     public class NetBroadCastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (NetUtil.isNetWorkAvailable())
-                getmView().onNetAvailable();
-            else
-                getmView().onNetUnavailable();
+            if (NetUtil.isNetWorkAvailable()) {
+                if (checkAttach())
+                    getmView().onNetAvailable();
+            } else {
+                if (checkAttach())
+                    getmView().onNetUnavailable();
+            }
         }
     }
 }

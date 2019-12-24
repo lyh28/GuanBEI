@@ -5,13 +5,20 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.lyh.guanbei.bean.CategoryBean;
+import com.lyh.guanbei.bean.UserBean;
 import com.lyh.guanbei.db.DaoMaster;
 import com.lyh.guanbei.db.DaoSession;
+import com.lyh.guanbei.http.APIManager;
+import com.lyh.guanbei.http.BaseObscriber;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.util.LogUtil;
+import com.lyh.guanbei.util.Util;
 
 import org.greenrobot.greendao.database.Database;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
@@ -30,15 +37,15 @@ public class GuanBeiApplication extends Application {
         //推送 可异步
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        LogUtil.logD("该设备号： "+JPushInterface.getRegistrationID(this));
+        LogUtil.logD("该设备号： " + JPushInterface.getRegistrationID(this));
         //数据库
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "guanbei_db");
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
-        daoSession.getRecordBeanDao().deleteAll();
-        daoSession.getDeleteRecordBeanDao().deleteAll();
-        daoSession.getBookBeanDao().deleteAll();
-        daoSession.getDeleteBookBeanDao().deleteAll();
+
+        //需要额外的标志或放在注册功能下
+        CategoryBean.InsertPresetInList();
+        CategoryBean.InsertPresetOutList();
     }
 
     public static Context getContext() {
@@ -49,11 +56,11 @@ public class GuanBeiApplication extends Application {
         return daoSession;
     }
 
-    public static void showShortToast(Context context,String content) {
+    public static void showShortToast(Context context, String content) {
         Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showLongToast(Context context,String content) {
+    public static void showLongToast(Context context, String content) {
         Toast.makeText(context, content, Toast.LENGTH_LONG).show();
     }
 }

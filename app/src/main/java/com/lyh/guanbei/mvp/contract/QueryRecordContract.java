@@ -20,12 +20,12 @@ public interface QueryRecordContract {
         void endLoading();
     }
     interface IQueryRecordPresenter extends IPresenter<IQueryRecordView,IQueryRecordModel>{
+        String USERID="userId";
+        String BOOKID="bookId";
         void queryRecordById(String type,long id);
         void queryRecordById(String type,List<Long> ids);
     }
     interface IQueryRecordModel extends IModel{
-        String USERID="userId";
-        String BOOKID="bookId";
         void queryRecordFromServiceById(String type,List<Long> ids, ICallbackListener<List<RecordBean>> iCallbackListener);
         void queryRecordFromLocalById(String type,List<Long> ids,ICallbackListener<List<RecordBean>> iCallbackListener);
     }

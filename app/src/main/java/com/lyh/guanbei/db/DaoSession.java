@@ -9,12 +9,14 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.CategoryBean;
 import com.lyh.guanbei.bean.DeleteBookBean;
 import com.lyh.guanbei.bean.DeleteRecordBean;
 import com.lyh.guanbei.bean.RecordBean;
 import com.lyh.guanbei.bean.UserBean;
 
 import com.lyh.guanbei.db.BookBeanDao;
+import com.lyh.guanbei.db.CategoryBeanDao;
 import com.lyh.guanbei.db.DeleteBookBeanDao;
 import com.lyh.guanbei.db.DeleteRecordBeanDao;
 import com.lyh.guanbei.db.RecordBeanDao;
@@ -30,12 +32,14 @@ import com.lyh.guanbei.db.UserBeanDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig bookBeanDaoConfig;
+    private final DaoConfig categoryBeanDaoConfig;
     private final DaoConfig deleteBookBeanDaoConfig;
     private final DaoConfig deleteRecordBeanDaoConfig;
     private final DaoConfig recordBeanDaoConfig;
     private final DaoConfig userBeanDaoConfig;
 
     private final BookBeanDao bookBeanDao;
+    private final CategoryBeanDao categoryBeanDao;
     private final DeleteBookBeanDao deleteBookBeanDao;
     private final DeleteRecordBeanDao deleteRecordBeanDao;
     private final RecordBeanDao recordBeanDao;
@@ -47,6 +51,9 @@ public class DaoSession extends AbstractDaoSession {
 
         bookBeanDaoConfig = daoConfigMap.get(BookBeanDao.class).clone();
         bookBeanDaoConfig.initIdentityScope(type);
+
+        categoryBeanDaoConfig = daoConfigMap.get(CategoryBeanDao.class).clone();
+        categoryBeanDaoConfig.initIdentityScope(type);
 
         deleteBookBeanDaoConfig = daoConfigMap.get(DeleteBookBeanDao.class).clone();
         deleteBookBeanDaoConfig.initIdentityScope(type);
@@ -61,12 +68,14 @@ public class DaoSession extends AbstractDaoSession {
         userBeanDaoConfig.initIdentityScope(type);
 
         bookBeanDao = new BookBeanDao(bookBeanDaoConfig, this);
+        categoryBeanDao = new CategoryBeanDao(categoryBeanDaoConfig, this);
         deleteBookBeanDao = new DeleteBookBeanDao(deleteBookBeanDaoConfig, this);
         deleteRecordBeanDao = new DeleteRecordBeanDao(deleteRecordBeanDaoConfig, this);
         recordBeanDao = new RecordBeanDao(recordBeanDaoConfig, this);
         userBeanDao = new UserBeanDao(userBeanDaoConfig, this);
 
         registerDao(BookBean.class, bookBeanDao);
+        registerDao(CategoryBean.class, categoryBeanDao);
         registerDao(DeleteBookBean.class, deleteBookBeanDao);
         registerDao(DeleteRecordBean.class, deleteRecordBeanDao);
         registerDao(RecordBean.class, recordBeanDao);
@@ -75,6 +84,7 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         bookBeanDaoConfig.clearIdentityScope();
+        categoryBeanDaoConfig.clearIdentityScope();
         deleteBookBeanDaoConfig.clearIdentityScope();
         deleteRecordBeanDaoConfig.clearIdentityScope();
         recordBeanDaoConfig.clearIdentityScope();
@@ -83,6 +93,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public BookBeanDao getBookBeanDao() {
         return bookBeanDao;
+    }
+
+    public CategoryBeanDao getCategoryBeanDao() {
+        return categoryBeanDao;
     }
 
     public DeleteBookBeanDao getDeleteBookBeanDao() {

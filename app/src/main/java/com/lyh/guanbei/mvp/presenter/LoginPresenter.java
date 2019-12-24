@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.LoginContract;
 import com.lyh.guanbei.mvp.model.LoginModel;
 import com.lyh.guanbei.util.NetUtil;
@@ -24,8 +25,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginView, Logi
             getmModel().login(pwd, phone, new ICallbackListener<UserBean>() {
                 @Override
                 public void onSuccess(UserBean data) {
-                    if(checkAttach())
+                    if(checkAttach()) {
+                        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(data);
                         getmView().onLoginSuccess(data);
+                    }
                 }
 
                 @Override

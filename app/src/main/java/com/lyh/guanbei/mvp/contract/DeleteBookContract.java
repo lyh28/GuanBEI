@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface DeleteBookContract {
     interface IDeleteBookView extends IView{
+        void onDeleteError(String msg);
+        void onDeleteSuccess();
     }
     interface IDeleteBookPresenter extends IPresenter<IDeleteBookView,IDeleteBookModel>{
         void deleteBook(BookBean book);

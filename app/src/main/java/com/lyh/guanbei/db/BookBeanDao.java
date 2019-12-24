@@ -53,6 +53,9 @@ public class BookBeanDao extends AbstractDao<BookBean, Long> {
                 "\"MAX_SUM\" TEXT," + // 4: max_sum
                 "\"NOW_SUM\" TEXT," + // 5: now_sum
                 "\"STATUS\" INTEGER NOT NULL );"); // 6: status
+        // Add Indexes
+        db.execSQL("CREATE INDEX " + constraint + "IDX_BOOK_BEAN_MANAGER_ID ON \"BOOK_BEAN\"" +
+                " (\"MANAGER_ID\" ASC);");
     }
 
     /** Drops the underlying database table. */

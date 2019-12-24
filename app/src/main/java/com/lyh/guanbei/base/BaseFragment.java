@@ -3,9 +3,6 @@ package com.lyh.guanbei.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +10,27 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 public abstract class BaseFragment extends Fragment implements IView {
     private List<IPresenter> mPresenterList;
-    private Activity mactivity;
-    private View mview;
+    private Activity mActivity;
+    protected View mView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mview=inflater.inflate(getLayoutId(),container);
+        mView=inflater.inflate(getLayoutId(),container,false);
         mPresenterList=new ArrayList<>();
-        mactivity=getActivity();
+        mActivity=getActivity();
         createPresenters();
+        for(IPresenter iPresenter:mPresenterList)
+            iPresenter.onAttach(this,mActivity);
         initUi();
         init();
-        for(IPresenter iPresenter:mPresenterList)
-            iPresenter.onAttach(this,mactivity);
-        return mview;
+        return mView;
     }
 
     @Override
@@ -40,16 +42,38 @@ public abstract class BaseFragment extends Fragment implements IView {
     protected void addPresenter(IPresenter iPresenter){
         mPresenterList.add(iPresenter);
     }
+
+    public List<IPresenter> getmPresenterList() {
+        return mPresenterList;
+    }
+
+    public Activity getmActivity() {
+        return mActivity;
+    }
+
+    public View getmView() {
+        return mView;
+    }
+
     protected abstract int getLayoutId();
     protected abstract void initUi();
     protected abstract void init();
-
     protected void startActivity(Class activity){
         startActivity(activity,null);
     }
     protected void startActivity(Class activity,Bundle bundle){
-        Intent intent=new Intent(mactivity,activity);
+        Intent intent=new Intent(mActivity,activity);
         intent.putExtra("data",bundle);
-        startActivity(intent);
+        mActivity.startActivity(intent);
+    }
+    protected void setMargins (View v, int l, int t, int r, int b) {
+        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            p.setMargins(l, t, r, b);
+            v.requestLayout();
+        }
+    }
+    protected final <T extends View> T findViewById(@IdRes int id) {
+        return getmView().findViewById(id);
     }
 }

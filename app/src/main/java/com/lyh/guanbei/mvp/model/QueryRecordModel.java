@@ -11,6 +11,9 @@ import com.lyh.guanbei.mvp.contract.QueryRecordContract;
 
 import java.util.List;
 
+import static com.lyh.guanbei.mvp.contract.QueryRecordContract.IQueryRecordPresenter.BOOKID;
+import static com.lyh.guanbei.mvp.contract.QueryRecordContract.IQueryRecordPresenter.USERID;
+
 public class QueryRecordModel implements QueryRecordContract.IQueryRecordModel {
     @Override
     public void queryRecordFromServiceById(final String type,final List<Long> ids, final ICallbackListener<List<RecordBean>> iCallbackListener) {

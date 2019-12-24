@@ -15,12 +15,14 @@ public class DeleteBookUserPresenter extends BasePresenter<DeleteBookUserContrac
                 @Override
                 public void onSuccess(String data) {
                     getmModel().deleteBookUserLocal(userId,bookId);
-                    getmView().onDeleteBookUserSuccess(userId);
+                    if (checkAttach())
+                        getmView().onDeleteBookUserSuccess(userId);
                 }
 
                 @Override
                 public void onFailed(String msg) {
-                    getmView().onDeleteBookUserFailed(msg);
+                    if (checkAttach())
+                        getmView().onDeleteBookUserFailed(msg);
                 }
             });
         }
