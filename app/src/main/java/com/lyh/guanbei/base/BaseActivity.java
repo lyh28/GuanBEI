@@ -52,16 +52,17 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
     protected abstract void init();
 
     protected void startActivity(Class activity) {
-        startActivity(activity, null);
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
     }
 
     protected void startActivity(Class activity, Bundle bundle) {
         Intent intent = new Intent(this, activity);
-        intent.putExtra("data", bundle);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
     protected Bundle getIntentData(){
-        return getIntent().getBundleExtra("data");
+        return getIntent().getExtras();
     }
     protected void setMargins (View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {

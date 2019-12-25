@@ -126,8 +126,15 @@ public class APIManager {
         getRetrofit().create(BookServiceApi.class).deleteUser(userId,bookId).compose(getIOThreadTransformer()).subscribe(baseObscriber);
     }
     //直接添加
-    public static void addBookUser(long userId,long bookId,BaseObscriber<String> baseObscriber){
-        getRetrofit().create(BookServiceApi.class).addUser(userId,bookId).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    public static void addBookUser(long userId,long bookId,BaseObscriber<BookBean> baseObscriber){
+        getRetrofit().create(BookServiceApi.class).addUser(userId,bookId).compose(getMainThreadTransformer()).map(new Function() {
+            @Override
+            public Object apply(Object o) throws Exception {
+                BaseResponse<BookBean> baseResponse=(BaseResponse<BookBean>)o;
+                baseResponse.getData().setStatus(DBManager.CLIENT_SERVER_STATUS);
+                return baseResponse;
+            }
+        }).subscribe(baseObscriber);
     }
     //发起请求，需要等待对方确认
     public static void addUserRequest(long userId,long requestId,long bookId,BaseObscriber<String> baseObscriber){

@@ -40,7 +40,8 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     private QueryUserPresenter mQueryUserPresenter;
     private long mBookId;
     private BookBean mBook;
-    private Map<Integer,UserBean> userMap;
+    private Map<Integer, UserBean> userMap;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_add_user;
@@ -58,16 +59,16 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void init() {
         initData();
-        mUserAdapter=new UserLinearAdapter(this);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        mUserAdapter = new UserLinearAdapter(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mUserAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mUserAdapter.setChoose(position);
-                if(mUserAdapter.isChoose(position)){
-                    userMap.put(position,mUserAdapter.getItem(position));
-                }else{
+                if (mUserAdapter.isChoose(position)) {
+                    userMap.put(position, mUserAdapter.getItem(position));
+                } else {
                     userMap.remove(position);
                 }
             }
@@ -77,9 +78,9 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initData() {
-        Bundle bundle=getIntentData();
-        mBookId=bundle.getLong("bookId");
-        mBook=BookBean.queryByBookId(mBookId);
+        Bundle bundle = getIntentData();
+        mBookId = bundle.getLong("bookId");
+        mBook = BookBean.queryByBookId(mBookId);
     }
 
     @Override
@@ -90,54 +91,47 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.activity_add_user_done:
                 //得到剩余可以添加的用户
-                if(userMap.size()==0){
+                if (userMap.size() == 0) {
                     showInfoDialog("未选择任何用户");
-                    return ;
+                    return;
                 }
-                List<UserBean> resList=checkIsIn();
-                if(resList.size()==0) {
+                List<UserBean> resList = checkIsIn();
+                if (resList.size() == 0) {
                     showInfoDialog("该用户已被添加进账本中");
-                    return ;
+                    return;
                 }
-                for(UserBean user:resList)
-                mAddBookUserPresenter.addUserRequest(user.getUser_id(),mBookId);
+                for (UserBean user : resList)
+                    mAddBookUserPresenter.addUserRequest(user.getUser_id(), mBookId);
                 break;
             case R.id.activity_add_user_search:
                 clearList();
-                String str=mName.getText().toString();
-                if(TextUtils.isEmpty(str))
+                String str = mName.getText().toString();
+                if (TextUtils.isEmpty(str))
                     return;
                 //手机号
-                if(str.length()==11)
+                if (str.length() == 11)
                     mQueryUserPresenter.queryServer(str);
                 mQueryUserPresenter.queryServer(Long.parseLong(str));
                 break;
         }
     }
-    private List<UserBean> checkIsIn(){
-        List<UserBean> resList=new ArrayList<>();
-        List<UserBean> list=new ArrayList<>(userMap.values());
-        List<Long> userId= Util.getLongFromData(mBook.getPerson_id());
-        for(UserBean user:list){
-            if(user.getUser_id()==mBook.getManager_id()||userId.contains(user.getUser_id()))
+
+    private List<UserBean> checkIsIn() {
+        List<UserBean> resList = new ArrayList<>();
+        List<UserBean> list = new ArrayList<>(userMap.values());
+        List<Long> userId = Util.getLongFromData(mBook.getPerson_id());
+        for (UserBean user : list) {
+            if (user.getUser_id() == mBook.getManager_id() || userId.contains(user.getUser_id()))
                 continue;
             resList.add(user);
         }
         return resList;
     }
-    private void clearList(){
-        userMap=new HashMap<>();
+
+    private void clearList() {
+        userMap = new HashMap<>();
+        mUserAdapter.cleanChoose();
         mUserAdapter.setNewData(null);
-    }
-
-    @Override
-    public void onChangeManagerSuccess() {
-
-    }
-
-    @Override
-    public void onAddUserRequestSuccess() {
-
     }
 
     @Override
@@ -145,12 +139,8 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
         showErrorDialog("您需要进行登录才能进行此操作");
     }
 
-    @Override
-    public void onAddBookUserFailed(String msg) {
-
-    }
     private void showErrorDialog(String word) {
-        final QMUITipDialog dialog=new QMUITipDialog.Builder(this)
+        final QMUITipDialog dialog = new QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
                 .setTipWord(word)
                 .create();
@@ -160,10 +150,11 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
             public void run() {
                 dialog.dismiss();
             }
-        },1000);
+        }, 1000);
     }
-    private void showInfoDialog(String word){
-        final QMUITipDialog dialog=new QMUITipDialog.Builder(this)
+
+    private void showInfoDialog(String word) {
+        final QMUITipDialog dialog = new QMUITipDialog.Builder(this)
                 .setTipWord(word)
                 .create();
         dialog.show();
@@ -172,8 +163,9 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
             public void run() {
                 dialog.dismiss();
             }
-        },1000);
+        }, 1000);
     }
+
     @Override
     public void onQueryUserSuccess(UserBean user) {
         mUserAdapter.addData(user);
@@ -191,9 +183,30 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
+    public void onAddBookUserRequestSuccess() {
+        //提示 等待对方同意
+    }
+
+    @Override
+    public void onAddBookUserRequestFailed(String msg) {
+
+    }
+
+    @Override
+    public void onAddBookUserSuccess() {
+        showInfoDialog("发送请求成功，等待对方确认");
+        finish();
+    }
+
+    @Override
+    public void onAddBookUserFailed(String msg) {
+        showErrorDialog("发送请求失败");
+    }
+
+    @Override
     public void createPresenters() {
-        mAddBookUserPresenter=new AddBookUserPresenter();
-        mQueryUserPresenter=new QueryUserPresenter();
+        mAddBookUserPresenter = new AddBookUserPresenter();
+        mQueryUserPresenter = new QueryUserPresenter();
         addPresenter(mQueryUserPresenter);
         addPresenter(mAddBookUserPresenter);
     }

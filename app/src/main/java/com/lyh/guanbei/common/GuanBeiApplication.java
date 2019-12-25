@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.lyh.guanbei.R;
 import com.lyh.guanbei.bean.CategoryBean;
 import com.lyh.guanbei.bean.UserBean;
 import com.lyh.guanbei.db.DaoMaster;
@@ -21,7 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.CustomPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.MultiActionsNotificationBuilder;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 
@@ -37,7 +40,8 @@ public class GuanBeiApplication extends Application {
         //推送 可异步
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        LogUtil.logD("该设备号： " + JPushInterface.getRegistrationID(this));
+        //设置通知栏
+//        LogUtil.logD("该设备号： " + JPushInterface.getRegistrationID(this));
         //数据库
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "guanbei_db");
         Database db = helper.getWritableDb();

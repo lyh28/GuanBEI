@@ -119,6 +119,13 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
     private void initBookData() {
         List<BookBean> list = BookBean.queryByUserId(this);
         mBookAdapter.setNewData(list);
+        CustomSharedPreferencesManager sharedPreferencesManager=CustomSharedPreferencesManager.getInstance(this);
+        if(sharedPreferencesManager.getCurrBookId()==-1&&list.size()!=0){
+            BookBean book=list.get(0);
+            sharedPreferencesManager.saveCurrBookId(book.getBook_id());
+            mBookAdapter.setCurrentBookId(book.getBook_id());
+        }
+
         mTitle.setText(wrapTitle(list.size()));
     }
 

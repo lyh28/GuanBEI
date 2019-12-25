@@ -67,8 +67,8 @@ public class QueryUserPresenter extends BasePresenter<QueryUserContract.IQueryUs
             getmModel().queryServer(id, new ICallbackListener<List<UserBean>>() {
                 @Override
                 public void onSuccess(List<UserBean> data) {
-                    getmView().onQueryUserSuccess(data);
                     getmModel().saveData(data);
+                    getmView().onQueryUserSuccess(data);
                 }
 
                 @Override
@@ -86,8 +86,8 @@ public class QueryUserPresenter extends BasePresenter<QueryUserContract.IQueryUs
             getmModel().queryServer(phone, new ICallbackListener<UserBean>() {
                 @Override
                 public void onSuccess(UserBean data) {
-                    getmView().onQueryUserSuccess(data);
                     getmModel().saveData(data);
+                    getmView().onQueryUserSuccess(data);
                 }
 
                 @Override

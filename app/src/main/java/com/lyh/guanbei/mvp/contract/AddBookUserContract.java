@@ -8,18 +8,19 @@ import com.lyh.guanbei.bean.BookBean;
 
 public interface AddBookUserContract {
     interface IAddBookUserView extends IView {
-        void onChangeManagerSuccess();
-        void onAddUserRequestSuccess();
+        void onAddBookUserRequestSuccess();
         void onNoAccount();       //未登录账号时
+        void onAddBookUserRequestFailed(String msg);
+        void onAddBookUserSuccess();
         void onAddBookUserFailed(String msg);
     }
     interface IAddBookUserPresenter extends IPresenter<IAddBookUserView,IAddBookUserModel>{
         void addUserRequest(long userId,long bookId);
-        void changeManager(long newId,long bookId);
+        void addUser(long bookId);
     }
     interface IAddBookUserModel extends IModel{
         void addUserRequest(long userId, long requestId, long bookId, ICallbackListener<String> iCallbackListener);
-        void changeManager(long oldId,long newId,long bookId,ICallbackListener<BookBean> iCallbackListener);
+        void addUser(long userId,long bookId,ICallbackListener<BookBean> iCallbackListener);
     }
 }
 

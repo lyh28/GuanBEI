@@ -59,12 +59,16 @@ public abstract class BaseFragment extends Fragment implements IView {
     protected abstract void initUi();
     protected abstract void init();
     protected void startActivity(Class activity){
-        startActivity(activity,null);
+        Intent intent=new Intent(mActivity,activity);
+        startActivity(intent);
     }
     protected void startActivity(Class activity,Bundle bundle){
         Intent intent=new Intent(mActivity,activity);
-        intent.putExtra("data",bundle);
+        intent.putExtras(bundle);
         mActivity.startActivity(intent);
+    }
+    protected Bundle getIntentData(){
+        return mActivity.getIntent().getExtras();
     }
     protected void setMargins (View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {

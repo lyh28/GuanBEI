@@ -1,8 +1,7 @@
 package com.lyh.guanbei.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
+import cn.jpush.android.api.JPushInterface;
 
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.BookBean;
 import com.lyh.guanbei.bean.UserBean;
-import com.lyh.guanbei.common.MainActivity;
+import com.lyh.guanbei.jpush.PushMessageReceiver;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.LoginContract;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
@@ -94,6 +93,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginSuccess(UserBean userBean) {
+        //设置别名
+        JPushInterface.setAlias(this, PushMessageReceiver.USERALIAS,userBean.getUser_id()+"");
         CustomSharedPreferencesManager preferencesManager = CustomSharedPreferencesManager.getInstance(this);
         String bookids=userBean.getBook_id();
         List<Long> list= Util.getLongFromData(bookids);
@@ -108,6 +109,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onLoginFailed(String msg) {
         LogUtil.logD("登录失败 "+msg);
+        mDialog.dismiss();
+
     }
 
     @Override

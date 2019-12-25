@@ -5,7 +5,6 @@ import android.os.Message;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.common.MainActivity;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 
 public class WelcomeActivity extends BaseActivity {

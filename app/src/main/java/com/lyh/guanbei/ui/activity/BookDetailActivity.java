@@ -70,7 +70,8 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void init() {
-        bookId = getIntentData().getLong("bookId");
+        Bundle bundle=getIntentData();
+        bookId = bundle.getLong("bookId");
         bookBean = BookBean.queryByBookId(bookId);
         userId = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
         initData();

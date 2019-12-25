@@ -32,7 +32,7 @@ public interface BookServiceApi {
     Observable<BaseResponse<String>> deleteUser(@Field("userId") long userId,@Field("bookId") long bookId);
     @POST("book/addUser")
     @FormUrlEncoded
-    Observable<BaseResponse<String>> addUser(@Field("userId") long userId, @Field("bookId") long bookId);
+    Observable<BaseResponse<BookBean>> addUser(@Field("userId") long userId, @Field("bookId") long bookId);
     @POST("book/addUserRequest")
     @FormUrlEncoded
     Observable<BaseResponse<String>> addUserRequest(@Field("userId") long userId,@Field("requestId")long requestId,@Field("bookId") long bookId);

@@ -24,8 +24,8 @@ public class AddBookUserModel implements AddBookUserContract.IAddBookUserModel {
     }
 
     @Override
-    public void changeManager(long oldId, long newId, long bookId, final ICallbackListener<BookBean> iCallbackListener) {
-        APIManager.changeManager(oldId, newId, bookId, new BaseObscriber<BookBean>() {
+    public void addUser(long userId, long bookId, final ICallbackListener<BookBean> iCallbackListener) {
+        APIManager.addBookUser(userId, bookId, new BaseObscriber<BookBean>() {
             @Override
             protected void onSuccess(BookBean data) {
                 iCallbackListener.onSuccess(data);
@@ -37,6 +37,21 @@ public class AddBookUserModel implements AddBookUserContract.IAddBookUserModel {
             }
         });
     }
+    //
+//    @Override
+//    public void changeManager(long oldId, long newId, long bookId, final ICallbackListener<BookBean> iCallbackListener) {
+//        APIManager.changeManager(oldId, newId, bookId, new BaseObscriber<BookBean>() {
+//            @Override
+//            protected void onSuccess(BookBean data) {
+//                iCallbackListener.onSuccess(data);
+//            }
+//
+//            @Override
+//            protected void onFailed(String msg) {
+//                iCallbackListener.onFailed(msg);
+//            }
+//        });
+//    }
 
 
 }
