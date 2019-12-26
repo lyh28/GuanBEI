@@ -1,5 +1,6 @@
 package com.lyh.guanbei.ui.fragment;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.QueryRecordContract;
 import com.lyh.guanbei.mvp.presenter.QueryRecordPresenter;
 import com.lyh.guanbei.ui.activity.ChangeBookActivity;
+import com.lyh.guanbei.ui.activity.RecordDetailActivity;
 import com.lyh.guanbei.util.CustomOffsetChangeListener;
 import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -90,7 +92,11 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
         mRecordSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(getContext(),"点击  "+mRecordSectionAdapter.getItemViewType(position),Toast.LENGTH_SHORT).show();
+                if(!mRecordSectionAdapter.getItem(position).isHeader){
+                    Bundle bundle=new Bundle();
+                    bundle.putLong("recordId",mRecordSectionAdapter.getItem(position).t.getRecord_id());
+                    startActivity(RecordDetailActivity.class,bundle);
+                }
             }
         });
         recyclerView.setAdapter(mRecordSectionAdapter);

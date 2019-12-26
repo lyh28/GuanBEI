@@ -1,5 +1,6 @@
 package com.lyh.guanbei.ui.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -169,10 +170,17 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onDeleteError(String msg) {
-        new QMUITipDialog.Builder(this)
+        final QMUITipDialog dialog=new QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
                 .setTipWord(msg)
                 .create();
+        dialog.show();
+        mAdd.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        },1000);
     }
 
     @Override

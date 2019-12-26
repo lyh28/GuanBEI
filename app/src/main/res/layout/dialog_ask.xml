@@ -43,6 +43,6 @@
             android:layout_weight="1"
             android:text="确定"
             android:textColor="@color/colorNormal"
-            android:id="@+id/dialog_aks_ensure"/>
+            android:id="@+id/dialog_ask_ensure"/>
     </LinearLayout>
 </LinearLayout>

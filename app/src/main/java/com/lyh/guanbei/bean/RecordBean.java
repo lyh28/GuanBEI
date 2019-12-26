@@ -158,6 +158,9 @@ public class RecordBean {
     public static List<RecordBean> query(WhereCondition cond,WhereCondition... condMore){
         return GuanBeiApplication.getDaoSession().getRecordBeanDao().queryBuilder().where(cond,condMore).list();
     }
+    public static RecordBean queryById(long id){
+        return GuanBeiApplication.getDaoSession().getRecordBeanDao().load(id);
+    }
     @Override
     public String toString() {
         return "RecordBean{" +

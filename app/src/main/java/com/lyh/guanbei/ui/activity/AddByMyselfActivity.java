@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.CategoryAdapter;
@@ -20,8 +21,10 @@ import com.lyh.guanbei.common.GuanBeiApplication;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
+import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
 import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryBookPresenter;
+import com.lyh.guanbei.mvp.presenter.UpdateRecordPresenter;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.KeyBoardUtil;
@@ -35,7 +38,7 @@ import java.util.List;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AddByMyselfActivity extends BaseActivity implements CommitRecordContract.ICommitRecordView, View.OnClickListener, RadioGroup.OnCheckedChangeListener{
+public class AddByMyselfActivity extends BaseActivity implements UpdateRecordContract.IUpdateRecordView, CommitRecordContract.ICommitRecordView, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     private RadioGroup mRadioGroup;
     private ImageView mBack;
     private ImageView mDone;
@@ -52,12 +55,15 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
     private View mRootView;
     private BottomBookDialog mDialog;
 
+    private UpdateRecordPresenter updateRecordPresenter;
     private CommitRecordPresenter commitRecordPresenter;
     private CategoryAdapter mCategoryAdapter;
     private KeyBoardUtil keyBoardUtil;
 
     private long currBookId;
     private int type;   //当前状态  收入还是支出
+    private boolean isUpdate;       //状态    添加还是更新
+    private RecordBean mRecord;     //需更新的record
 
     private List<CategoryBean> categoryOutList;
     private List<CategoryBean> categoryInList;
@@ -82,17 +88,12 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
         mToWho = findViewById(R.id.activity_add_myself_towho);
         mContent = findViewById(R.id.activity_add_myself_content);
         mRemark = findViewById(R.id.activity_add_myself_remark);
-        mDialog=new BottomBookDialog(this,mBookName);
+        mDialog = new BottomBookDialog(this, mBookName);
 
         mBack.setOnClickListener(this);
         mRadioGroup.setOnCheckedChangeListener(this);
         mDone.setOnClickListener(this);
-        findViewById(R.id.activity_add_myself_bookview).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDialog.show();
-            }
-        });
+        findViewById(R.id.activity_add_myself_bookview).setOnClickListener(this);
         mRecyclerview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -109,7 +110,7 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
         //设置点击区域
         findViewById(R.id.activity_add_myself_date_view).setOnClickListener(this);
         //点击其他位置时隐藏键盘
-        mRootView=findViewById(R.id.activity_add_myself_rootview);
+        mRootView = findViewById(R.id.activity_add_myself_rootview);
         mRootView.setOnClickListener(this);
     }
 
@@ -143,20 +144,38 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
             }
         });
     }
-    private void initData(){
-        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(this);
-        type = CategoryBean.OUT;
-        currBookId= customSharedPreferencesManager.getCurrBookId();
+
+    private void initData() {
+        long recordId = getIntentData().getLong("recordId", -1);
+        if (recordId != -1) {
+            isUpdate = true;
+            mRecord = RecordBean.queryById(recordId);
+            currBookId = mRecord.getBook_id();
+            mDate.setText(mRecord.getTime().split(" ")[1]);
+            mAmount.setText(mRecord.getAmount());
+            int iconId = RecordCategoryManager.getIconByCategory(mRecord.getCategory(), type);
+            Glide.with(this).load(iconId).into(mIcon);
+            mCategory.setText(mRecord.getCategory());
+            mRemark.setText(mRecord.getRemark());
+            mToWho.setText(mRecord.getPayto());
+        } else {
+            CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
+            type = CategoryBean.OUT;
+            currBookId = customSharedPreferencesManager.getCurrBookId();
+            mDate.setText(DateUtil.getNowDateTime().split(" ")[1]);
+            //设置大图标
+            setDefaultCategoryData();
+        }
+        mBookName.setText(BookBean.queryByBookId(currBookId).getBook_name());
         categoryOutList = CategoryBean.getCategoryByType(CategoryBean.OUT);
         categoryInList = CategoryBean.getCategoryByType(CategoryBean.IN);
-        mDate.setText(DateUtil.getNowDateTime().split(" ")[1]);
-        mBookName.setText(BookBean.queryByBookId(currBookId).getBook_name());
-        //设置大图标
-        setCategoryData();
     }
+
     @Override
     public void createPresenters() {
         commitRecordPresenter = new CommitRecordPresenter();
+        updateRecordPresenter = new UpdateRecordPresenter();
+        addPresenter(updateRecordPresenter);
         addPresenter(commitRecordPresenter);
     }
 
@@ -172,7 +191,10 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
                 finish();
                 break;
             case R.id.activity_add_myself_done:
-                commitRecordPresenter.commit(createRecord());
+                if (isUpdate)
+                    updateRecordPresenter.update(createRecord());
+                else
+                    commitRecordPresenter.commit(createRecord());
                 finish();
                 break;
             case R.id.activity_add_myself_date_view:
@@ -186,17 +208,22 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
                 keyBoardUtil.hideKeyBoard();
                 keyBoardUtil.hideSystemKeyboard(AddByMyselfActivity.this);
                 break;
+            case R.id.activity_add_myself_bookview:
+                if(!isUpdate)
+                    mDialog.show();
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(keyBoardUtil.isKeyBoardShow()){
+        if (keyBoardUtil.isKeyBoardShow()) {
             keyBoardUtil.hideKeyBoard();
             return;
         }
         super.onBackPressed();
     }
+
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
@@ -210,10 +237,11 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
                 break;
         }
         //变换大图标文字
-        setCategoryData();
+        setDefaultCategoryData();
     }
+
     //设置所属的分类（大图标文字）
-    private void setCategoryData() {
+    private void setDefaultCategoryData() {
         CategoryBean categoryBean;
         if (type == CategoryBean.IN) {
             if (categoryInList.size() == 0) {
@@ -238,7 +266,8 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
 
     private RecordBean createRecord() {
         long user_id = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
-        long book_id =mDialog.getCurrBookId();
+        long book_id = mDialog.getCurrBookId();
+        //此处需要修改
         String date = DateUtil.getNowDateTime();
         String amount = mAmount.getText().toString();
         String payTo = mToWho.getText().toString();
@@ -247,6 +276,15 @@ public class AddByMyselfActivity extends BaseActivity implements CommitRecordCon
         String category = mCategory.getText().toString();
         if (type == CategoryBean.OUT)
             amount = "-" + amount;
+        if(isUpdate){
+            mRecord.setAmount(amount);
+            mRecord.setCategory(category);
+            mRecord.setRemark(remark);
+            mRecord.setTime(date);
+            mRecord.setPayto(payTo);
+            mRecord.setContent(content);
+            return mRecord;
+        }
         return new RecordBean(user_id, book_id, date, amount, payTo, content, remark, category);
     }
 

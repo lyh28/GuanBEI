@@ -127,6 +127,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:textSize="15sp"
                 android:layout_height="match_parent"
                 android:id="@+id/activity_add_myself_book"
                 android:text="账本名"/>
@@ -175,6 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="To Who"
+            android:textSize="15sp"
             android:id="@+id/activity_add_myself_towho"/>
         <View
             android:layout_margin="5dp"
@@ -185,6 +187,7 @@
             style="@style/CustomEditTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
             android:hint="内容"
             android:layout_weight="1"
             android:maxEms="10"
@@ -200,6 +203,7 @@
             android:id="@+id/activity_add_myself_remark"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textSize="15sp"
             android:hint="备注"
             android:maxEms="5"
             android:ellipsize="end"/>

@@ -22,6 +22,9 @@ public class AskDialog extends Dialog {
     private TextView mEnsure;
     private onClickListener mListener;
     private Context mContext;
+
+    private String mTitleStr;
+    private String mContentStr;
     public AskDialog(@NonNull Context context) {
         super(context, R.style.CustomDialog);
         mContext=context;
@@ -46,7 +49,13 @@ public class AskDialog extends Dialog {
     }
     private void initView(){
         mCancel=findViewById(R.id.dialog_ask_cancel);
-        mEnsure=findViewById(R.id.dialog_aks_ensure);
+        mEnsure=findViewById(R.id.dialog_ask_ensure);
+        mTitle=findViewById(R.id.dialog_ask_title);
+        mContent=findViewById(R.id.dialog_ask_content);
+        if(mTitleStr!=null)
+            mTitle.setText(mTitleStr);
+        if(mContentStr!=null)
+            mContent.setText(mContentStr);
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +71,14 @@ public class AskDialog extends Dialog {
                 }
             }
         });
+    }
+    public AskDialog setTitle(String title){
+        mTitleStr=title;
+        return this;
+    }
+    public AskDialog setContent(String content){
+        mContentStr=content;
+        return this;
     }
 
     @Override
