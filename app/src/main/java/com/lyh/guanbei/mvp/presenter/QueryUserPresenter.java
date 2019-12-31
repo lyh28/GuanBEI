@@ -1,10 +1,8 @@
 package com.lyh.guanbei.mvp.presenter;
 
-import android.content.Context;
-
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.mvp.contract.QueryUserContract;
 import com.lyh.guanbei.mvp.model.QueryUserModel;
 import com.lyh.guanbei.util.LogUtil;
@@ -31,9 +29,9 @@ public class QueryUserPresenter extends BasePresenter<QueryUserContract.IQueryUs
 
     @Override
     public void query(String phone) {
-        getmModel().queryLocal(phone, new ICallbackListener<UserBean>() {
+        getmModel().queryLocal(phone, new ICallbackListener<User>() {
             @Override
-            public void onSuccess(UserBean data) {
+            public void onSuccess(User data) {
                 getmView().onQueryUserSuccess(data);
             }
 
@@ -47,9 +45,9 @@ public class QueryUserPresenter extends BasePresenter<QueryUserContract.IQueryUs
 
     @Override
     public void query(List<Long> id) {
-        getmModel().queryLocal(id, new ICallbackListener<List<UserBean>>() {
+        getmModel().queryLocal(id, new ICallbackListener<List<User>>() {
             @Override
-            public void onSuccess(List<UserBean> data) {
+            public void onSuccess(List<User> data) {
                 getmView().onQueryUserSuccess(data);
             }
 
@@ -64,9 +62,9 @@ public class QueryUserPresenter extends BasePresenter<QueryUserContract.IQueryUs
     @Override
     public void queryServer(List<Long> id) {
         if (NetUtil.isNetWorkAvailable()) {
-            getmModel().queryServer(id, new ICallbackListener<List<UserBean>>() {
+            getmModel().queryServer(id, new ICallbackListener<List<User>>() {
                 @Override
-                public void onSuccess(List<UserBean> data) {
+                public void onSuccess(List<User> data) {
                     getmModel().saveData(data);
                     getmView().onQueryUserSuccess(data);
                 }
@@ -83,9 +81,9 @@ public class QueryUserPresenter extends BasePresenter<QueryUserContract.IQueryUs
     @Override
     public void queryServer(String phone) {
         if (NetUtil.isNetWorkAvailable()) {
-            getmModel().queryServer(phone, new ICallbackListener<UserBean>() {
+            getmModel().queryServer(phone, new ICallbackListener<User>() {
                 @Override
-                public void onSuccess(UserBean data) {
+                public void onSuccess(User data) {
                     getmModel().saveData(data);
                     getmView().onQueryUserSuccess(data);
                 }

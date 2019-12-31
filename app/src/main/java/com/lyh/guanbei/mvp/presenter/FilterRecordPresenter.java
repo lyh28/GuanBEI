@@ -2,12 +2,9 @@ package com.lyh.guanbei.mvp.presenter;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.IModel;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.RecordBeanDao;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.mvp.contract.FilterRecordContract;
-import com.lyh.guanbei.util.DateUtil;
-import com.lyh.guanbei.util.Util;
 
 import org.greenrobot.greendao.query.WhereCondition;
 
@@ -24,7 +21,7 @@ public class FilterRecordPresenter extends BasePresenter<FilterRecordContract.IF
     }
 
     public void setmDateCondition(String start, String end) {
-        mDateCondition = RecordBeanDao.Properties.Time.between(start, end);
+        mDateCondition = RecordDao.Properties.Date.between(start, end);
     }
 
     public void clearContidion(String type) {
@@ -39,12 +36,12 @@ public class FilterRecordPresenter extends BasePresenter<FilterRecordContract.IF
 
     @Override
     public void filterRecord() {
-        List<RecordBean> recordList;
+        List<Record> recordList;
         if (mFilterMap.size() == 0) {
-            recordList = RecordBean.query(mDateCondition);
+            recordList = Record.query(mDateCondition);
         } else {
             WhereCondition[] arr = mFilterMap.values().toArray(new WhereCondition[mFilterMap.size()]);
-            recordList = RecordBean.query(mDateCondition, arr);
+            recordList = Record.query(mDateCondition, arr);
         }
         if (checkAttach())
             getmView().filterRecordShow(recordList);
@@ -63,10 +60,10 @@ public class FilterRecordPresenter extends BasePresenter<FilterRecordContract.IF
             WhereCondition whereCondition = null;
             switch (type) {
                 case CATEGORY_FILTER:
-                    whereCondition = RecordBeanDao.Properties.Category.eq(condition);
+                    whereCondition = RecordDao.Properties.Category.eq(condition);
                     break;
                 case PAYTO_FILTER:
-                    whereCondition = RecordBeanDao.Properties.Payto.eq(condition);
+                    whereCondition = RecordDao.Properties.Towho.eq(condition);
                     break;
                 default:
                     break;

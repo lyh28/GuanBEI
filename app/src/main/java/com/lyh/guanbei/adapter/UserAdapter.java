@@ -7,9 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lyh.guanbei.R;
-import com.lyh.guanbei.bean.UserBean;
-
-import java.util.List;
+import com.lyh.guanbei.bean.User;
 
 import androidx.annotation.NonNull;
 
@@ -28,18 +26,18 @@ public class UserAdapter extends BaseMultiItemQuickAdapter<UserItemEntity, BaseV
     protected void convert(@NonNull BaseViewHolder helper, UserItemEntity item) {
         switch (helper.getItemViewType()) {
             case UserItemEntity.NORMAL:
-                UserBean user=item.getUser();
+                User user=item.getUser();
                 helper.setText(R.id.listitem_user_name,user.getUser_name());
                 ImageView icon=helper.getView(R.id.listitem_user_icon);
                 Glide.with(mContext).load(user.getUser_icon()).placeholder(R.drawable.defaulticon).error(R.drawable.defaulticon).into(icon);
                 break;
             case UserItemEntity.ADD:
                 ImageView imgAdd=helper.getView(R.id.listitem_add_delete_img);
-                Glide.with(mContext).load(R.drawable.add).into(imgAdd);
+                Glide.with(mContext).load(R.drawable.add_circle_gray).into(imgAdd);
                 break;
             case UserItemEntity.DELETE:
                 ImageView imgDel=helper.getView(R.id.listitem_add_delete_img);
-                Glide.with(mContext).load(R.drawable.close).into(imgDel);
+                Glide.with(mContext).load(R.drawable.delete_circle_gray).into(imgDel);
                 break;
         }
     }

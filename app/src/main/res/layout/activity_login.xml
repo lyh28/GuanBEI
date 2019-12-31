@@ -12,13 +12,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/close"/>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="手机登录"
-        android:padding="@dimen/dp_40"
-        android:textSize="40sp"
-        android:gravity="center"/>
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="手机登录"
+            android:padding="@dimen/dp_40"
+            android:textSize="40sp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="临时账号：12345678912"
+            android:textColor="@color/qmui_config_color_red"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="临时密码：123"
+            android:textColor="@color/qmui_config_color_red"/>
+    </LinearLayout>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

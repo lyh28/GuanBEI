@@ -4,14 +4,14 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 
 import java.util.List;
 
 public interface QueryUserContract {
     interface IQueryUserView extends IView {
-        void onQueryUserSuccess(UserBean user);
-        void onQueryUserSuccess(List<UserBean> userList);
+        void onQueryUserSuccess(User user);
+        void onQueryUserSuccess(List<User> userList);
         void onQueryUserError(String msg);
     }
     interface IQueryUserPresenter extends IPresenter<IQueryUserView,IQueryUserModel>{
@@ -23,12 +23,12 @@ public interface QueryUserContract {
         void queryServer(String phone);
     }
     interface IQueryUserModel extends IModel{
-        void queryLocal(List<Long> idList, ICallbackListener<List<UserBean>> iCallbackListener);
-        void queryServer(List<Long> idList,ICallbackListener<List<UserBean>> iCallbackListener);
-        void queryLocal(String phone, ICallbackListener<UserBean> iCallbackListener);
-        void queryServer(String phone,ICallbackListener<UserBean> iCallbackListener);
+        void queryLocal(List<Long> idList, ICallbackListener<List<User>> iCallbackListener);
+        void queryServer(List<Long> idList,ICallbackListener<List<User>> iCallbackListener);
+        void queryLocal(String phone, ICallbackListener<User> iCallbackListener);
+        void queryServer(String phone,ICallbackListener<User> iCallbackListener);
 
-        void saveData(UserBean user);
-        void saveData(List<UserBean> userList);
+        void saveData(User user);
+        void saveData(List<User> userList);
     }
 }

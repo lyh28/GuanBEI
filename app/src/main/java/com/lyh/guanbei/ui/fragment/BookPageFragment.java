@@ -6,26 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.appbar.AppBarLayout;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.RecordSectionAdapter;
 import com.lyh.guanbei.base.BaseFragment;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.db.RecordBeanDao;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.QueryRecordContract;
 import com.lyh.guanbei.mvp.presenter.QueryRecordPresenter;
 import com.lyh.guanbei.ui.activity.ChangeBookActivity;
+import com.lyh.guanbei.ui.activity.FilterActivity;
 import com.lyh.guanbei.ui.activity.RecordDetailActivity;
 import com.lyh.guanbei.util.CustomOffsetChangeListener;
 import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
-import java.nio.channels.OverlappingFileLockException;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,7 +45,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     private TextView mOut;
     private View mNoDataView;   //没有账本时的界面
     private ViewGroup mRootView;    //根界面
-    private List<RecordBean> recordBeanList;
     private QueryRecordPresenter mQueryRecordPresenter;
     private long bookId;
 
@@ -94,7 +92,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(!mRecordSectionAdapter.getItem(position).isHeader){
                     Bundle bundle=new Bundle();
-                    bundle.putLong("recordId",mRecordSectionAdapter.getItem(position).t.getRecord_id());
+                    bundle.putLong("recordId",mRecordSectionAdapter.getItem(position).t.getLocal_id());
                     startActivity(RecordDetailActivity.class,bundle);
                 }
             }
@@ -138,16 +136,15 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                     mRootView.removeView(mNoDataView);
                     mNoDataView=null;
                 }
-                BookBean book=BookBean.queryByBookId(bookId);
+                Book book= Book.queryByLocalId(bookId);
                 if(book!=null){
                     mBookName.setText(book.getBook_name());
                     mQueryRecordPresenter.queryRecordById(QueryRecordPresenter.BOOKID, bookId);
                 }
             }
         }else{
-            List<RecordBean> list=RecordBean.query(RecordBeanDao.Properties.Book_id.eq(bookId));
+            List<Record> list= Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
             mRecordSectionAdapter.setNewDatas(list);
-            recordBeanList=list;
         }
         super.onResume();
     }
@@ -160,9 +157,8 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     }
 
     @Override
-    public void onQueryRecordSuccess(List<RecordBean> recordBeans) {
-        mRecordSectionAdapter.setNewDatas(recordBeans);
-        recordBeanList=recordBeans;
+    public void onQueryRecordSuccess(List<Record> records) {
+        mRecordSectionAdapter.setNewDatas(records);
     }
 
     @Override
@@ -183,6 +179,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fragment_book_filter:
+                startActivity(FilterActivity.class);
                 break;
             case R.id.fragment_book_more:
                 break;

@@ -39,6 +39,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(LoginActivity.class);
                 break;
             case R.id.activity_index_toRegister:
+                startActivity(RegisterActivity.class);
                 break;
         }
     }

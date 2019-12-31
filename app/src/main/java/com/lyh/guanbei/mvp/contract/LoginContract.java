@@ -4,11 +4,11 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 
 public interface LoginContract {
     interface ILoginView extends IView{
-        void onLoginSuccess(UserBean userBean);
+        void onLoginSuccess(User user);
         void onLoginFailed(String msg);
         //填写信息有误
         void onMessageError(String msg);
@@ -17,6 +17,6 @@ public interface LoginContract {
         void login(String phone,String pwd);
     }
     interface ILoginModel extends IModel{
-        void login(String pwd,String phone, ICallbackListener<UserBean> iCallbackListener);
+        void login(String pwd,String phone, ICallbackListener<User> iCallbackListener);
     }
 }

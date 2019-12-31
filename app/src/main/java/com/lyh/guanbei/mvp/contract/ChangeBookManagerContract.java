@@ -4,7 +4,7 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 
 public interface ChangeBookManagerContract {
     interface IChangeBookManagerView extends IView{
@@ -15,6 +15,6 @@ public interface ChangeBookManagerContract {
         void changeManager(long newId,long bookId);
     }
     interface IChangeBookManagerModel extends IModel{
-        void changeManager(long oldId, long newId, long bookId, ICallbackListener<BookBean> iCallbackListener);
+        void changeManager(long oldId, long newId, long bookId, ICallbackListener<Book> iCallbackListener);
     }
 }

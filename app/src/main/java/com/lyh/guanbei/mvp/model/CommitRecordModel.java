@@ -1,21 +1,21 @@
 package com.lyh.guanbei.mvp.model;
 
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.RecordBean;
+import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
-import com.lyh.guanbei.util.LogUtil;
 
 import java.util.List;
 
 public class CommitRecordModel implements CommitRecordContract.ICommitRecordModel {
     @Override
-    public void commit(List<RecordBean> record, final ICallbackListener<List<RecordBean>> iCallbackListener) {
-        APIManager.commitRecord(record, new BaseObscriber<List<RecordBean>>() {
+    public void commit(List<Record> record, final ICallbackListener<List<Record>> iCallbackListener) {
+        APIManager.commitRecord(record, new BaseObscriber<List<Record>>() {
             @Override
-            protected void onSuccess(List<RecordBean> data) {
+            protected void onSuccess(List<Record> data) {
                 iCallbackListener.onSuccess(data);
             }
 
@@ -27,8 +27,8 @@ public class CommitRecordModel implements CommitRecordContract.ICommitRecordMode
     }
 
     @Override
-    public void save(List<RecordBean> record) {
+    public void save(List<Record> record) {
         //数据库保存
-        GuanBeiApplication.getDaoSession().getRecordBeanDao().insertOrReplaceInTx(record,true);
+        DBManager.getInstance().getDaoSession().getRecordDao().insertOrReplaceInTx(record,true);
     }
 }

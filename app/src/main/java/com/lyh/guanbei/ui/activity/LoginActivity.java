@@ -10,8 +10,9 @@ import android.widget.EditText;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.jpush.PushMessageReceiver;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.LoginContract;
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private QMUITipDialog mDialog;
     private boolean isFirst;
-
+    private User user;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -92,25 +93,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onLoginSuccess(UserBean userBean) {
+    public void onLoginSuccess(User user) {
         //设置别名
-        JPushInterface.setAlias(this, PushMessageReceiver.USERALIAS,userBean.getUser_id()+"");
-        CustomSharedPreferencesManager preferencesManager = CustomSharedPreferencesManager.getInstance(this);
-        String bookids=userBean.getBook_id();
+        this.user=user;
+        JPushInterface.setAlias(this, PushMessageReceiver.USERALIAS, user.getUser_id()+"");
+        String bookids= user.getBook_id();
         List<Long> list= Util.getLongFromData(bookids);
-        if(list.size()==0) {
-            preferencesManager.saveCurrBookId(-1);
-        }else{
-            preferencesManager.saveCurrBookId(list.get(0));
-        }
-        mQueryBookPresenter.queryBook(list);
+        mQueryBookPresenter.queryBookServer(list);
     }
 
     @Override
     public void onLoginFailed(String msg) {
         LogUtil.logD("登录失败 "+msg);
         mDialog.dismiss();
-
     }
 
     @Override
@@ -119,8 +114,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void showBook(List<BookBean> list) {
+    public void showBook(List<Book> list) {
         if(isFirst) {
+            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance(this);
+            if(list.size()==0) {
+                preferencesManager.saveCurrBookId(-1);
+            }else{
+                preferencesManager.saveCurrBookId(list.get(0).getLocal_id());
+            }
+            String local_book_id="";
+            for(Book book:list)
+                local_book_id=Util.addToData(book.getLocal_id(),local_book_id);
+            user.setLocal_book_id(local_book_id);
+            preferencesManager.saveUser(user);
+            DBManager.getInstance().getDaoSession().getUserDao().update(user);
             isFirst = false;
             mDialog.dismiss();
             startActivity(MainActivity.class);

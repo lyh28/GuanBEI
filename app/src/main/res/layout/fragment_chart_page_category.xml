@@ -44,9 +44,14 @@
             android:textColor="@color/colorNormal"/>
     </LinearLayout>
     <FrameLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_chart_page_category_center"/>
+        android:layout_height="wrap_content">
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_chart_page_category_piechart"/>
+    </FrameLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_chart_page_category_recyclerview"
         android:layout_width="match_parent"

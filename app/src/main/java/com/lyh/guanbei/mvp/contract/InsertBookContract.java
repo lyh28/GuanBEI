@@ -4,7 +4,7 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 
 import java.util.List;
 
@@ -14,12 +14,12 @@ public interface InsertBookContract {
         void onInsertSuccess();
     }
     interface IInsertBookPresenter extends IPresenter<IInsertBookView,IInsertBookModel>{
-        void insert(BookBean book);
-        void insert(List<BookBean> bookList);
-        void insertService(List<BookBean> bookList);
+        void insert(Book book);
+        void insert(List<Book> bookList);
+        void insertService(List<Book> bookList);
     }
     interface IInsertBookModel extends IModel{
-        void insertLocal(List<BookBean> bookList);
-        void insertService(List<BookBean> bookList, ICallbackListener<List<BookBean>> iCallbackListener);
+        void insertLocal(List<Book> bookList);
+        void insertService(List<Book> bookList, ICallbackListener<List<Book>> iCallbackListener);
     }
 }

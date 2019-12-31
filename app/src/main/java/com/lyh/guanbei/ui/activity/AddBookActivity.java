@@ -1,16 +1,20 @@
 package com.lyh.guanbei.ui.activity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.InsertBookContract;
 import com.lyh.guanbei.mvp.presenter.InsertBookPresenter;
+import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import java.util.List;
 
 public class AddBookActivity extends BaseActivity implements InsertBookContract.IInsertBookView, View.OnClickListener {
     private EditText mName;
@@ -69,7 +73,7 @@ public class AddBookActivity extends BaseActivity implements InsertBookContract.
                 break;
         }
     }
-    private BookBean createBook(){
-        return new BookBean(mName.getText().toString(), CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id());
+    private Book createBook(){
+        return new Book(mName.getText().toString(), CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id());
     }
 }

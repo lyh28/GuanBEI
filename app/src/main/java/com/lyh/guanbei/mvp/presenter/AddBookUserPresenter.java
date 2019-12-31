@@ -2,9 +2,10 @@ package com.lyh.guanbei.mvp.presenter;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.AddBookUserContract;
 import com.lyh.guanbei.mvp.model.AddBookUserModel;
@@ -14,9 +15,10 @@ import com.lyh.guanbei.util.Util;
 public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAddBookUserView, AddBookUserContract.IAddBookUserModel> implements AddBookUserContract.IAddBookUserPresenter {
     @Override
     public void addUserRequest(long userId, long bookId) {
+        Book book=Book.queryByLocalId(bookId);
         //得到现登录用户的账号
-        UserBean userBean=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
-        if(userBean==null){
+        User user =CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        if(user ==null){
             getmView().onNoAccount();
             return ;
         }
@@ -28,7 +30,7 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
         if (!NetUtil.isNetWorkAvailable())
             getmView().onAddBookUserRequestFailed("网络异常");
         else
-            getmModel().addUserRequest(userId, requestId, bookId, new ICallbackListener<String>() {
+            getmModel().addUserRequest(userId, requestId, book.getBook_id(), new ICallbackListener<String>() {
                 @Override
                 public void onSuccess(String data) {
                     if (checkAttach())
@@ -45,22 +47,28 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
 
     @Override
     public void addUser (final long bookId) {
-        UserBean userBean=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        //参数bookId为同步ID
+        User userBean=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
         if (!NetUtil.isNetWorkAvailable())
             getmView().onAddBookUserRequestFailed("网络异常");
         else
-            getmModel().addUser(userBean.getUser_id(), bookId, new ICallbackListener<BookBean>() {
+            getmModel().addUser(userBean.getUser_id(), bookId, new ICallbackListener<Book>() {
                 @Override
-                public void onSuccess(BookBean data) {
+                public void onSuccess(Book data) {
                     CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(getmContext());
                     if(customSharedPreferencesManager.getCurrBookId()==-1)
                         customSharedPreferencesManager.saveCurrBookId(bookId);
+                    //获取本地数据库中对应的book
+                    Book book=Book.queryByBookId(bookId);
+                    data.setLocal_id(book.getLocal_id());
                     //更新本地数据库
-                    GuanBeiApplication.getDaoSession().getBookBeanDao().insertOrReplace(data);
-                    UserBean user=customSharedPreferencesManager.getUser();
+                    DBManager.getInstance().getDaoSession().getBookDao().insertOrReplace(data);
+                    //更新User
+                    User user=customSharedPreferencesManager.getUser();
                     user.setBook_id(Util.addToData(bookId,user.getBook_id()));
+                    user.setLocal_book_id(Util.addToData(book.getLocal_id(),user.getLocal_book_id()));
                     customSharedPreferencesManager.saveUser(user);
-                    GuanBeiApplication.getDaoSession().getUserBeanDao().insertOrReplace(user);
+                    DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
                     if (checkAttach())
                         getmView().onAddBookUserSuccess();
                 }
@@ -83,9 +91,9 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
 //        if (!NetUtil.isNetWorkAvailable())
 //            getmView().onAddBookUserFailed("网络异常");
 //        else
-//            getmModel().changeManager(oldId, newId, bookId, new ICallbackListener<BookBean>() {
+//            getmModel().changeManager(oldId, newId, bookId, new ICallbackListener<Book>() {
 //                @Override
-//                public void onSuccess(BookBean data) {
+//                public void onSuccess(Book data) {
 //                    if (checkAttach())
 //                        getmView().onChangeManagerSuccess();
 //                    updateBook(data);

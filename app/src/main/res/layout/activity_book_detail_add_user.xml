@@ -16,7 +16,7 @@
             android:id="@+id/activity_book_detail_add_user_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/close"/>
+            android:src="@drawable/back"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"

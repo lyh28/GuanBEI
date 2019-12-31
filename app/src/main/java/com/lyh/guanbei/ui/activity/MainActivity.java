@@ -162,10 +162,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         final int TAG_FROM_PIC = 3;
 
         QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(this);
-        builder.addItem(R.mipmap.icon_more_operation_share_friend, "手工输入", TAG_FROM_MYSELF, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-                .addItem(R.mipmap.icon_more_operation_share_friend, "读取短信", TAG_FROM_MESSAGE, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-                .addItem(R.mipmap.icon_more_operation_share_friend, "表格导入", TAG_FROM_EXCEL, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
-                .addItem(R.mipmap.icon_more_operation_share_friend, "图片识别", TAG_FROM_PIC, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+        builder.addItem(R.drawable.addmyself, "手工输入", TAG_FROM_MYSELF, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.msg, "读取短信", TAG_FROM_MESSAGE, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.excel, "表格导入", TAG_FROM_EXCEL, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+//                .addItem(R.mipmap.icon_more_operation_share_friend, "图片识别", TAG_FROM_PIC, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
                 .setOnSheetItemClickListener(new QMUIBottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
                     @Override
                     public void onClick(QMUIBottomSheet dialog, View itemView) {
@@ -180,7 +180,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                                 checkPermission();
                                 break;
                             case TAG_FROM_EXCEL:
-                                Toast.makeText(MainActivity.this, "表格导入", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(MainActivity.this, "表格导入", Toast.LENGTH_SHORT).show();
+                                startActivity(AddByExcelActivity.class);
                                 break;
                             case TAG_FROM_PIC:
                                 Toast.makeText(MainActivity.this, "图片识别", Toast.LENGTH_SHORT).show();

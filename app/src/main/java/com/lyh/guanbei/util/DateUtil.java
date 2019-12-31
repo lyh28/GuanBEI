@@ -1,8 +1,5 @@
 package com.lyh.guanbei.util;
 
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.db.RecordBeanDao;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

@@ -4,7 +4,7 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ public interface DeleteBookContract {
         void onDeleteSuccess();
     }
     interface IDeleteBookPresenter extends IPresenter<IDeleteBookView,IDeleteBookModel>{
-        void deleteBook(BookBean book);
-        void deleteBook(List<BookBean> bookList);
+        void deleteBook(Book book);
+        void deleteBook(List<Book> bookList);
     }
     interface IDeleteBookModel extends IModel{
         void deleteBookLocal(Long id);

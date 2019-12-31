@@ -1,13 +1,9 @@
 package com.lyh.guanbei.mvp.presenter;
 
-import android.content.Context;
-
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.RecordBean;
+import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.db.DBManager;
-import com.lyh.guanbei.db.DaoSession;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
 import com.lyh.guanbei.mvp.model.UpdateRecordModel;
 import com.lyh.guanbei.util.NetUtil;
@@ -17,16 +13,16 @@ import java.util.List;
 
 public class UpdateRecordPresenter extends BasePresenter<UpdateRecordContract.IUpdateRecordView, UpdateRecordContract.IUpdateRecordModel> implements UpdateRecordContract.IUpdateRecordPresenter {
     @Override
-    public void update(final RecordBean recordBean) {
-        if (DBManager.isClientServer(recordBean.getStatus())) {
-            recordBean.setStatus(DBManager.CLIENT_UPDATE_STATUS);
-            getmModel().updateLocal(recordBean);
+    public void update(final Record record) {
+        if (DBManager.isClientServer(record.getStatus())) {
+            record.setStatus(DBManager.CLIENT_UPDATE_STATUS);
+            getmModel().updateLocal(record);
             if (NetUtil.isNetWorkAvailable())
-                getmModel().updateService(recordBean, new ICallbackListener<String>() {
+                getmModel().updateService(record, new ICallbackListener<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        recordBean.setStatus(DBManager.CLIENT_SERVER_STATUS);
-                        getmModel().updateLocal(recordBean);
+                        record.setStatus(DBManager.CLIENT_SERVER_STATUS);
+                        getmModel().updateLocal(record);
                     }
 
                     @Override
@@ -34,39 +30,39 @@ public class UpdateRecordPresenter extends BasePresenter<UpdateRecordContract.IU
                     }
                 });
         } else {
-            getmModel().updateLocal(recordBean);
+            getmModel().updateLocal(record);
         }
     }
 
     @Override
-    public void update(List<RecordBean> recordBeans) {
+    public void update(List<Record> records) {
         //分情况
         //情况1：commit为false的，直接修改本地数据库，有网后当做Commit处理
         //情况2：commit为true的，先修改本地数据库，使change为true，有网的话也修改网上数据库，修改成功则将change修改为false
-        if (recordBeans == null || recordBeans.size() == 0) return;
-        final List<RecordBean> serviceList = new ArrayList<>();
+        if (records == null || records.size() == 0) return;
+        final List<Record> serviceList = new ArrayList<>();
 
-        for (RecordBean recordBean : recordBeans) {
-            if (DBManager.isClientServer(recordBean.getStatus())) {
-                recordBean.setStatus(DBManager.CLIENT_UPDATE_STATUS);
-                serviceList.add(recordBean);
+        for (Record record : records) {
+            if (DBManager.isClientServer(record.getStatus())) {
+                record.setStatus(DBManager.CLIENT_UPDATE_STATUS);
+                serviceList.add(record);
             }
         }
-        getmModel().updateLocal(recordBeans);
+        getmModel().updateLocal(records);
         if (serviceList.size() != 0&& NetUtil.isNetWorkAvailable()) {
             updateService(serviceList);
         }
     }
 
     @Override
-    public void updateService(final List<RecordBean> recordBeans) {
-        if (recordBeans == null || recordBeans.size() == 0) return;
-        getmModel().updateService(recordBeans, new ICallbackListener<String>() {
+    public void updateService(final List<Record> records) {
+        if (records == null || records.size() == 0) return;
+        getmModel().updateService(records, new ICallbackListener<String>() {
             @Override
             public void onSuccess(String data) {
-                for (RecordBean r : recordBeans)
+                for (Record r : records)
                     r.setStatus(DBManager.CLIENT_SERVER_STATUS);
-                getmModel().updateLocal(recordBeans);
+                getmModel().updateLocal(records);
             }
 
             @Override

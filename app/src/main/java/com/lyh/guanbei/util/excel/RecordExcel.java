@@ -2,7 +2,8 @@ package com.lyh.guanbei.util.excel;
 
 import android.util.Log;
 
-import com.lyh.guanbei.bean.RecordBean;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.bean.Tag;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,8 +32,6 @@ public class RecordExcel {
     private final String TYPE;
     private final String MONEY;        //￥$
     private final String REMARK;
-    private final String LOSE="-";
-    private final String WIN="+";
     //默认索引
     private int timeIndex;
     private int toWhoIndex;
@@ -62,7 +61,7 @@ public class RecordExcel {
         this.headFilter=new WXRecordExcelHeaderFilter();
         initIndex();
     }
-    public List<RecordBean> getRecordBean(File excel){
+    public List<Record> getRecordBean(File excel){
         try {
             return getRecordBean(new FileInputStream(excel));
         } catch (FileNotFoundException e) {
@@ -70,8 +69,8 @@ public class RecordExcel {
             return new ArrayList<>();
         }
     }
-    public List<RecordBean> getRecordBean(InputStream excel){
-        List<RecordBean> res=new ArrayList<>();
+    public List<Record> getRecordBean(InputStream excel){
+        List<Record> res=new ArrayList<>();
         BufferedReader bufferedReader=null;
         try {
             bufferedReader=new BufferedReader(new InputStreamReader(excel));
@@ -101,7 +100,7 @@ public class RecordExcel {
         }
         return res;
     }
-    private RecordBean getRecordFormLine(String line){
+    private Record getRecordFormLine(String line){
         String[] value=line.split(",");
         String time=timeIndex==-1||timeIndex>=value.length?"":value[timeIndex];
         String toWho=toWhoIndex==-1||toWhoIndex>=value.length?"":value[toWhoIndex];
@@ -109,9 +108,11 @@ public class RecordExcel {
         String money=moneyIndex==-1||moneyIndex>=value.length?"":value[moneyIndex];
         String type=typeIndex==-1||typeIndex>=value.length?"":value[typeIndex];
         String remark=remarkIndex==-1||remarkIndex>=value.length?"":value[remarkIndex];
-        if(type.equals("收入")||type.equals("/"))  money=WIN+money;
-            else if(type.equals("支出"))  money=LOSE+money;
-        return new RecordBean(time,money,toWho,payFor,remark);
+        int amount_type;
+        if(type.equals("收入")||type.equals("/"))  amount_type= Tag.IN;
+            else if(type.equals("支出"))  amount_type=Tag.OUT;
+//        return new Record(time,money,toWho,payFor,remark);
+        return null;
     }
     private void initIndex(){
         timeIndex=-1;

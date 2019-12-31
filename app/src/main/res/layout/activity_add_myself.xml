@@ -73,7 +73,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/icon_more_operation_share_friend"/>
+            android:padding="5dp"/>
         <TextView
             android:layout_marginRight="50dp"
             style="@style/CustomEditTextStyle"
@@ -148,7 +148,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/book_check"/>
+                android:src="@drawable/date"/>
             <EditText
                 style="@style/CustomEditTextStyle"
                 android:layout_gravity="center_vertical"

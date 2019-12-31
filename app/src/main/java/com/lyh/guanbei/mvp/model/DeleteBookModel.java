@@ -1,9 +1,9 @@
 package com.lyh.guanbei.mvp.model;
 
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.DeleteBookBean;
+import com.lyh.guanbei.bean.DeleteBook;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.DeleteBookContract;
@@ -13,7 +13,7 @@ import java.util.List;
 public class DeleteBookModel implements DeleteBookContract.IDeleteBookModel {
     @Override
     public void deleteBookLocal(Long id) {
-        GuanBeiApplication.getDaoSession().getBookBeanDao().deleteByKey(id);
+        DBManager.getInstance().getDaoSession().getBookDao().deleteByKey(id);
     }
 
     @Override
@@ -24,14 +24,14 @@ public class DeleteBookModel implements DeleteBookContract.IDeleteBookModel {
 
             @Override
             protected void onFailed(String msg) {
-                GuanBeiApplication.getDaoSession().getDeleteBookBeanDao().insertOrReplace(DeleteBookBean.createDeleteBookBean(id));
+                DBManager.getInstance().getDaoSession().getDeleteBookDao().insertOrReplace(DeleteBook.createDeleteBookBean(id));
             }
         });
     }
 
     @Override
     public void deleteBookLocal(List<Long> idList) {
-        GuanBeiApplication.getDaoSession().getBookBeanDao().deleteByKeyInTx(idList);
+        DBManager.getInstance().getDaoSession().getBookDao().deleteByKeyInTx(idList);
     }
 
     @Override

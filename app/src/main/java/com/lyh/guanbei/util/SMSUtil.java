@@ -7,18 +7,18 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.SparseArray;
 
-import com.lyh.guanbei.bean.SMSBean;
+import com.lyh.guanbei.bean.SMS;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SMSUtil {
     private static final Uri SMS_INBOX = Uri.parse("content://sms/");
-    public static List<SMSBean> getSmsFromPhone(Context context) {
+    public static List<SMS> getSmsFromPhone(Context context) {
         //查询联系人员
 //        SparseArray<String> friendMap=new SparseArray<>();
 //        getNameFromPhone(context,friendMap);
-        List<SMSBean> list=new ArrayList<>();
+        List<SMS> list=new ArrayList<>();
         ContentResolver cr = context.getContentResolver();
         String[] projection = new String[] {"_id", "address", "person","body", "date", "type","subject" };
         Cursor cur = cr.query(SMS_INBOX, projection, null, null, "date desc");
@@ -32,7 +32,7 @@ public class SMSUtil {
 //            String name=getName(nameId,friendMap);
 //            if(name.equals("陌生人"))
 //                continue;
-            list.add(new SMSBean(DateUtil.getDateFromLong(date),name,body));
+            list.add(new SMS(DateUtil.getDateFromLong(date),name,body));
         }
         cur.close();
         return list;

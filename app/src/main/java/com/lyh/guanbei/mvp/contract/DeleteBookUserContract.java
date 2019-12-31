@@ -11,10 +11,10 @@ public interface DeleteBookUserContract {
         void onDeleteBookUserFailed(String msg);
     }
     interface IDeleteBookUserPresenter extends IPresenter<IDeleteBookUserView,IDeleteBookUserModel>{
-        void deleteBookUser(long userId,long bookId);
+        void deleteBookUser(long userId,long localBookId);
     }
     interface IDeleteBookUserModel extends IModel{
-        void deleteBookUserLocal(long userId,long bookId);
+        void deleteBookUserLocal(long userId,long localBookId);
         void deleteBookUserService(long userId, long bookId, ICallbackListener<String> iCallbackListener);
     }
 }

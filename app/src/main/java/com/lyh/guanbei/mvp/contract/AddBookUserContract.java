@@ -4,7 +4,7 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 
 public interface AddBookUserContract {
     interface IAddBookUserView extends IView {
@@ -20,7 +20,7 @@ public interface AddBookUserContract {
     }
     interface IAddBookUserModel extends IModel{
         void addUserRequest(long userId, long requestId, long bookId, ICallbackListener<String> iCallbackListener);
-        void addUser(long userId,long bookId,ICallbackListener<BookBean> iCallbackListener);
+        void addUser(long userId,long bookId,ICallbackListener<Book> iCallbackListener);
     }
 }
 

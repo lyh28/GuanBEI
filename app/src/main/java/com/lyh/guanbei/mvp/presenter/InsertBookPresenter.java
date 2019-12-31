@@ -1,13 +1,14 @@
 package com.lyh.guanbei.mvp.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.http.BaseObscriber;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.InsertBookContract;
 import com.lyh.guanbei.mvp.model.InsertBookModel;
@@ -20,55 +21,61 @@ import java.util.List;
 
 public class InsertBookPresenter extends BasePresenter<InsertBookContract.IInsertBookView, InsertBookContract.IInsertBookModel> implements InsertBookContract.IInsertBookPresenter {
     @Override
-    public void insert(BookBean book) {
+    public void insert(Book book) {
         if(TextUtils.isEmpty(book.getBook_name())){
             getmView().onMessageError("账本名不能为空");
             return ;
         }
-        List<BookBean> list=new ArrayList<>();
+        List<Book> list=new ArrayList<>();
         list.add(book);
         insert(list);
     }
 
     @Override
-    public void insert(final List<BookBean> bookList) {
+    public void insert(final List<Book> bookList) {
         getmModel().insertLocal(bookList);
-        insertBookIdToUser(bookList);
+        insertBookLocalIdToUser(bookList);
+        LogUtil.logD("----------");
+        for(Book book:bookList){
+            LogUtil.logD(book.toString());
+        }
+        LogUtil.logD("----------");
         if (checkAttach())
             getmView().onInsertSuccess();
         insertService(bookList);
     }
-    private void insertBookIdToUser(List<BookBean> bookList){
+    private void insertBookLocalIdToUser(List<Book> bookList){
         //在用户表数据中添加bookId
-        UserBean user=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User user=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        String bookId=user.getLocal_book_id();
+        for(Book book:bookList){
+            bookId=Util.addToData(book.getLocal_id(),bookId);
+        }
+        user.setLocal_book_id(bookId);
+        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
+        DBManager.getInstance().getDaoSession().getUserDao().update(user);
+    }
+    private void insertBookIdToUser(List<Book> bookList){
+        User user=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
         String bookId=user.getBook_id();
-        for(BookBean book:bookList){
+        for(Book book:bookList){
             bookId=Util.addToData(book.getBook_id(),bookId);
         }
         user.setBook_id(bookId);
         CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
-        GuanBeiApplication.getDaoSession().getUserBeanDao().update(user);
-    }
-    private void deleteBookIdToUser(List<BookBean> bookList){
-        UserBean user=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
-        String bookId=user.getBook_id();
-        for(BookBean book:bookList){
-            bookId=Util.deleteFormData(book.getBook_id(),bookId);
-        }
-        user.setBook_id(bookId);
-        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
-        GuanBeiApplication.getDaoSession().getUserBeanDao().update(user);
+        DBManager.getInstance().getDaoSession().getUserDao().update(user);
     }
     @Override
-    public void insertService(final List<BookBean> bookList) {
+    public void insertService(final List<Book> bookList) {
         if(bookList==null||bookList.size()==0)  return ;
         if(NetUtil.isNetWorkAvailable()){
-            getmModel().insertService(bookList, new ICallbackListener<List<BookBean>>() {
+            getmModel().insertService(bookList, new ICallbackListener<List<Book>>() {
                 @Override
-                public void onSuccess(List<BookBean> data) {
-                    GuanBeiApplication.getDaoSession().getBookBeanDao().deleteInTx(bookList);
-                    deleteBookIdToUser(bookList);
-                    getmModel().insertLocal(data);
+                public void onSuccess(List<Book> data) {
+                    for(int i=0;i<data.size();i++){
+                        data.get(i).setLocal_id(bookList.get(i).getLocal_id());
+                    }
+                    DBManager.getInstance().getDaoSession().getBookDao().updateInTx(data);
                     insertBookIdToUser(data);
                 }
 

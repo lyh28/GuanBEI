@@ -8,10 +8,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseFragment;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.ui.activity.IndexActivity;
 import com.lyh.guanbei.ui.activity.LoginActivity;
+import com.lyh.guanbei.ui.activity.UserActivity;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
@@ -25,7 +26,7 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
     private TextView mBooks;
     private TextView mRecords;
     private Button mQuit;
-    private UserBean mUser;
+    private User mUser;
 
     @Override
     protected int getLayoutId() {
@@ -43,6 +44,7 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
         mBooks=findViewById(R.id.fragment_me_page_books);
         mRecords=findViewById(R.id.fragment_me_page_records);
         mQuit=findViewById(R.id.fragment_me_page_quit);
+        findViewById(R.id.fragment_me_page_me).setOnClickListener(this);
         findViewById(R.id.fragment_me_page_login_register).setOnClickListener(this);
         findViewById(R.id.fragment_me_page_help).setOnClickListener(this);
         findViewById(R.id.fragment_me_page_about).setOnClickListener(this);
@@ -88,7 +90,9 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
                 startActivity(IndexActivity.class);
                 getmActivity().finish();
                 break;
-
+            case R.id.fragment_me_page_me:
+                startActivity(UserActivity.class);
+                break;
         }
     }
 

@@ -3,7 +3,6 @@ package com.lyh.guanbei.ui.activity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,8 +11,9 @@ import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.RecordAdapter;
 import com.lyh.guanbei.adapter.SMSAdapter;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.bean.SMSBean;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.bean.SMS;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.ui.widget.BottomRecordDialog;
 import com.lyh.guanbei.ui.widget.CustomFloatingBtn;
@@ -35,7 +35,7 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
     private CustomFloatingBtn mFloatingBtn;
     private BottomRecordDialog mDialog;
 
-    private Map<Integer,RecordBean> chooseMap;
+    private Map<Integer, Record> chooseMap;
 
     @Override
     protected int getLayoutId() {
@@ -55,7 +55,7 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
                 LogUtil.logD("删除账单");
             }
             @Override
-            public void onEdit(RecordBean record) {
+            public void onEdit(Record record) {
                 LogUtil.logD("编辑账单");
             }
         });
@@ -80,7 +80,7 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
         mSMSAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SMSBean sms = mSMSAdapter.getItem(position);
+                SMS sms = mSMSAdapter.getItem(position);
                 LogUtil.logD(sms.toString());
                 sms.setChoose(!sms.isChoose());
                 boolean isChoose=sms.isChoose();
@@ -99,11 +99,12 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-    private RecordBean createRecordBean() {
+    private Record createRecordBean() {
         Random random = new Random();
         long userId= CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
         long bookId=CustomSharedPreferencesManager.getInstance(this).getCurrBookId();
-        return new RecordBean(userId,bookId, DateUtil.getNowDateTime(),""+random.nextInt(100)*50,"");
+        Book book=Book.queryByLocalId(bookId);
+        return new Record(userId,book.getBook_id(),bookId, DateUtil.getNowDateTime(),""+random.nextInt(100)*50,1,"","","");
     }
 
     @Override

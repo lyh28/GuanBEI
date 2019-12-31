@@ -1,7 +1,5 @@
 package com.lyh.guanbei.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,8 +9,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.AddBookUserContract;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
@@ -22,7 +20,6 @@ import com.lyh.guanbei.mvp.presenter.QueryBookPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryUserPresenter;
 import com.lyh.guanbei.util.Util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookDetailAddUserActivity extends BaseActivity implements View.OnClickListener, QueryUserContract.IQueryUserView, QueryBookContract.IQueryBookView , AddBookUserContract.IAddBookUserView {
@@ -39,7 +36,7 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
 
     private long mBookId;
     private long mRequestId;
-    private BookBean mBook;
+    private Book mBook;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_book_detail_add_user;
@@ -66,11 +63,11 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
         initData();
     }
     private void initData(){
-        mQueryBookPresenter.queryBook(mBookId);
-        mQueryUserPresenter.query(mRequestId);
+        mQueryBookPresenter.queryBookServer(mBookId);
+        mQueryUserPresenter.queryServer(mRequestId);
     }
     @Override
-    public void showBook(List<BookBean> list) {
+    public void showBook(List<Book> list) {
         if(list.size()!=0)
             mBook=list.get(0);
         mPerson.setText(wrapPersonNum(Util.getLongFromData(mBook.getPerson_id()).size()));
@@ -85,18 +82,18 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
-    public void onQueryUserSuccess(UserBean user) {
+    public void onQueryUserSuccess(User user) {
 
     }
 
     @Override
-    public void onQueryUserSuccess(List<UserBean> userList) {
-        UserBean user;
-        if((user=UserBean.queryById(mRequestId))!=null){
+    public void onQueryUserSuccess(List<User> userList) {
+        User user;
+        if((user= User.queryById(mRequestId))!=null){
             mRequestName.setText(user.getUser_name());
             Glide.with(this).load(user.getUser_icon()).error(R.drawable.defaulticon).into(mRequestIcon);
         }
-        if((user=UserBean.queryById(mBook.getManager_id()))!=null){
+        if((user= User.queryById(mBook.getManager_id()))!=null){
             mManagerName.setText(user.getUser_name());
             Glide.with(this).load(user.getUser_icon()).error(R.drawable.defaulticon).into(mManagerIcon);
         }
@@ -131,7 +128,7 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
                 Bundle bundle = new Bundle();
                 bundle.putString("memberId", mBook.getPerson_id());
                 bundle.putBoolean("isManager", mBook.getManager_id() == CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id());
-                bundle.putLong("bookId", mBookId);
+                bundle.putLong("bookId", mBook.getLocal_id());
                 startActivity(MemberActivity.class, bundle);
                 break;
             case R.id.activity_book_detail_add_user_btn:

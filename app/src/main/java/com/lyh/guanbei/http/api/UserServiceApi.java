@@ -1,7 +1,7 @@
 package com.lyh.guanbei.http.api;
 
 
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.http.BaseResponse;
 
 import java.util.List;
@@ -18,13 +18,13 @@ public interface UserServiceApi {
     //登录
     @POST("user/login")
     @FormUrlEncoded
-    Observable<BaseResponse<UserBean>> login(@Field("user_pwd") String pwd,@Field("user_phone") String phone);
+    Observable<BaseResponse<User>> login(@Field("user_pwd") String pwd, @Field("user_phone") String phone);
     //注册
     @POST("user/register")
-    Observable<BaseResponse<UserBean>> register(@Body UserBean userBean);
+    Observable<BaseResponse<User>> register(@Body User user);
     //查询
     @POST("user/queryById")
-    Observable<BaseResponse<List<UserBean>>> queryById(@Body List<Long> idList);
+    Observable<BaseResponse<List<User>>> queryById(@Body List<Long> idList);
     @GET("user/queryByPhone/{phone}")
-    Observable<BaseResponse<UserBean>> queryByPhone(@Path("phone")String phone);
+    Observable<BaseResponse<User>> queryByPhone(@Path("phone")String phone);
 }

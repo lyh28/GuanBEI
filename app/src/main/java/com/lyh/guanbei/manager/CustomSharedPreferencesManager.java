@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
 
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -39,12 +39,12 @@ public class CustomSharedPreferencesManager {
         editor=preferences.edit();
     }
 
-    public void saveUser(UserBean user){
+    public void saveUser(User user){
         saveParam(USER,user);
     }
 
-    public UserBean getUser(){
-        return (UserBean) getParam(USER,null);
+    public User getUser(){
+        return (User) getParam(USER,null);
     }
     public void saveCurrBookId(long id){
         saveParam(BOOKID,id);

@@ -1,7 +1,5 @@
 package com.lyh.guanbei.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,17 +8,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.CategoryBean;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.bean.UserBean;
-import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.bean.Tag;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.manager.RecordCategoryManager;
+import com.lyh.guanbei.manager.TagManager;
 import com.lyh.guanbei.mvp.contract.DeleteRecordContract;
 import com.lyh.guanbei.mvp.contract.QueryUserContract;
 import com.lyh.guanbei.mvp.presenter.DeleteRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryUserPresenter;
 import com.lyh.guanbei.ui.widget.AskDialog;
+import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.List;
@@ -35,7 +33,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
     private TextView mRemark;
 
     private AskDialog mDialog;
-    private RecordBean record;
+    private Record record;
 
     private DeleteRecordPresenter mDeleteRecordPresenter;
     private QueryUserPresenter mQueryUserPresenter;
@@ -80,20 +78,16 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
 
     private void initData(){
         long recordId=getIntentData().getLong("recordId");
-        record= GuanBeiApplication.getDaoSession().getRecordBeanDao().load(recordId);
-        int type;
-        if(!record.getAmount().equals("")&&record.getAmount().charAt(0)=='-'){
-            mTitle.setText("支出");
-            type= CategoryBean.OUT;
-        }else{
+        record= Record.queryByLocalId(recordId);
+        int iconId= TagManager.getIconByCategory(record.getCategory(),record.getAmount_type());
+        if(record.getAmount_type()==Tag.IN)
             mTitle.setText("收入");
-            type= CategoryBean.IN;
-        }
-        int iconId= RecordCategoryManager.getIconByCategory(record.getCategory(),type);
+        else
+            mTitle.setText("支出");
         Glide.with(this).load(iconId).into(mIcon);
         mCategory.setText(record.getCategory());
         mAmount.setText(record.getAmount());
-        mDate.setText(record.getTime());
+        mDate.setText(record.getDate());
         mRemark.setText(record.getRemark());
         //查询用户信息
         mQueryUserPresenter.query(record.getUser_id());
@@ -142,11 +136,11 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
     }
 
     @Override
-    public void onQueryUserSuccess(UserBean user) {
+    public void onQueryUserSuccess(User user) {
     }
 
     @Override
-    public void onQueryUserSuccess(List<UserBean> userList) {
+    public void onQueryUserSuccess(List<User> userList) {
         if(userList.size()!=0)
             mUser.setText(userList.get(0).getUser_name());
     }

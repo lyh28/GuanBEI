@@ -4,8 +4,9 @@ import android.text.TextUtils;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.RecordBean;
+import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
 import com.lyh.guanbei.mvp.model.CommitRecordModel;
 import com.lyh.guanbei.util.LogUtil;
@@ -15,30 +16,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.ICommitRecordView, CommitRecordContract.ICommitRecordModel> implements CommitRecordContract.ICommitRecordPresenter {
-    private List<RecordBean> recordBeanList;
+    private List<Record> recordList;
 
     public CommitRecordPresenter() {
         super();
-        recordBeanList = new ArrayList<>();
+        recordList = new ArrayList<>();
     }
 
     @Override
-    public void commit(RecordBean record) {
+    public void commit(Record record) {
         add(record);
-        commit(recordBeanList);
+        commit(recordList);
     }
 
     @Override
-    public void add(RecordBean record) {
+    public void add(Record record) {
         //检测信息
         if (checkText(record))
-            recordBeanList.add(record);
+            recordList.add(record);
     }
 
     @Override
-    public void commit(final List<RecordBean> record) {
-        if ((record == null || record.size() == 0) && recordBeanList.size() != 0) {
-            commit(recordBeanList);
+    public void commit(final List<Record> record) {
+        if ((record == null || record.size() == 0) && recordList.size() != 0) {
+            commit(recordList);
             return;
         }
         getmModel().save(record);
@@ -46,14 +47,16 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
     }
 
     @Override
-    public void commitService(final List<RecordBean> record) {
+    public void commitService(final List<Record> record) {
         if (record == null || record.size() == 0) return;
         if (NetUtil.isNetWorkAvailable()) {
-            getmModel().commit(record, new ICallbackListener<List<RecordBean>>() {
+            getmModel().commit(record, new ICallbackListener<List<Record>>() {
                 @Override
-                public void onSuccess(List<RecordBean> data) {
-                    GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteInTx(record);
-                    getmModel().save(data);
+                public void onSuccess(List<Record> data) {
+                    for(int i=0;i<data.size();i++){
+                        record.get(i).setRecord_id(data.get(i).getRecord_id());
+                    }
+                    DBManager.getInstance().getAsyncSession().updateInTx(Record.class,record);
                 }
 
                 @Override
@@ -70,8 +73,8 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
     }
 
     //true 为合格
-    private boolean checkText(RecordBean record) {
-        if (TextUtils.isEmpty(record.getTime())) {
+    private boolean checkText(Record record) {
+        if (TextUtils.isEmpty(record.getDate())) {
             getmView().onMessageError("日期不能为空");
             return false;
         } else if (TextUtils.isEmpty(record.getAmount())) {

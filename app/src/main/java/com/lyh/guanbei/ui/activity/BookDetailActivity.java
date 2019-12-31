@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.DeleteBookContract;
 import com.lyh.guanbei.mvp.contract.QueryUserContract;
@@ -20,7 +20,7 @@ import com.lyh.guanbei.mvp.contract.UpdateBookContract;
 import com.lyh.guanbei.mvp.presenter.DeleteBookPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryUserPresenter;
 import com.lyh.guanbei.mvp.presenter.UpdateBookPresenter;
-import com.lyh.guanbei.util.LogUtil;
+import com.lyh.guanbei.ui.widget.AskDialog;
 import com.lyh.guanbei.util.Util;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
@@ -34,10 +34,11 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
     private ImageView mIcon;
     private TextView mManager;
     private TextView mBudget;
+    private AskDialog mDialog;
 
     private long bookId;
     private long userId;
-    private BookBean bookBean;
+    private Book book;
 
     private DeleteBookPresenter mDeleteBookPresenter;
     private UpdateBookPresenter mUpdateBookPresenter;
@@ -66,23 +67,34 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.activity_book_detail_person_view).setOnClickListener(this);
         findViewById(R.id.activity_book_detail_budget_view).setOnClickListener(this);
         findViewById(R.id.activity_book_detail_delete).setOnClickListener(this);
+        mDialog = new AskDialog(this);
+        mDialog.setListener(new AskDialog.onClickListener() {
+            @Override
+            public void onEnsure() {
+                mDeleteBookPresenter.deleteBook(book);
+            }
+
+            @Override
+            public void dismiss() {
+            }
+        });
     }
 
     @Override
     protected void init() {
         Bundle bundle=getIntentData();
         bookId = bundle.getLong("bookId");
-        bookBean = BookBean.queryByBookId(bookId);
+        book = Book.queryByLocalId(bookId);
         userId = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
         initData();
     }
 
     private void initData() {
-        mQueryUserPresenter.query(bookBean.getManager_id());
-        mName.setText(bookBean.getBook_name());
-        if (TextUtils.isEmpty(bookBean.getMax_sum()))
+        mQueryUserPresenter.query(book.getManager_id());
+        mName.setText(book.getBook_name());
+        if (TextUtils.isEmpty(book.getMax_sum()))
             mBudget.setText("0");
-        int personNum = Util.getLongFromData(bookBean.getPerson_id()).size();
+        int personNum = Util.getLongFromData(book.getPerson_id()).size();
         mPerson.setText(wrapPersonNum(personNum));
     }
 
@@ -102,12 +114,12 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
             case R.id.activity_book_detail_done:
                 if (checkIsManager()) {
                     updateBookData();
-                    mUpdateBookPresenter.updateBook(bookBean);
+                    mUpdateBookPresenter.updateBook(book);
                 }
                 break;
             case R.id.activity_book_detail_name_view:
                 if (checkIsManager()) {
-                    showEditTextDialog(bookBean.getBook_name(), "账本名称", NAME_CODE);
+                    showEditTextDialog(book.getBook_name(), "账本名称", NAME_CODE);
                 } else {
                     showErrorDialog();
                 }
@@ -115,21 +127,21 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
             case R.id.activity_book_detail_person_view:
                 //封装数据
                 Bundle bundle = new Bundle();
-                bundle.putString("memberId", bookBean.getPerson_id());
-                bundle.putBoolean("isManager", bookBean.getManager_id() == userId);
+                bundle.putString("memberId", book.getPerson_id());
+                bundle.putBoolean("isManager", book.getManager_id() == userId);
                 bundle.putLong("bookId", bookId);
                 startActivity(MemberActivity.class, bundle);
                 break;
             case R.id.activity_book_detail_budget_view:
                 if (checkIsManager()) {
-                    showEditTextDialog(bookBean.getMax_sum(), "预算", BUDGET_CODE);
+                    showEditTextDialog(book.getMax_sum(), "预算", BUDGET_CODE);
                 } else {
                     showErrorDialog();
                 }
                 break;
             case R.id.activity_book_detail_delete:
                 if (checkIsManager()) {
-                    mDeleteBookPresenter.deleteBook(bookBean);
+                    mDialog.show();
                 } else {
                     showErrorDialog();
                 }
@@ -138,12 +150,12 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void updateBookData() {
-        bookBean.setMax_sum(mBudget.getText().toString());
-        bookBean.setBook_name(mName.getText().toString());
+        book.setMax_sum(mBudget.getText().toString());
+        book.setBook_name(mName.getText().toString());
     }
 
     private boolean checkIsManager() {
-        if (bookBean.getManager_id() == userId)
+        if (book.getManager_id() == userId)
             return true;
         return false;
     }
@@ -231,13 +243,13 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void onQueryUserSuccess(UserBean user) {
+    public void onQueryUserSuccess(User user) {
     }
 
     @Override
-    public void onQueryUserSuccess(List<UserBean> userList) {
+    public void onQueryUserSuccess(List<User> userList) {
         if (userList.size() != 0) {
-            UserBean user=userList.get(0);
+            User user=userList.get(0);
             if (TextUtils.isEmpty(user.getUser_icon())) {
                 //设置用户头像
                 Glide.with(this).load(R.drawable.defaulticon).into(mIcon);

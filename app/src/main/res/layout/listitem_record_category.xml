@@ -6,6 +6,7 @@
     <ImageView
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
+        android:padding="5dp"
         android:layout_gravity="center"
         android:id="@+id/listitem_record_category_icon"
         android:src="@mipmap/icon_more_operation_share_friend"/>

@@ -1,9 +1,8 @@
 package com.lyh.guanbei.mvp.model;
 
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.BookBeanDao;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.db.BookDao;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
@@ -12,10 +11,10 @@ import java.util.List;
 
 public class QueryBookModel implements QueryBookContract.IQueryBookModel {
     @Override
-    public void queryBookFormService(List<Long> idList, final ICallbackListener<List<BookBean>> iCallbackListener) {
-        APIManager.queryBook(idList, new BaseObscriber<List<BookBean>>() {
+    public void queryBookFormService(List<Long> idList, final ICallbackListener<List<Book>> iCallbackListener) {
+        APIManager.queryBook(idList, new BaseObscriber<List<Book>>() {
             @Override
-            protected void onSuccess(List<BookBean> data) {
+            protected void onSuccess(List<Book> data) {
                 iCallbackListener.onSuccess(data);
             }
             @Override
@@ -26,8 +25,8 @@ public class QueryBookModel implements QueryBookContract.IQueryBookModel {
     }
 
     @Override
-    public void queryBookFormLocal(List<Long> idList, ICallbackListener<List<BookBean>> iCallbackListener) {
-        List<BookBean> list = BookBean.query(BookBeanDao.Properties.Book_id.in(idList));
+    public void queryBookFormLocal(List<Long> idList, ICallbackListener<List<Book>> iCallbackListener) {
+        List<Book> list = Book.query(BookDao.Properties.Local_id.in(idList));
         if (list.size() == 0 || list == null)
             iCallbackListener.onFailed("无此记录");
         else

@@ -11,9 +11,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.BookAdapter;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class BottomBookDialog extends Dialog {
     private BookAdapter bookAdapter;
     private RecyclerView recyclerView;
 
-    private List<BookBean> bookList;
+    private List<Book> bookList;
     private long currBookId;
     private TextView mName;
     public BottomBookDialog(@NonNull Context context,TextView name) {
@@ -35,7 +34,7 @@ public class BottomBookDialog extends Dialog {
         this.context=context;
         CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(context);
         currBookId=customSharedPreferencesManager.getCurrBookId();
-        bookList=BookBean.queryByUserId(context);
+        bookList= Book.queryByUserId(context);
         mName=name;
     }
 
@@ -63,7 +62,8 @@ public class BottomBookDialog extends Dialog {
         bookAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                bookAdapter.setCurrentBookId(bookList.get(position).getBook_id());
+                bookAdapter.setCurrentBookId(bookList.get(position).getLocal_id());
+                currBookId=bookAdapter.getCurrentBookId();
             }
         });
         LinearLayoutManager layoutManager=new LinearLayoutManager(context);
@@ -74,7 +74,7 @@ public class BottomBookDialog extends Dialog {
 
     @Override
     public void cancel() {
-        mName.setText(BookBean.queryByBookId(currBookId).getBook_name());
+        mName.setText(Book.queryByLocalId(currBookId).getBook_name());
         super.cancel();
     }
     public long getCurrBookId(){

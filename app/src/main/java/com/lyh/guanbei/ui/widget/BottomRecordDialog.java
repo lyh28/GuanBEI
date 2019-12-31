@@ -10,9 +10,7 @@ import android.view.WindowManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.RecordAdapter;
-import com.lyh.guanbei.adapter.RecordSectionAdapter;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.util.LogUtil;
+import com.lyh.guanbei.bean.Record;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 import androidx.annotation.NonNull;
@@ -83,7 +81,7 @@ public class BottomRecordDialog extends Dialog {
      */
     public interface onItemOnClickListener {
         void onDelete(int record);
-        void onEdit(RecordBean record);
+        void onEdit(Record record);
     }
     public RecordAdapter getAdapter(){
         return recordAdapter;

@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.RegisterActivity">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".ui.activity.LoginActivity"
+    android:layout_margin="@dimen/page_left_right_margin"
+    android:fitsSystemWindows="true">
+    <ImageView
+        android:id="@+id/activity_register_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:padding="@dimen/dp_40"
+        android:textSize="40sp"
+        android:gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="手机号"
+        android:textSize="15sp"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginBottom="@dimen/dp_10"/>
+    <EditText
+        android:id="@+id/activity_login_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomEditTextStyle"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40"
+        android:inputType="number"
+        android:hint="请输入手机号码"
+        android:background="@drawable/corners_shape_normal_border"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="密码"
+        android:textSize="15sp"/>
+    <EditText
+        android:id="@+id/activity_login_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomEditTextStyle"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:hint="请输入密码"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40"
+        android:background="@drawable/corners_shape_normal_border"/>
+    <Button
+        android:id="@+id/activity_login_login"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        android:padding="10dp"
+        android:enabled="false"
+        android:background="@drawable/button_selector_red_gray"/>
+</LinearLayout>

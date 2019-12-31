@@ -1,6 +1,7 @@
 package com.lyh.guanbei.ui.activity;
 
 import android.inputmethodservice.KeyboardView;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -14,25 +15,19 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.CategoryAdapter;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.CategoryBean;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.bean.Tag;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
-import com.lyh.guanbei.mvp.contract.QueryBookContract;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
 import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
-import com.lyh.guanbei.mvp.presenter.QueryBookPresenter;
 import com.lyh.guanbei.mvp.presenter.UpdateRecordPresenter;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.KeyBoardUtil;
-import com.lyh.guanbei.manager.RecordCategoryManager;
-import com.lyh.guanbei.util.LogUtil;
-import com.lyh.guanbei.util.Util;
+import com.lyh.guanbei.manager.TagManager;
 
-import java.util.Date;
 import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -63,10 +58,10 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     private long currBookId;
     private int type;   //当前状态  收入还是支出
     private boolean isUpdate;       //状态    添加还是更新
-    private RecordBean mRecord;     //需更新的record
+    private Record mRecord;     //需更新的record
 
-    private List<CategoryBean> categoryOutList;
-    private List<CategoryBean> categoryInList;
+    private List<Tag> categoryOutList;
+    private List<Tag> categoryInList;
 
     @Override
     protected int getLayoutId() {
@@ -123,13 +118,13 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         mCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CategoryBean categoryBean;
-                if (type == CategoryBean.IN) {
-                    categoryBean = categoryInList.get(position);
+                Tag tag;
+                if (type == Tag.IN) {
+                    tag = categoryInList.get(position);
                 } else {
-                    categoryBean = categoryOutList.get(position);
+                    tag = categoryOutList.get(position);
                 }
-                setCategoryData(categoryBean);
+                setCategoryData(tag);
             }
         });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 5);
@@ -146,29 +141,30 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     }
 
     private void initData() {
-        long recordId = getIntentData().getLong("recordId", -1);
-        if (recordId != -1) {
+        Bundle bundle = getIntentData();
+        categoryOutList = Tag.getTagByType(Tag.OUT);
+        categoryInList = Tag.getTagByType(Tag.IN);
+        if (bundle != null) {
+            long recordId = bundle.getLong("recordId", -1);
             isUpdate = true;
-            mRecord = RecordBean.queryById(recordId);
-            currBookId = mRecord.getBook_id();
-            mDate.setText(mRecord.getTime().split(" ")[1]);
+            mRecord = Record.queryByLocalId(recordId);
+            currBookId = mRecord.getBook_local_id();
+            mDate.setText(mRecord.getDate().split(" ")[1]);
             mAmount.setText(mRecord.getAmount());
-            int iconId = RecordCategoryManager.getIconByCategory(mRecord.getCategory(), type);
+            int iconId = TagManager.getIconByCategory(mRecord.getCategory(), type);
             Glide.with(this).load(iconId).into(mIcon);
             mCategory.setText(mRecord.getCategory());
             mRemark.setText(mRecord.getRemark());
-            mToWho.setText(mRecord.getPayto());
+            mToWho.setText(mRecord.getTowho());
         } else {
             CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
-            type = CategoryBean.OUT;
+            type = Tag.OUT;
             currBookId = customSharedPreferencesManager.getCurrBookId();
             mDate.setText(DateUtil.getNowDateTime().split(" ")[1]);
             //设置大图标
             setDefaultCategoryData();
         }
-        mBookName.setText(BookBean.queryByBookId(currBookId).getBook_name());
-        categoryOutList = CategoryBean.getCategoryByType(CategoryBean.OUT);
-        categoryInList = CategoryBean.getCategoryByType(CategoryBean.IN);
+        mBookName.setText(Book.queryByLocalId(currBookId).getBook_name());
     }
 
     @Override
@@ -209,7 +205,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
                 keyBoardUtil.hideSystemKeyboard(AddByMyselfActivity.this);
                 break;
             case R.id.activity_add_myself_bookview:
-                if(!isUpdate)
+                if (!isUpdate)
                     mDialog.show();
                 break;
         }
@@ -228,11 +224,11 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.activity_add_myself_in_btn:
-                type = CategoryBean.IN;
+                type = Tag.IN;
                 mCategoryAdapter.setNewData(categoryInList);
                 break;
             case R.id.activity_add_myself_out_btn:
-                type = CategoryBean.IN;
+                type = Tag.OUT;
                 mCategoryAdapter.setNewData(categoryOutList);
                 break;
         }
@@ -242,50 +238,52 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
 
     //设置所属的分类（大图标文字）
     private void setDefaultCategoryData() {
-        CategoryBean categoryBean;
-        if (type == CategoryBean.IN) {
+        Tag tag;
+        if (type == Tag.IN) {
+            if (categoryInList == null)
+                return;
             if (categoryInList.size() == 0) {
-                categoryBean = RecordCategoryManager.getDefaultCategory(type);
+                tag = TagManager.getDefaultCategory(type);
             } else {
-                categoryBean = categoryInList.get(0);
+                tag = categoryInList.get(0);
             }
         } else {
+            if (categoryOutList == null)
+                return;
             if (categoryOutList.size() == 0) {
-                categoryBean = RecordCategoryManager.getDefaultCategory(type);
+                tag = TagManager.getDefaultCategory(type);
             } else {
-                categoryBean = categoryOutList.get(0);
+                tag = categoryOutList.get(0);
             }
         }
-        setCategoryData(categoryBean);
+        setCategoryData(tag);
     }
 
-    private void setCategoryData(CategoryBean categoryBean) {
-        mIcon.setImageResource(categoryBean.getIconId());
-        mCategory.setText(categoryBean.getName());
+    private void setCategoryData(Tag tag) {
+        mIcon.setImageResource(tag.getIconId());
+        mCategory.setText(tag.getName());
     }
 
-    private RecordBean createRecord() {
+    private Record createRecord() {
         long user_id = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
         long book_id = mDialog.getCurrBookId();
         //此处需要修改
         String date = DateUtil.getNowDateTime();
         String amount = mAmount.getText().toString();
         String payTo = mToWho.getText().toString();
-        String content = mContent.getText().toString();
         String remark = mRemark.getText().toString();
         String category = mCategory.getText().toString();
-        if (type == CategoryBean.OUT)
-            amount = "-" + amount;
-        if(isUpdate){
+        if (isUpdate) {
             mRecord.setAmount(amount);
             mRecord.setCategory(category);
             mRecord.setRemark(remark);
-            mRecord.setTime(date);
-            mRecord.setPayto(payTo);
-            mRecord.setContent(content);
+            mRecord.setDate(date);
+            mRecord.setTowho(payTo);
+            mRecord.setRemark(remark);
             return mRecord;
         }
-        return new RecordBean(user_id, book_id, date, amount, payTo, content, remark, category);
+        Book book = Book.queryByLocalId(book_id);
+        return new Record(user_id, book.getBook_id(), book_id, date, amount, type, payTo, remark, category);
     }
 
 }

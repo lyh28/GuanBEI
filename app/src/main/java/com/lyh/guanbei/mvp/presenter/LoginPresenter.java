@@ -1,11 +1,11 @@
 package com.lyh.guanbei.mvp.presenter;
 
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.LoginContract;
 import com.lyh.guanbei.mvp.model.LoginModel;
@@ -22,9 +22,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginView, Logi
             if(NetUtil.checkNetWorkUnavailable(getmContext())){
                 return;
             }
-            getmModel().login(pwd, phone, new ICallbackListener<UserBean>() {
+            getmModel().login(pwd, phone, new ICallbackListener<User>() {
                 @Override
-                public void onSuccess(UserBean data) {
+                public void onSuccess(User data) {
+                    DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(data);
                     if(checkAttach()) {
                         CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(data);
                         getmView().onLoginSuccess(data);

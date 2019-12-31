@@ -3,12 +3,11 @@ package com.lyh.guanbei.common;
 import android.app.IntentService;
 import android.content.Intent;
 
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.RecordBean;
-import com.lyh.guanbei.db.BookBeanDao;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.db.BookDao;
 import com.lyh.guanbei.db.DBManager;
-import com.lyh.guanbei.db.DaoSession;
-import com.lyh.guanbei.db.RecordBeanDao;
+import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.DeleteBookPresenter;
 import com.lyh.guanbei.mvp.presenter.DeleteRecordPresenter;
@@ -48,13 +47,13 @@ public class NetRestartService extends IntentService{
     protected void onHandleIntent( Intent intent) {
         //Book表操作
         //取出需要提交到服务器的
-        List<BookBean> insertBook=BookBean.query(BookBeanDao.Properties.Status.eq(DBManager.CLIENT_ONLY_STATUS));
+        List<Book> insertBook= Book.query(BookDao.Properties.Status.eq(DBManager.CLIENT_ONLY_STATUS));
         if(insertBook!=null&&insertBook.size()!=0){
             mInsertBookPresenter=new InsertBookPresenter();
             mInsertBookPresenter.insertService(insertBook);
         }
         //取出需要更新到服务器的
-        List<BookBean> updateBook=BookBean.query(BookBeanDao.Properties.Status.eq(DBManager.CLIENT_UPDATE_STATUS));
+        List<Book> updateBook= Book.query(BookDao.Properties.Status.eq(DBManager.CLIENT_UPDATE_STATUS));
         if(updateBook!=null&&updateBook.size()!=0){
             mUpdateBookPresenter=new UpdateBookPresenter();
             mUpdateBookPresenter.updateBookService(updateBook);
@@ -64,13 +63,13 @@ public class NetRestartService extends IntentService{
 
         //Record表操作
         //取出需要提交到服务器的
-        List<RecordBean> commitRecord=RecordBean.query(RecordBeanDao.Properties.Status.eq(DBManager.CLIENT_ONLY_STATUS));
+        List<Record> commitRecord= Record.query(RecordDao.Properties.Status.eq(DBManager.CLIENT_ONLY_STATUS));
         if(commitRecord!=null&&commitRecord.size()!=0){
             mCommitRecordPresenter=new CommitRecordPresenter();
             mCommitRecordPresenter.commitService(commitRecord);
         }
         //取出需要更新到服务器的
-        List<RecordBean> updateRecord=RecordBean.query(RecordBeanDao.Properties.Status.eq(DBManager.CLIENT_UPDATE_STATUS));
+        List<Record> updateRecord= Record.query(RecordDao.Properties.Status.eq(DBManager.CLIENT_UPDATE_STATUS));
         if(updateRecord!=null&&updateRecord.size()!=0){
             mUpdateRecordPresenter=new UpdateRecordPresenter();
             mUpdateRecordPresenter.updateService(updateRecord);

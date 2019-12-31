@@ -1,8 +1,9 @@
 package com.lyh.guanbei.mvp.model;
 
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.RecordBean;
+import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
@@ -11,8 +12,8 @@ import java.util.List;
 
 public class UpdateRecordModel implements UpdateRecordContract.IUpdateRecordModel {
     @Override
-    public void updateService(RecordBean recordBean, final ICallbackListener<String> callbackListener) {
-        APIManager.updateRecord(recordBean, new BaseObscriber<String>() {
+    public void updateService(Record record, final ICallbackListener<String> callbackListener) {
+        APIManager.updateRecord(record, new BaseObscriber<String>() {
             @Override
             protected void onSuccess(String data) {
                 callbackListener.onSuccess(data);
@@ -26,8 +27,8 @@ public class UpdateRecordModel implements UpdateRecordContract.IUpdateRecordMode
     }
 
     @Override
-    public void updateService(List<RecordBean> recordBean, final ICallbackListener<String> callbackListener) {
-        APIManager.updateRecord(recordBean, new BaseObscriber<String>() {
+    public void updateService(List<Record> record, final ICallbackListener<String> callbackListener) {
+        APIManager.updateRecord(record, new BaseObscriber<String>() {
             @Override
             protected void onSuccess(String data) {
                 callbackListener.onSuccess(data);
@@ -41,12 +42,12 @@ public class UpdateRecordModel implements UpdateRecordContract.IUpdateRecordMode
     }
 
     @Override
-    public void updateLocal(RecordBean recordBean) {
-        GuanBeiApplication.getDaoSession().getRecordBeanDao().update(recordBean);
+    public void updateLocal(Record record) {
+        DBManager.getInstance().getDaoSession().getRecordDao().update(record);
     }
 
     @Override
-    public void updateLocal(List<RecordBean> recordBean) {
-        GuanBeiApplication.getDaoSession().getRecordBeanDao().updateInTx(recordBean);
+    public void updateLocal(List<Record> record) {
+        DBManager.getInstance().getDaoSession().getRecordDao().updateInTx(record);
     }
 }

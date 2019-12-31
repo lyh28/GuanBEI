@@ -9,8 +9,10 @@
     android:paddingRight="@dimen/page_left_right_margin">
 
     <ImageView
+        android:id="@+id/listitem_chart_category_icon"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
+        android:padding="5dp"
         android:layout_marginRight="@dimen/page_left_right_margin"
         android:src="@mipmap/icon_more_operation_share_friend" />
     <LinearLayout
@@ -20,16 +22,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/listitem_chart_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="吃喝"/>
         <TextView
+            android:id="@+id/listitem_chart_category_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100% 1笔"/>
     </LinearLayout>
     <TextView
+        android:id="@+id/listitem_chart_category_sum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -1,12 +1,10 @@
 package com.lyh.guanbei.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +15,7 @@ import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.UserAdapter;
 import com.lyh.guanbei.adapter.UserItemEntity;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.mvp.contract.QueryUserContract;
 import com.lyh.guanbei.mvp.presenter.QueryUserPresenter;
 import com.lyh.guanbei.util.LogUtil;
@@ -84,14 +82,14 @@ public class MemberActivity extends BaseActivity implements QueryUserContract.IQ
     }
 
     @Override
-    public void onQueryUserSuccess(UserBean user) {
+    public void onQueryUserSuccess(User user) {
     }
 
     @Override
-    public void onQueryUserSuccess(List<UserBean> userList) {
+    public void onQueryUserSuccess(List<User> userList) {
         int n=isManager?2:0;
         List<UserItemEntity> list=new ArrayList<>(userList.size()+n);
-        for(UserBean user:userList){
+        for(User user:userList){
             list.add(new UserItemEntity(user,UserItemEntity.NORMAL));
         }
         if(isManager){

@@ -1,16 +1,14 @@
 package com.lyh.guanbei.adapter;
 
-import android.view.View;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lyh.guanbei.R;
-import com.lyh.guanbei.bean.BookBean;
+import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.util.Util;
 
 import androidx.annotation.NonNull;
 
-public class BookAdapter extends BaseQuickAdapter<BookBean, BaseViewHolder> {
+public class BookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
     private long currentBookId;
     private boolean isEditStatus;
 
@@ -20,7 +18,7 @@ public class BookAdapter extends BaseQuickAdapter<BookBean, BaseViewHolder> {
         isEditStatus=false;
     }
     @Override
-    protected void convert(@NonNull BaseViewHolder helper,final BookBean item) {
+    protected void convert(@NonNull BaseViewHolder helper,final Book item) {
         if (!isEditStatus) {
             helper.setGone(R.id.listitem_book_delete, false);
             helper.setVisible(R.id.listitem_book_edit, false);
@@ -29,7 +27,7 @@ public class BookAdapter extends BaseQuickAdapter<BookBean, BaseViewHolder> {
             helper.setVisible(R.id.listitem_book_edit, true);
         }
         if (!isEditStatus)
-            if (item.getBook_id() == currentBookId) {
+            if (item.getLocal_id() == currentBookId) {
                 helper.setVisible(R.id.listitem_book_label, true);
             } else {
                 helper.setVisible(R.id.listitem_book_label, false);

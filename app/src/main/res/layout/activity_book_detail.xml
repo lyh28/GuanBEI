@@ -16,7 +16,7 @@
             android:id="@+id/activity_book_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/close"/>
+            android:src="@drawable/back"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -28,7 +28,7 @@
             android:id="@+id/activity_book_detail_done"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/done"/>
+            android:src="@drawable/outline_edit_black_36dp"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

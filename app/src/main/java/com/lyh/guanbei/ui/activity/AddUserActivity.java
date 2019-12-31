@@ -1,28 +1,23 @@
 package com.lyh.guanbei.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
-import com.lyh.guanbei.adapter.UserAdapter;
 import com.lyh.guanbei.adapter.UserLinearAdapter;
 import com.lyh.guanbei.base.BaseActivity;
-import com.lyh.guanbei.bean.BookBean;
-import com.lyh.guanbei.bean.UserBean;
-import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.mvp.contract.AddBookUserContract;
 import com.lyh.guanbei.mvp.contract.QueryUserContract;
 import com.lyh.guanbei.mvp.presenter.AddBookUserPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryUserPresenter;
-import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.Util;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
@@ -39,8 +34,8 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     private AddBookUserPresenter mAddBookUserPresenter;
     private QueryUserPresenter mQueryUserPresenter;
     private long mBookId;
-    private BookBean mBook;
-    private Map<Integer, UserBean> userMap;
+    private Book mBook;
+    private Map<Integer, User> userMap;
 
     @Override
     protected int getLayoutId() {
@@ -80,7 +75,7 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     private void initData() {
         Bundle bundle = getIntentData();
         mBookId = bundle.getLong("bookId");
-        mBook = BookBean.queryByBookId(mBookId);
+        mBook = Book.queryByLocalId(mBookId);
     }
 
     @Override
@@ -95,12 +90,12 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
                     showInfoDialog("未选择任何用户");
                     return;
                 }
-                List<UserBean> resList = checkIsIn();
+                List<User> resList = checkIsIn();
                 if (resList.size() == 0) {
                     showInfoDialog("该用户已被添加进账本中");
                     return;
                 }
-                for (UserBean user : resList)
+                for (User user : resList)
                     mAddBookUserPresenter.addUserRequest(user.getUser_id(), mBookId);
                 break;
             case R.id.activity_add_user_search:
@@ -116,11 +111,11 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    private List<UserBean> checkIsIn() {
-        List<UserBean> resList = new ArrayList<>();
-        List<UserBean> list = new ArrayList<>(userMap.values());
+    private List<User> checkIsIn() {
+        List<User> resList = new ArrayList<>();
+        List<User> list = new ArrayList<>(userMap.values());
         List<Long> userId = Util.getLongFromData(mBook.getPerson_id());
-        for (UserBean user : list) {
+        for (User user : list) {
             if (user.getUser_id() == mBook.getManager_id() || userId.contains(user.getUser_id()))
                 continue;
             resList.add(user);
@@ -167,12 +162,12 @@ public class AddUserActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void onQueryUserSuccess(UserBean user) {
+    public void onQueryUserSuccess(User user) {
         mUserAdapter.addData(user);
     }
 
     @Override
-    public void onQueryUserSuccess(List<UserBean> userList) {
+    public void onQueryUserSuccess(List<User> userList) {
         mUserAdapter.addData(userList);
     }
 

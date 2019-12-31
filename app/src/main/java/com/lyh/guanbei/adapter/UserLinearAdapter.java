@@ -7,14 +7,14 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lyh.guanbei.R;
-import com.lyh.guanbei.bean.UserBean;
+import com.lyh.guanbei.bean.User;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import androidx.annotation.NonNull;
 
-public class UserLinearAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder> {
+public class UserLinearAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
     private boolean[] isChoose;
     private Context mContext;
 
@@ -24,7 +24,7 @@ public class UserLinearAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, UserBean item) {
+    protected void convert(@NonNull BaseViewHolder helper, User item) {
         int position = helper.getPosition();
         ImageView icon = helper.getView(R.id.listitem_user_linear_icon);
         Glide.with(mContext).load(item.getUser_icon()).error(R.drawable.defaulticon).into(icon);
@@ -37,13 +37,13 @@ public class UserLinearAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder
     }
 
     @Override
-    public void addData(@NonNull UserBean data) {
+    public void addData(@NonNull User data) {
         initNewChoose(1);
         super.addData(data);
     }
 
     @Override
-    public void addData(@NonNull Collection<? extends UserBean> newData) {
+    public void addData(@NonNull Collection<? extends User> newData) {
         initNewChoose(newData.size());
         super.addData(newData);
     }

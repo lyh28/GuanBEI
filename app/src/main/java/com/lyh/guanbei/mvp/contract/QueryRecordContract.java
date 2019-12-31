@@ -4,7 +4,7 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.base.IModel;
 import com.lyh.guanbei.base.IPresenter;
 import com.lyh.guanbei.base.IView;
-import com.lyh.guanbei.bean.RecordBean;
+import com.lyh.guanbei.bean.Record;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public interface QueryRecordContract {
 
     interface IQueryRecordView extends IView{
-        void onQueryRecordSuccess(List<RecordBean> recordBeans);
+        void onQueryRecordSuccess(List<Record> records);
         void onQueryRecordFailed(String msg);
         void startLoading();     //查询服务器时的加载动画
         void endLoading();
@@ -26,7 +26,7 @@ public interface QueryRecordContract {
         void queryRecordById(String type,List<Long> ids);
     }
     interface IQueryRecordModel extends IModel{
-        void queryRecordFromServiceById(String type,List<Long> ids, ICallbackListener<List<RecordBean>> iCallbackListener);
-        void queryRecordFromLocalById(String type,List<Long> ids,ICallbackListener<List<RecordBean>> iCallbackListener);
+        void queryRecordFromServiceById(String type,List<Long> ids, ICallbackListener<List<Record>> iCallbackListener);
+        void queryRecordFromLocalById(String type,List<Long> ids,ICallbackListener<List<Record>> iCallbackListener);
     }
 }

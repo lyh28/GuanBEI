@@ -1,15 +1,11 @@
 package com.lyh.guanbei.mvp.model;
 
-import android.util.Log;
-
 import com.lyh.guanbei.base.ICallbackListener;
-import com.lyh.guanbei.bean.DeleteRecordBean;
-import com.lyh.guanbei.bean.RecordBean;
 import com.lyh.guanbei.common.GuanBeiApplication;
+import com.lyh.guanbei.db.DBManager;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.DeleteRecordContract;
-import com.lyh.guanbei.util.LogUtil;
 
 import java.util.List;
 
@@ -30,6 +26,6 @@ public class DeleteRecordModel implements DeleteRecordContract.IDeleteRecordMode
 
     @Override
     public void deleteLocal(List<Long> idList) {
-        GuanBeiApplication.getDaoSession().getRecordBeanDao().deleteByKeyInTx(idList);
+        DBManager.getInstance().getDaoSession().getRecordDao().deleteByKeyInTx(idList);
     }
 }

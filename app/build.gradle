@@ -23,7 +23,7 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
         greendao {
-            schemaVersion 10 //数据库版本
+            schemaVersion 12 //数据库版本
             targetGenDir 'src/main/java' //指定生成代码的目录
             daoPackage "com.lyh.guanbei.db"//生成代码到具体包下
         }
