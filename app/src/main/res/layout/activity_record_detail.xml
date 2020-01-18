@@ -17,7 +17,7 @@
             android:id="@+id/activity_record_detail_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/close"/>
+            android:src="@drawable/back"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -91,6 +91,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/page_left_right_margin"
+        android:paddingRight="@dimen/page_left_right_margin"
+        android:paddingBottom="@dimen/left_right_margin"
+        android:paddingTop="@dimen/left_right_margin">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/right_more"/>
+        <TextView
+            android:layout_marginLeft="@dimen/left_right_margin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="交易对象"/>
+        <TextView
+            android:id="@+id/activity_record_detail_towho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

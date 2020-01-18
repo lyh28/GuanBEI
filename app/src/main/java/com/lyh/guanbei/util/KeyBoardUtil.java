@@ -42,19 +42,6 @@ public class KeyBoardUtil implements KeyboardView.OnKeyboardActionListener {
         mKeyboardView.setPreviewEnabled(false);
         mKeyboardView.setEnabled(true);
         mKeyboardView.setOnKeyboardActionListener(this);
-//        mEditText.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if(event.getAction()==MotionEvent.ACTION_UP){
-////                    v.setFocusable(true);
-////                    v.setFocusableInTouchMode(true);
-////                    v.requestFocus();
-//                    hideSystemKeyboard((EditText)v);
-//                    mKeyboardView.setVisibility(View.VISIBLE);
-//                }
-//                return true;
-//            }
-//        });
         mEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -97,18 +84,6 @@ public class KeyBoardUtil implements KeyboardView.OnKeyboardActionListener {
             v.setInputType(0);
         }
     }
-//    public void hideSystemKeyboard(EditText v) {
-//        this.mEditText = v;
-//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-//        if (imm == null) {
-//            return;
-//        }
-//        boolean isOpen = imm.isActive();
-//        if (isOpen) {
-//            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//        }
-//    }
-
     public boolean isKeyBoardShow() {
         return mKeyboardView.getVisibility() == View.VISIBLE;
     }
@@ -156,8 +131,6 @@ public class KeyBoardUtil implements KeyboardView.OnKeyboardActionListener {
                 editable.delete(start - 1, start);
         } else if (primaryCode == 60) {
             mListener.addMore();
-            //清空
-            editable.clear();
         } else {
             //当+ -时进入
             if (primaryCode == 43 || primaryCode == 45) {

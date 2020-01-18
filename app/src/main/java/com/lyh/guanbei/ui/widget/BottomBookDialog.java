@@ -47,11 +47,11 @@ public class BottomBookDialog extends Dialog {
     }
     private void initWindowConfig(){
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        int height = (int) (0.7f * QMUIDisplayHelper.getScreenHeight(context));
-        int width =  (int)(0.8f*QMUIDisplayHelper.getScreenWidth(context));
+        int height = (int) (0.5f * QMUIDisplayHelper.getScreenHeight(context));
+        int width =  QMUIDisplayHelper.getScreenWidth(context);
         layoutParams.width = width;
         layoutParams.height = height;
-        layoutParams.gravity = Gravity.CENTER;
+        layoutParams.gravity = Gravity.BOTTOM;
         getWindow().setAttributes(layoutParams);
         setCanceledOnTouchOutside(true);
     }

@@ -39,7 +39,8 @@ public class ChartPageFragment extends BaseFragment {
                 }
             }
         });
-        fragment = new CategoryChartPageFragment(getmActivity());
+        fragment = new CategoryChartPageFragment();
+        fragment.setmActivity(getmActivity());
         setFragment(fragment);
 
     }

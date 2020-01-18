@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.db.BookDao;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.DeleteBookPresenter;

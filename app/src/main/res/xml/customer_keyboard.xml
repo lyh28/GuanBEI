@@ -21,7 +21,7 @@
         <Key android:keyEdgeFlags="right" android:codes="45" android:keyLabel="-"/>
     </Row>
     <Row>
-        <Key android:keyEdgeFlags="left" android:codes="-5" android:isRepeatable="true" android:keyIcon="@drawable/close" />
+        <Key android:keyEdgeFlags="left" android:codes="-5" android:isRepeatable="true" android:keyIcon="@drawable/back" />
         <Key android:codes="48" android:keyLabel="0"/>
         <Key android:codes="46" android:keyLabel="."/>
         <Key android:keyEdgeFlags="right" android:codes="-1"   android:keyLabel="完成" />

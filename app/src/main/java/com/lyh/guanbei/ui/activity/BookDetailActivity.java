@@ -46,7 +46,6 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
 
     private static final int NAME_CODE = 1;
     private static final int BUDGET_CODE = 2;
-    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
 
     @Override
     protected int getLayoutId() {
@@ -190,7 +189,7 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
                         }
                     }
                 })
-                .create(mCurrentDialogStyle).show();
+                .create(com.qmuiteam.qmui.R.style.QMUI_Dialog).show();
     }
 
     private void setText(int code, String text) {

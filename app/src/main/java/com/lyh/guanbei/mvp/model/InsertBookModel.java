@@ -2,18 +2,19 @@ package com.lyh.guanbei.mvp.model;
 
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.db.BookDao;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.InsertBookContract;
+import com.lyh.guanbei.util.LogUtil;
 
 import java.util.List;
 
 public class InsertBookModel implements InsertBookContract.IInsertBookModel {
     @Override
     public void insertLocal(List<Book> bookList) {
-        DBManager.getInstance().getDaoSession().getBookDao().insertOrReplaceInTx(bookList);
+        DBManager.getInstance().getDaoSession().getBookDao().insertInTx(bookList);
     }
 
     @Override

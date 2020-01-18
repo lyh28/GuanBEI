@@ -7,8 +7,8 @@ import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.db.BookDao;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.InsertBookContract;
 import com.lyh.guanbei.mvp.model.InsertBookModel;
@@ -35,11 +35,6 @@ public class InsertBookPresenter extends BasePresenter<InsertBookContract.IInser
     public void insert(final List<Book> bookList) {
         getmModel().insertLocal(bookList);
         insertBookLocalIdToUser(bookList);
-        LogUtil.logD("----------");
-        for(Book book:bookList){
-            LogUtil.logD(book.toString());
-        }
-        LogUtil.logD("----------");
         if (checkAttach())
             getmView().onInsertSuccess();
         insertService(bookList);

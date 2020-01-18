@@ -12,7 +12,7 @@ import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.jpush.PushMessageReceiver;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.LoginContract;

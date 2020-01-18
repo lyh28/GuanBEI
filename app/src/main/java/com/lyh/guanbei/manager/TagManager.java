@@ -17,6 +17,8 @@ public class TagManager {
     private static final String[] mOutTag = {
             "吃喝", "玩乐", "交通", "红包", "日用品", "服饰鞋包"
     };
+    private static final String[] mModelTag={"微信模板"};
+    private static final int[] mModelId={R.drawable.book_uncheck};
     private static final int[] mInTagId = {
             R.drawable.red_package,
             R.drawable.salary,
@@ -37,20 +39,6 @@ public class TagManager {
     //收入
     private List<Tag> inList;
 
-    public List<Tag> getInList() {
-        if (inList == null) {
-//            return GuanBeiApplication.getDaoSession().get
-            //从数据库中读取
-        }
-        return inList;
-    }
-
-    public List<Tag> getOutList() {
-        if (outList == null) {
-            //从数据库中读取
-        }
-        return outList;
-    }
 
     public static Tag getDefaultCategory(int type) {
         //暂定使用该图标
@@ -63,6 +51,9 @@ public class TagManager {
         for(int i=0;i<mInTag.length;i++){
             list.add(new Tag(mInTag[i],mInTagId[i],Tag.IN));
         }
+        for(int i=0;i<mModelTag.length;i++){
+            list.add(new Tag(mModelTag[i],mModelId[i],Tag.IN));
+        }
         return list;
     }
 
@@ -71,6 +62,9 @@ public class TagManager {
         LinkedList<Tag> list = new LinkedList<>();
         for(int i=0;i<mOutTag.length;i++){
             list.add(new Tag(mOutTag[i],mOutTagId[i],Tag.OUT));
+        }
+        for(int i=0;i<mModelTag.length;i++){
+            list.add(new Tag(mModelTag[i],mModelId[i],Tag.OUT));
         }
         return list;
     }

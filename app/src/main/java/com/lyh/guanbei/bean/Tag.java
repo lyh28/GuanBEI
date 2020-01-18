@@ -1,6 +1,6 @@
 package com.lyh.guanbei.bean;
 
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.TagDao;
 import com.lyh.guanbei.manager.TagManager;
 
@@ -81,7 +81,9 @@ public class Tag {
         if (list == null) return new ArrayList<>();
         return list;
     }
-
+    public static Tag queryById(long id){
+        return DBManager.getInstance().getDaoSession().getTagDao().load(id);
+    }
     public static Tag getTagByName(String name, int type) {
         List<Tag> list = DBManager.getInstance().getDaoSession().getTagDao().queryBuilder().where(TagDao.Properties.Name.eq(name),
                 TagDao.Properties.Type.eq(type)).list();

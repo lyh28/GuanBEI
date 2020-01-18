@@ -6,6 +6,7 @@
     <permission
         android:name="com.lyh.guanbei.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" /> <!-- Required -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="com.lyh.guanbei.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -26,7 +27,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.UserActivity"></activity>
+        <activity android:name=".ui.activity.InputActivity" android:theme="@style/CustomActivityFloating" android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.ModelDetailActivity" />
+        <activity android:name=".ui.activity.ModelActivity" />
+        <activity android:name=".ui.activity.RecordListActivity" />
+        <activity android:name=".ui.activity.UserActivity" />
         <activity android:name=".ui.activity.AddByExcelActivity" />
         <activity android:name=".ui.activity.FilterActivity" />
         <activity android:name=".ui.activity.RecordDetailActivity" />
@@ -52,16 +57,6 @@
         <activity android:name=".ui.activity.AddByMyselfActivity" />
         <activity android:name=".ui.activity.MainActivity" />
 
-        <service
-            android:name=".jpush.PushCommonService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":pushcore">
-            <intent-filter>
-                <action android:name="cn.jiguang.user.service.action" />
-            </intent-filter>
-        </service>
-
         <receiver
             android:name=".jpush.PushMessageReceiver"
             android:enabled="true"
@@ -74,9 +69,23 @@
         </receiver>
 
         <service
+            android:name=".jpush.PushCommonService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
+        <service
             android:name=".common.NetRestartService"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".manager.CustomNotificationManager$NotificationService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":input" />
     </application>
 
 </manifest>

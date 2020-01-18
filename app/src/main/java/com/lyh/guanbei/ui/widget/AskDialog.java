@@ -40,8 +40,8 @@ public class AskDialog extends Dialog {
     private void initWindow(){
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
 //        int height = (int) (0.4f * QMUIDisplayHelper.getScreenHeight(mContext));
-//        int width =  (int)(0.5f*QMUIDisplayHelper.getScreenWidth(mContext));
-//        layoutParams.width = width;
+        int width =  (int)(0.75f*QMUIDisplayHelper.getScreenWidth(mContext));
+        layoutParams.width = width;
 //        layoutParams.height = height;
         layoutParams.gravity = Gravity.CENTER;
         getWindow().setAttributes(layoutParams);

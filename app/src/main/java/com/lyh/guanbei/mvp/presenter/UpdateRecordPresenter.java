@@ -3,7 +3,7 @@ package com.lyh.guanbei.mvp.presenter;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Record;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
 import com.lyh.guanbei.mvp.model.UpdateRecordModel;
 import com.lyh.guanbei.util.NetUtil;

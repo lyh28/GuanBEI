@@ -1,7 +1,6 @@
 package com.lyh.guanbei.bean;
 
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.RecordDao;
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -9,12 +8,16 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.query.WhereCondition;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Record {
+public class Record implements Serializable {
+    @Transient
+    public static final long serialVersionUID=22222L;
     @Id(autoincrement = true)
     private Long local_id;
     @Index
@@ -125,7 +128,7 @@ public class Record {
     }
 
     public static List<Record> query(WhereCondition cond, WhereCondition... condMore){
-        return DBManager.getInstance().getDaoSession().getRecordDao().queryBuilder().where(cond,condMore).list();
+        return DBManager.getInstance().getDaoSession().getRecordDao().queryBuilder().where(cond,condMore).orderDesc(RecordDao.Properties.Date).list();
     }
     public static Record queryByRecordId(long id){
         List<Record> list=query(RecordDao.Properties.Record_id.eq(id));

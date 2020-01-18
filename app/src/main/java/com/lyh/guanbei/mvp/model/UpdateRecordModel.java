@@ -2,8 +2,7 @@ package com.lyh.guanbei.mvp.model;
 
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Record;
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;

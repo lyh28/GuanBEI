@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.InputActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height"
+        android:background="@color/qmui_config_color_background"
+        android:paddingLeft="@dimen/page_left_right_margin"
+        android:paddingRight="@dimen/page_left_right_margin">
+
+        <ImageView
+            android:id="@+id/activity_input_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
+        <EditText
+            android:id="@+id/activity_input_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:text="0"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorBlack"/>
+
+        <ImageView
+            android:id="@+id/activity_input_done"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/done" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/qmui_config_color_background"
+        android:paddingLeft="@dimen/page_left_right_margin"
+        android:paddingRight="@dimen/page_left_right_margin">
+
+        <LinearLayout
+            android:id="@+id/activity_input_type_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/activity_input_type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="支出"
+                android:textColor="@color/colorBlack" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/change" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/colorGray" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_input_tag_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/activity_input_other"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/qmui_config_color_background"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/page_left_right_margin"
+        android:paddingRight="@dimen/page_left_right_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/book_check" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="账本名"
+                android:textColor="@color/colorBlack" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@color/colorGray" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/activity_input_book_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+
+        <EditText
+            android:id="@+id/activity_input_remark"
+            style="@style/CustomEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:ellipsize="end"
+            android:hint="备注"
+            android:maxLength="1"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorGray"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/activity_input_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/keyboard_key_bg"
+        android:keyTextColor="@color/colorWhite"
+        android:visibility="gone" />
+</LinearLayout>

@@ -2,7 +2,6 @@ package com.lyh.guanbei.ui.fragment;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,14 +18,11 @@ import com.lyh.guanbei.adapter.ChartCategoryAdapter;
 import com.lyh.guanbei.base.BaseFragment;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.Tag;
-import com.lyh.guanbei.db.DBManager;
-import com.lyh.guanbei.util.DateUtil;
-import com.lyh.guanbei.util.LogUtil;
+import com.lyh.guanbei.manager.DBManager;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,9 +33,6 @@ public class CategoryChartPageFragment extends BaseFragment {
     private ArrayList<PieEntry> mEntries;
     private RecyclerView mRecyclerview;
     private ChartCategoryAdapter mAdapter;
-    public CategoryChartPageFragment(Activity activity){
-        mActivity=activity;
-    }
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_chart_page_category;
@@ -63,6 +56,10 @@ public class CategoryChartPageFragment extends BaseFragment {
                 return true;
             }
         });
+    }
+
+    public void setmActivity(Activity mActivity) {
+        this.mActivity = mActivity;
     }
 
     @Override

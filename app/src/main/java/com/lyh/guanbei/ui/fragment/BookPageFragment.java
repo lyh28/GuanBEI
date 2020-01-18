@@ -30,7 +30,7 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BookPageFragment extends BaseFragment implements QueryRecordContract.IQueryRecordView , View.OnClickListener {
+public class BookPageFragment extends BaseFragment implements QueryRecordContract.IQueryRecordView, View.OnClickListener {
     private RecordSectionAdapter mRecordSectionAdapter;
     private RecyclerView recyclerView;
     private AppBarLayout mAppbar;
@@ -60,45 +60,45 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
     @Override
     protected void initUi() {
-        mAppbar=mView.findViewById(R.id.fragment_book_appbar);
-        recyclerView=mView.findViewById(R.id.fragment_book_recyclerview);
-        mOutView=mView.findViewById(R.id.fragment_book_outView);
-        mInView=mView.findViewById(R.id.fragment_book_inView);
-        mBookView=mView.findViewById(R.id.fragment_book_nameView);
-        mFilter=mView.findViewById(R.id.fragment_book_filter);
-        mMore=mView.findViewById(R.id.fragment_book_more);
-        mBookName=mView.findViewById(R.id.fragment_book_name);
-        mBudget=mView.findViewById(R.id.fragment_book_budget);
-        mIn=mView.findViewById(R.id.fragment_book_inNum);
-        mOut=mView.findViewById(R.id.fragment_book_outNum);
+        mAppbar = mView.findViewById(R.id.fragment_book_appbar);
+        recyclerView = mView.findViewById(R.id.fragment_book_recyclerview);
+        mOutView = mView.findViewById(R.id.fragment_book_outView);
+        mInView = mView.findViewById(R.id.fragment_book_inView);
+        mBookView = mView.findViewById(R.id.fragment_book_nameView);
+        mFilter = mView.findViewById(R.id.fragment_book_filter);
+        mMore = mView.findViewById(R.id.fragment_book_more);
+        mBookName = mView.findViewById(R.id.fragment_book_name);
+        mBudget = mView.findViewById(R.id.fragment_book_budget);
+        mIn = mView.findViewById(R.id.fragment_book_inNum);
+        mOut = mView.findViewById(R.id.fragment_book_outNum);
 
         mFilter.setOnClickListener(this);
         mBookView.setOnClickListener(this);
         mMore.setOnClickListener(this);
         mBudget.setOnClickListener(this);
         //设置间隔
-        int marginTop= QMUIStatusBarHelper.getStatusbarHeight(getmActivity());
-        setMargins(mOutView,0,marginTop,0,0);
-        setMargins(mInView,0,marginTop,0,0);
+        int marginTop = QMUIStatusBarHelper.getStatusbarHeight(getmActivity());
+        setMargins(mOutView, 0, marginTop, 0, 0);
+        setMargins(mInView, 0, marginTop, 0, 0);
     }
 
     @Override
     protected void init() {
         //列表
-        mRecordSectionAdapter =new RecordSectionAdapter();
+        mRecordSectionAdapter = new RecordSectionAdapter(getmActivity());
         mRecordSectionAdapter.openLoadAnimation();
         mRecordSectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(!mRecordSectionAdapter.getItem(position).isHeader){
-                    Bundle bundle=new Bundle();
-                    bundle.putLong("recordId",mRecordSectionAdapter.getItem(position).t.getLocal_id());
-                    startActivity(RecordDetailActivity.class,bundle);
+                if (!mRecordSectionAdapter.getItem(position).isHeader) {
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("recordId", mRecordSectionAdapter.getItem(position).t.getLocal_id());
+                    startActivity(RecordDetailActivity.class, bundle);
                 }
             }
         });
         recyclerView.setAdapter(mRecordSectionAdapter);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getmActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getmActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -106,44 +106,45 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
         mAppbar.addOnOffsetChangedListener(new CustomOffsetChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
-                if(state==State.IDLE&&mOutView.getVisibility()==View.GONE){
+                if (state == State.IDLE && mOutView.getVisibility() == View.GONE) {
                     mOutView.setVisibility(View.VISIBLE);
-                }else if(state==State.COLLAPSED){
+                } else if (state == State.COLLAPSED) {
                     mOutView.setVisibility(View.GONE);
                 }
             }
+
             @Override
             public void onOffsetChangedForRate(AppBarLayout appBarLayout, float rate) {
-                mOutView.setAlpha(1-rate);
-                mBudget.setAlpha(1-rate);
+                mOutView.setAlpha(1 - rate);
+                mBudget.setAlpha(1 - rate);
             }
         });
     }
+
     @Override
     public void onResume() {
-        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(getmActivity());
-        long id=customSharedPreferencesManager.getCurrBookId();
-        LogUtil.logD("bookFragment  resume");
-        if(bookId!=id){
-            bookId=id;
-            if(bookId==-1L){
+        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(getmActivity());
+        long id = customSharedPreferencesManager.getCurrBookId();
+        if (bookId != id) {
+            bookId = id;
+            Book book = Book.queryByLocalId(bookId);
+
+            if (bookId == -1L || book == null) {
                 //处理掉没有book的情况
-                mRootView=getmView().findViewById(R.id.fragment_book_rootview);
-                mNoDataView= LayoutInflater.from(getmActivity()).inflate(R.layout.fragment_book_page_nodata,null);
+                mRootView = getmView().findViewById(R.id.fragment_book_rootview);
+                mNoDataView = LayoutInflater.from(getmActivity()).inflate(R.layout.fragment_book_page_nodata, null);
                 mRootView.addView(mNoDataView);
-            }else {
-                if(mNoDataView!=null){
+            } else {
+                if (mNoDataView != null) {
                     mRootView.removeView(mNoDataView);
-                    mNoDataView=null;
+                    mNoDataView = null;
                 }
-                Book book= Book.queryByLocalId(bookId);
-                if(book!=null){
-                    mBookName.setText(book.getBook_name());
-                    mQueryRecordPresenter.queryRecordById(QueryRecordPresenter.BOOKID, bookId);
-                }
+                mBookName.setText(book.getBook_name());
+                mQueryRecordPresenter.queryRecordById(QueryRecordPresenter.BOOKID, bookId);
+
             }
-        }else{
-            List<Record> list= Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
+        } else {
+            List<Record> list = Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
             mRecordSectionAdapter.setNewDatas(list);
         }
         super.onResume();
@@ -151,7 +152,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
     @Override
     public void createPresenters() {
-        mQueryRecordPresenter=new QueryRecordPresenter();
+        mQueryRecordPresenter = new QueryRecordPresenter();
 
         addPresenter(mQueryRecordPresenter);
     }
@@ -163,7 +164,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
     @Override
     public void onQueryRecordFailed(String msg) {
-        LogUtil.logD("失败"+msg);
+        LogUtil.logD("失败" + msg);
     }
 
     @Override
@@ -175,9 +176,10 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     public void endLoading() {
 
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_book_filter:
                 startActivity(FilterActivity.class);
                 break;

@@ -2,6 +2,7 @@ package com.lyh.guanbei.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -12,6 +13,7 @@ import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.HomePageAdapter;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.common.NetRestartService;
+import com.lyh.guanbei.manager.CustomNotificationManager;
 import com.lyh.guanbei.mvp.contract.NetListenerContract;
 import com.lyh.guanbei.mvp.presenter.NetListenerPresenter;
 import com.lyh.guanbei.ui.fragment.BookPageFragment;
@@ -28,7 +30,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, NetListenerContract.INetListenerView , EasyPermissions.PermissionCallbacks {
+public class MainActivity extends BaseActivity implements View.OnClickListener, NetListenerContract.INetListenerView, EasyPermissions.PermissionCallbacks {
     private NetListenerPresenter mNetListenerPresenter;
 
 
@@ -40,7 +42,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private ViewPager mViewPager;
 
     private List<Fragment> mFragments;
-    private static final int SMS_PERMISSION=100;
+    private static final int SMS_PERMISSION = 100;
+    private static final int STORAGE_PERMISSION = 101;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -48,30 +52,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initUi() {
-        radioGroup=findViewById(R.id.activity_main_radiogroup);
-        mAddImg=findViewById(R.id.activity_main_add);
-        mViewPager=findViewById(R.id.activity_main_viewpager);
-        mBookBtn=findViewById(R.id.activity_main_book);
-        mChartBtn=findViewById(R.id.activity_main_chart);
-        mMeBtn=findViewById(R.id.activity_main_me);
+        radioGroup = findViewById(R.id.activity_main_radiogroup);
+        mAddImg = findViewById(R.id.activity_main_add);
+        mViewPager = findViewById(R.id.activity_main_viewpager);
+        mBookBtn = findViewById(R.id.activity_main_book);
+        mChartBtn = findViewById(R.id.activity_main_chart);
+        mMeBtn = findViewById(R.id.activity_main_me);
         mAddImg.setOnClickListener(this);
     }
 
     @Override
     protected void init() {
         mNetListenerPresenter.startNetListener();
-        mFragments=new ArrayList<>(3);
+        mFragments = new ArrayList<>(3);
         mFragments.add(new ChartPageFragment());
         mFragments.add(new BookPageFragment());
         mFragments.add(new MePageFragment());
-        mViewPager.setAdapter(new HomePageAdapter(getSupportFragmentManager(),mFragments));
+        mViewPager.setAdapter(new HomePageAdapter(getSupportFragmentManager(), mFragments));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
+
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         closeBookPage();
                         mChartBtn.setChecked(true);
@@ -86,39 +91,46 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         break;
                 }
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         });
-        mViewPager.setCurrentItem(1,false);
+        mViewPager.setCurrentItem(1, false);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int index=-1;
-                switch (checkedId){
+                int index = -1;
+                switch (checkedId) {
                     case R.id.activity_main_chart:
-                        index=0;
+                        index = 0;
                         break;
                     case R.id.activity_main_book:
-                        index=1;
+                        index = 1;
                         break;
                     case R.id.activity_main_me:
-                        index=2;
+                        index = 2;
                         break;
                 }
-                mViewPager.setCurrentItem(index,true);
+                mViewPager.setCurrentItem(index, true);
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            startForegroundService(new Intent(this, CustomNotificationManager.NotificationService.class));
+        else
+            startService(new Intent(this, CustomNotificationManager.NotificationService.class));
     }
 
-    private void showBookPage(){
+    private void showBookPage() {
         mAddImg.setVisibility(View.VISIBLE);
         mBookBtn.setVisibility(View.INVISIBLE);
     }
-    private void closeBookPage(){
+
+    private void closeBookPage() {
         mAddImg.setVisibility(View.INVISIBLE);
         mBookBtn.setVisibility(View.VISIBLE);
     }
+
     @Override
     protected void onDestroy() {
         mNetListenerPresenter.closeNetListener();
@@ -127,14 +139,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void createPresenters() {
-        mNetListenerPresenter=new NetListenerPresenter();
+        mNetListenerPresenter = new NetListenerPresenter();
 
         addPresenter(mNetListenerPresenter);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.activity_main_add:
                 showAddButton();
                 break;
@@ -152,7 +164,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         LogUtil.logD("断网了");
     }
 
-    private void showAddButton(){
+    private void showAddButton() {
         /*
             添加方式：1.手工输入 2.读取短信  3.excel导入  4.图片识别
          */
@@ -171,23 +183,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     public void onClick(QMUIBottomSheet dialog, View itemView) {
                         dialog.dismiss();
                         int tag = (int) itemView.getTag();
-                        Intent intent=null;
+                        Intent intent = null;
                         switch (tag) {
                             case TAG_FROM_MYSELF:
-                                intent=new Intent(MainActivity.this, AddByMyselfActivity.class);
+                                intent = new Intent(MainActivity.this, AddByMyselfActivity.class);
                                 break;
                             case TAG_FROM_MESSAGE:
-                                checkPermission();
+                                checkSMSPermission();
                                 break;
                             case TAG_FROM_EXCEL:
-//                                Toast.makeText(MainActivity.this, "表格导入", Toast.LENGTH_SHORT).show();
-                                startActivity(AddByExcelActivity.class);
+                                checkStoragePermission();
                                 break;
                             case TAG_FROM_PIC:
                                 Toast.makeText(MainActivity.this, "图片识别", Toast.LENGTH_SHORT).show();
                                 break;
                         }
-                        if(intent!=null)
+                        if (intent != null)
                             startActivity(intent);
                     }
                 }).build().show();
@@ -196,29 +207,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
-    public void checkPermission(){
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_SMS)) {
-            startSMSActivity();
+
+    public boolean isHasPermission(String permission) {
+        if (EasyPermissions.hasPermissions(this, permission)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void checkSMSPermission() {
+        if (isHasPermission(Manifest.permission.READ_SMS)) {
             // 已经申请过权限，做想做的事
+            startSMSActivity();
         } else {
             // 没有申请过权限，现在去申请
             EasyPermissions.requestPermissions(this, "短信权限，用于读取短信，快速添加账单",
-                    SMS_PERMISSION,  Manifest.permission.READ_SMS);
+                    SMS_PERMISSION, Manifest.permission.READ_SMS);
+        }
+    }
+
+    public void checkStoragePermission() {
+        if (isHasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            // 已经申请过权限，做想做的事
+            startActivity(AddByExcelActivity.class);
+        } else {
+            // 没有申请过权限，现在去申请
+            EasyPermissions.requestPermissions(this, "读取权限",
+                    STORAGE_PERMISSION, Manifest.permission.READ_EXTERNAL_STORAGE);
         }
     }
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        startSMSActivity();
+        if (requestCode == SMS_PERMISSION)
+            startSMSActivity();
+        else if (requestCode == STORAGE_PERMISSION)
+            startActivity(AddByExcelActivity.class);
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        Toast.makeText(this,"关闭权限后无法使用该功能，请开启相应权限后再使用",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "关闭权限后无法使用该功能，请开启相应权限后再使用", Toast.LENGTH_SHORT).show();
     }
-    private void startSMSActivity(){
+
+    private void startSMSActivity() {
         startActivity(AddBySMSActivity.class);
     }
 

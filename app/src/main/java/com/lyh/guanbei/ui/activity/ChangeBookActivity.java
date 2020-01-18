@@ -6,14 +6,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.BookAdapter;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.DeleteBookContract;
 import com.lyh.guanbei.mvp.presenter.DeleteBookPresenter;
 import com.lyh.guanbei.ui.widget.AskDialog;
@@ -62,7 +64,6 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void dismiss() {
-//                initBookData();
             }
         });
 
@@ -81,8 +82,12 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.listitem_book_delete:
-                        currDeleteBookIndex = position;
-                        mDialog.show();
+                        if (mBookAdapter.getItem(position).getManager_id() != CustomSharedPreferencesManager.getInstance(ChangeBookActivity.this).getUser().getUser_id()) {
+                            onDeleteError("没有权限删除该账本");
+                        } else {
+                            currDeleteBookIndex = position;
+                            mDialog.show();
+                        }
                         break;
                     case R.id.listitem_book_edit:
                         Bundle bundle = new Bundle();
@@ -103,6 +108,16 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
         });
         mRecyclerview.setLayoutManager(layoutManager);
         mRecyclerview.setAdapter(mBookAdapter);
+        currDeleteBookId = -1;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (currDeleteBookId == -1) {
+            initBookData();
+        }else
+            currDeleteBookId=-1;
     }
 
     private void setWindowConfig() {
@@ -126,14 +141,7 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
             sharedPreferencesManager.saveCurrBookId(book.getLocal_id());
             mBookAdapter.setCurrentBookId(book.getLocal_id());
         }
-
-        mTitle.setText(wrapTitle(list.size()));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initBookData();
+        wrapTitle(list.size());
     }
 
     @Override
@@ -143,8 +151,8 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
         addPresenter(mDeleteBookPresenter);
     }
 
-    private String wrapTitle(int num) {
-        return "我的账本（" + num + "）";
+    private void wrapTitle(int num) {
+        mTitle.setText("我的账本（" + num + "）");
     }
 
     @Override
@@ -170,38 +178,32 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onDeleteError(String msg) {
-        final QMUITipDialog dialog = new QMUITipDialog.Builder(this)
-                .setIconType(QMUITipDialog.Builder.ICON_TYPE_INFO)
-                .setTipWord(msg)
-                .create();
-        dialog.show();
-        mAdd.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, 1000);
+        currDeleteBookId = -1;
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDeleteSuccess() {
         //从用户数据中删除bookid
         CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
-        String bookId = customSharedPreferencesManager.getUser().getLocal_book_id();
+        User user = customSharedPreferencesManager.getUser();
+        String bookId = user.getLocal_book_id();
         bookId = Util.deleteFormData(currDeleteBookId, bookId);
+        user.setLocal_book_id(bookId);
+        DBManager.getInstance().getDaoSession().getUserDao().update(user);
         //如果是当前的最近记录 则更换
         if (currDeleteBookId == customSharedPreferencesManager.getCurrBookId()) {
             if (bookId.equals(""))
-                customSharedPreferencesManager.saveCurrBookId(-1);
+                mBookAdapter.setCurrentBookId(-1);
             else
-                customSharedPreferencesManager.saveCurrBookId(Util.getLongFromData(bookId).get(0));
+                mBookAdapter.setCurrentBookId(Util.getLongFromData(bookId).get(0));
         }
-        mBookAdapter.notifyItemRemoved(currDeleteBookIndex);
+        mBookAdapter.remove(currDeleteBookIndex);
+        wrapTitle(mBookAdapter.getItemCount());
     }
 
     @Override
     public void finish() {
-        LogUtil.logD("ChangeBookActivity  finish");
         CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
         customSharedPreferencesManager.saveCurrBookId(mBookAdapter.getCurrentBookId());
         super.finish();

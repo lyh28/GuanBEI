@@ -1,4 +1,6 @@
-package com.lyh.guanbei.db;
+package com.lyh.guanbei.manager;
+
+import com.lyh.guanbei.db.DaoSession;
 
 import org.greenrobot.greendao.async.AsyncSession;
 

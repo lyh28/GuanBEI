@@ -30,7 +30,7 @@ public class BottomRecordDialog extends Dialog {
     }
 
     private void init(){
-        recordAdapter = new RecordAdapter();
+        recordAdapter = new RecordAdapter(context);
         recordAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

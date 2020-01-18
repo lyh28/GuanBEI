@@ -5,8 +5,7 @@ import android.text.TextUtils;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Record;
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
 import com.lyh.guanbei.mvp.model.CommitRecordModel;
 import com.lyh.guanbei.util.LogUtil;
@@ -24,6 +23,11 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
     }
 
     @Override
+    public void commit() {
+        commit(recordList);
+    }
+
+    @Override
     public void commit(Record record) {
         add(record);
         commit(recordList);
@@ -38,8 +42,9 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
 
     @Override
     public void commit(final List<Record> record) {
-        if ((record == null || record.size() == 0) && recordList.size() != 0) {
-            commit(recordList);
+        if (record == null || record.size() == 0) {
+            if (recordList.size() != 0)
+                commit(recordList);
             return;
         }
         getmModel().save(record);
@@ -53,10 +58,11 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
             getmModel().commit(record, new ICallbackListener<List<Record>>() {
                 @Override
                 public void onSuccess(List<Record> data) {
-                    for(int i=0;i<data.size();i++){
+                    for (int i = 0; i < data.size(); i++) {
                         record.get(i).setRecord_id(data.get(i).getRecord_id());
+                        record.get(i).setStatus(data.get(i).getStatus());
                     }
-                    DBManager.getInstance().getAsyncSession().updateInTx(Record.class,record);
+                    DBManager.getInstance().getAsyncSession().updateInTx(Record.class, record);
                 }
 
                 @Override

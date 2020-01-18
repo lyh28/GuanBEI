@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.lyh.guanbei.bean.Model;
 import com.lyh.guanbei.bean.Tag;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.DaoMaster;
-import com.lyh.guanbei.db.DaoSession;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -42,6 +42,8 @@ public class GuanBeiApplication extends Application {
         DBManager.getInstance().getDaoSession().getTagDao().deleteAll();
         Tag.InsertPresetInList();
         Tag.InsertPresetOutList();
+        //模板init
+        Model.init(context);
     }
 
     public static Context getContext() {

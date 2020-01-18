@@ -1,5 +1,6 @@
 package com.lyh.guanbei.ui.activity;
 
+import android.content.Intent;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ import com.lyh.guanbei.ui.widget.BottomBookDialog;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.KeyBoardUtil;
 import com.lyh.guanbei.manager.TagManager;
+import com.lyh.guanbei.util.LogUtil;
 
 import java.util.List;
 
@@ -45,7 +47,6 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     private TextView mBookName;
     private EditText mDate;
     private EditText mToWho;
-    private EditText mContent;
     private EditText mRemark;
     private View mRootView;
     private BottomBookDialog mDialog;
@@ -57,7 +58,11 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
 
     private long currBookId;
     private int type;   //当前状态  收入还是支出
-    private boolean isUpdate;       //状态    添加还是更新
+    private int status;       //状态    添加还是更新还是编辑   0  1  2
+    public static final int INSERT_STATUS = 0;
+    public static final int UPDATE_STATUS = 1;
+    public static final int EDIT_STATUS = 2;
+
     private Record mRecord;     //需更新的record
 
     private List<Tag> categoryOutList;
@@ -81,7 +86,6 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         mBookName = findViewById(R.id.activity_add_myself_book);
         mDate = findViewById(R.id.activity_add_myself_date);
         mToWho = findViewById(R.id.activity_add_myself_towho);
-        mContent = findViewById(R.id.activity_add_myself_content);
         mRemark = findViewById(R.id.activity_add_myself_remark);
         mDialog = new BottomBookDialog(this, mBookName);
 
@@ -111,9 +115,11 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
 
     @Override
     protected void init() {
-        initData();
         //列表
+        categoryOutList = Tag.getTagByType(Tag.OUT);
+        categoryInList = Tag.getTagByType(Tag.IN);
         mCategoryAdapter = new CategoryAdapter(categoryOutList);
+        initData();
         mCategoryAdapter.openLoadAnimation();
         mCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -134,29 +140,38 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         keyBoardUtil = new KeyBoardUtil(this, mKeyboardView, mAmount, new KeyBoardUtil.Listener() {
             @Override
             public void addMore() {
-                commitRecordPresenter.add(createRecord());
-                Toast.makeText(AddByMyselfActivity.this, "再来一笔", Toast.LENGTH_SHORT).show();
+                if (status == INSERT_STATUS) {
+                    commitRecordPresenter.add(createRecord());
+                    //清空
+                    mAmount.getText().clear();
+                    Toast.makeText(AddByMyselfActivity.this, "再来一笔", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddByMyselfActivity.this, "当前不允许该操作", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void initData() {
         Bundle bundle = getIntentData();
-        categoryOutList = Tag.getTagByType(Tag.OUT);
-        categoryInList = Tag.getTagByType(Tag.IN);
         if (bundle != null) {
-            long recordId = bundle.getLong("recordId", -1);
-            isUpdate = true;
-            mRecord = Record.queryByLocalId(recordId);
+            status = bundle.getInt("status");
+            mRecord = (Record) bundle.getSerializable("record");
             currBookId = mRecord.getBook_local_id();
-            mDate.setText(mRecord.getDate().split(" ")[1]);
+            if (!"".equals(mRecord.getDate()))
+                mDate.setText(mRecord.getDate().split(" ")[1]);
             mAmount.setText(mRecord.getAmount());
-            int iconId = TagManager.getIconByCategory(mRecord.getCategory(), type);
-            Glide.with(this).load(iconId).into(mIcon);
             mCategory.setText(mRecord.getCategory());
             mRemark.setText(mRecord.getRemark());
             mToWho.setText(mRecord.getTowho());
+            setCategoryData(Tag.getTagByName(mRecord.getCategory(), mRecord.getAmount_type()));
+            if (mRecord.getAmount_type() == Tag.IN) {
+                mRadioGroup.check(R.id.activity_add_myself_in_btn);
+            } else {
+                mRadioGroup.check(R.id.activity_add_myself_out_btn);
+            }
         } else {
+            status = 0;
             CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
             type = Tag.OUT;
             currBookId = customSharedPreferencesManager.getCurrBookId();
@@ -184,12 +199,18 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_add_myself_close:
+                commitRecordPresenter.commit();
                 finish();
                 break;
             case R.id.activity_add_myself_done:
-                if (isUpdate)
+                if (status == UPDATE_STATUS)
                     updateRecordPresenter.update(createRecord());
-                else
+                else if (status == EDIT_STATUS) {
+                    Record record = createRecord();
+                    Intent intent = new Intent();
+                    intent.putExtra("record", record);
+                    setResult(RESULT_OK,intent);
+                } else
                     commitRecordPresenter.commit(createRecord());
                 finish();
                 break;
@@ -205,8 +226,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
                 keyBoardUtil.hideSystemKeyboard(AddByMyselfActivity.this);
                 break;
             case R.id.activity_add_myself_bookview:
-                if (!isUpdate)
-                    mDialog.show();
+                mDialog.show();
                 break;
         }
     }
@@ -217,6 +237,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
             keyBoardUtil.hideKeyBoard();
             return;
         }
+        commitRecordPresenter.commit();
         super.onBackPressed();
     }
 
@@ -232,8 +253,9 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
                 mCategoryAdapter.setNewData(categoryOutList);
                 break;
         }
-        //变换大图标文字
-        setDefaultCategoryData();
+        if (status == INSERT_STATUS)
+            //变换大图标文字
+            setDefaultCategoryData();
     }
 
     //设置所属的分类（大图标文字）
@@ -260,7 +282,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     }
 
     private void setCategoryData(Tag tag) {
-        mIcon.setImageResource(tag.getIconId());
+        Glide.with(this).load(tag.getIconId()).into(mIcon);
         mCategory.setText(tag.getName());
     }
 
@@ -273,7 +295,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         String payTo = mToWho.getText().toString();
         String remark = mRemark.getText().toString();
         String category = mCategory.getText().toString();
-        if (isUpdate) {
+        if (status != INSERT_STATUS) {
             mRecord.setAmount(amount);
             mRecord.setCategory(category);
             mRecord.setRemark(remark);

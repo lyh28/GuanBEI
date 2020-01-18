@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.RegisterContract;
 import com.lyh.guanbei.mvp.model.RegisterModel;

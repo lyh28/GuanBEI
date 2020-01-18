@@ -15,6 +15,7 @@ public interface CommitRecordContract {
     }
     interface ICommitRecordPresenter extends IPresenter<CommitRecordContract.ICommitRecordView,CommitRecordContract.ICommitRecordModel> {
         void add(Record record);
+        void commit();
         void commit(Record record);
         void commit(List<Record> record);
         void commitService(List<Record> record);

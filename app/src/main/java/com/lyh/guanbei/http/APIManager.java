@@ -3,7 +3,7 @@ package com.lyh.guanbei.http;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.http.api.BookServiceApi;
 import com.lyh.guanbei.http.api.RecordServiceApi;
 import com.lyh.guanbei.http.api.UserServiceApi;

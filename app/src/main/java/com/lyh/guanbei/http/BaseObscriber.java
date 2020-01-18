@@ -23,7 +23,7 @@ public abstract class BaseObscriber<T> implements Observer<BaseResponse<T>> {
     }
     @Override
     public void onNext(BaseResponse<T> baseResponse) {
-        LogUtil.logD(baseResponse.toString());
+//        LogUtil.logD(baseResponse.toString());
         if(baseResponse.isSuccess()){
             onSuccess(baseResponse.getData());
         }else{

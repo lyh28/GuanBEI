@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/close"
+            android:src="@drawable/back"
             android:id="@+id/activity_add_myself_close" />
         <RadioGroup
             android:id="@+id/activity_add_myself_radio"
@@ -80,16 +80,12 @@
             android:id="@+id/activity_add_myself_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="25sp"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:textSize="20sp"/>
         <EditText
             android:paddingLeft="30dp"
             style="@style/CustomEditTextStyle"
             android:id="@+id/activity_add_myself_amount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="textEnd"
             android:text="0"
@@ -173,9 +169,11 @@
         android:orientation="horizontal">
         <EditText
             style="@style/CustomEditTextStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="To Who"
+            android:maxLength="10"
             android:textSize="15sp"
             android:id="@+id/activity_add_myself_towho"/>
         <View
@@ -185,27 +183,13 @@
             android:background="@color/colorGray"/>
         <EditText
             style="@style/CustomEditTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:hint="内容"
-            android:layout_weight="1"
-            android:maxEms="10"
-            android:ellipsize="end"
-            android:id="@+id/activity_add_myself_content"/>
-        <View
-            android:layout_margin="5dp"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
-        <EditText
-            style="@style/CustomEditTextStyle"
             android:id="@+id/activity_add_myself_remark"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:hint="备注"
-            android:maxEms="5"
+            android:maxLines="1"
             android:ellipsize="end"/>
     </LinearLayout>
     <android.inputmethodservice.KeyboardView

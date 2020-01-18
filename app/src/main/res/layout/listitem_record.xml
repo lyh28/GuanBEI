@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="@color/colorBlack"
             android:text="用户"
             android:id="@+id/listitem_record_user"/>
@@ -39,19 +39,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textColor="@color/colorBlack"
-            android:text="账单内容"
-            android:id="@+id/listitem_record_content"/>
+            android:text="账单分类"
+            android:id="@+id/listitem_record_category"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/listitem_record_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="编辑"
-        android:textStyle="bold"
-        android:layout_marginRight="@dimen/dp_40"
-        android:textColor="@color/qmui_config_color_red"/>
+
     <LinearLayout
         android:layout_gravity="right"
         android:layout_width="wrap_content"
@@ -59,7 +50,8 @@
         android:orientation="vertical">
         <TextView
             android:textAlignment="textEnd"
-            android:layout_width="match_parent"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textSize="20sp"
@@ -67,6 +59,7 @@
             android:textColor="@color/colorBlack"
             android:id="@+id/listitem_record_amount"/>
         <TextView
+            android:layout_gravity="right"
             android:gravity="bottom"
             android:textAlignment="textEnd"
             android:layout_width="wrap_content"
@@ -76,4 +69,14 @@
             android:text="15:43"
             android:id="@+id/listitem_record_date"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/listitem_record_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="编辑"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/qmui_config_color_red"/>
 </LinearLayout>

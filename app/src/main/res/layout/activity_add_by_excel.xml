@@ -4,208 +4,312 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginBottom="@dimen/page_left_right_margin">
+        android:layout_height="56dp">
+
         <ImageView
-            android:layout_marginLeft="@dimen/page_left_right_margin"
+            android:id="@+id/activity_add_by_excel_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/back"/>
+            android:layout_marginLeft="@dimen/page_left_right_margin"
+            android:src="@drawable/back" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/left_right_margin"
             android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:text="选择Excel"/>
+            android:text="选择Excel"
+            android:textSize="20sp" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/left_right_margin"
+        android:layout_marginRight="@dimen/left_right_margin"
+        android:layout_marginBottom="@dimen/page_left_right_margin">
+
+        <LinearLayout
+            android:id="@+id/activity_add_by_excel_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corners_shape_normal_border"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/activity_add_by_excel_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择模板"
+                android:textColor="@color/colorNormal"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@drawable/baseline_arrow_drop_down_normal_32dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/activity_add_by_excel_modelmanager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corners_shape_normal_border"
+            android:padding="5dp"
+            android:text="模板管理"
+            android:textColor="@color/colorNormal"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <include layout="@layout/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="含义"/>
+            android:text="含义"
+            android:textColor="@color/colorNormal" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorGray" />
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="默认表头"/>
+            android:layout_weight="1"
+            android:text="默认表头"
+            android:textAlignment="center"
+            android:textColor="@color/colorNormal" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
+
+    <include layout="@layout/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="账单日期"/>
+            android:text="账单日期"
+            android:textColor="@color/colorNormal" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorGray" />
+
         <TextView
+            android:id="@+id/activity_add_by_excel_date"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="交易时间"/>
+            android:text="交易时间" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
+
+    <include layout="@layout/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="交易对象"/>
+            android:text="交易对象"
+            android:textColor="@color/colorNormal" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorGray" />
+
         <TextView
+            android:id="@+id/activity_add_by_excel_towho"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="交易对方"/>
+            android:text="交易对方" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
+
+    <include layout="@layout/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="收支"/>
+            android:text="收支"
+            android:textColor="@color/colorNormal" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorGray" />
+
         <TextView
+            android:id="@+id/activity_add_by_excel_amount_type"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="收/支"/>
+            android:text="收/支" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
+
+    <include layout="@layout/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="金额"/>
+            android:text="金额"
+            android:textColor="@color/colorNormal" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorGray" />
+
         <TextView
+            android:id="@+id/activity_add_by_excel_amount"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="金额（元）"/>
+            android:text="金额(元)" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
+
+    <include layout="@layout/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/colorNormal"
-            android:text="备注"/>
+            android:text="备注"
+            android:textColor="@color/colorNormal" />
+
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorGray" />
+
         <TextView
+            android:id="@+id/activity_add_by_excel_remark"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="备注"/>
+            android:text="备注" />
     </LinearLayout>
-    <include layout="@layout/parting_line"/>
-    <Button
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginLeft="@dimen/dp_40"
-        android:layout_marginRight="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_10"
+
+    <include layout="@layout/parting_line" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="上传Excel"
-        android:textColor="@color/colorWhite"
-        android:padding="10dp"
-        android:enabled="false"
-        android:background="@drawable/corners_10dp_shape_red_bg"/>
-    <Button
+        android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="@dimen/dp_40"
-        android:layout_marginRight="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/activity_add_by_excel_file"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@drawable/corners_shape_normal_border"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="未选择文件"
+            android:textAlignment="center"
+            android:textColor="@color/colorNormal" />
+
+        <LinearLayout
+            android:id="@+id/activity_add_by_excel_book_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@drawable/corners_shape_normal_border"
+            android:padding="@dimen/dp_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/book_check" />
+
+            <TextView
+                android:id="@+id/activity_add_by_excel_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="账本名"
+                android:textColor="@color/colorNormal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/activity_add_by_excel_parsing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:text="解析Excel"
+        android:background="@drawable/corners_shape_normal_bg"
         android:padding="10dp"
-        android:enabled="false"
-        android:background="@drawable/corners_shape_normal_bg"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <TextView
-        android:id="@+id/activity_record_detail_edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/page_left_right_margin"
-        android:paddingBottom="@dimen/page_left_right_margin"
-        android:text="编辑"
-        android:background="@color/colorWhite"
-        android:gravity="center"
-        android:textColor="@color/colorNormal"/>
+        android:text="解析Excel"
+        android:textColor="@color/colorWhite" />
+
 </LinearLayout>

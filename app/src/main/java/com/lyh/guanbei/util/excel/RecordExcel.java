@@ -2,8 +2,11 @@ package com.lyh.guanbei.util.excel;
 
 import android.util.Log;
 
+import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.Model;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.Tag;
+import com.lyh.guanbei.util.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,80 +22,102 @@ public class RecordExcel {
     private static final String TAG = "Module1_MainActivity";
 
     //默认值
-    private final String TIMEDEFAULT="交易时间";
-    private final String TOWHODEFAULT="交易对方";
-    private final String PAYFORDEFAULT="商品";
-    private final String TYPEDEFAULT="收/支";
-    private final String MONEYDEFAULT="金额(元)";
-    private final String REMARKDEFAULT="备注";
+    private final String TIMEDEFAULT = "交易时间";
+    private final String TOWHODEFAULT = "交易对方";
+//    private final String PAYFORDEFAULT = "商品";
+    private final String TYPEDEFAULT = "收/支";
+    private final String MONEYDEFAULT = "金额(元)";
+    private final String REMARKDEFAULT = "备注";
 
-    private final String TIME;
-    private final String TOWHO;
-    private final String PAYFOR;
-    private final String TYPE;
-    private final String MONEY;        //￥$
-    private final String REMARK;
+    private String TIME;
+    private String TOWHO;
+//    private String PAYFOR;
+    private String TYPE;
+    private String MONEY;        //￥$
+    private String REMARK;
+    private String CATEGORY;
+    private long bookId;
+    private long bookLocalId;
+    private long userId;
     //默认索引
     private int timeIndex;
     private int toWhoIndex;
-    private int payForIndex;
+//    private int payForIndex;
     private int typeIndex;
     private int moneyIndex;
     private int remarkIndex;
     private RecordExcelHeadFilter headFilter;
-    public RecordExcel(){
-        TIME=TIMEDEFAULT;
-        TOWHO=TOWHODEFAULT;
-        PAYFOR=PAYFORDEFAULT;
-        TYPE=TYPEDEFAULT;
-        MONEY=MONEYDEFAULT;
-        REMARK=REMARKDEFAULT;
+
+    public RecordExcel() {
+        bookId = -1;
+        userId = -1;
+        bookLocalId = -1;
+        TIME = TIMEDEFAULT;
+        TOWHO = TOWHODEFAULT;
+//        PAYFOR = PAYFORDEFAULT;
+        TYPE = TYPEDEFAULT;
+        MONEY = MONEYDEFAULT;
+        REMARK = REMARKDEFAULT;
+        CATEGORY = "";
         initIndex();
-        headFilter=new WXRecordExcelHeaderFilter();
+        headFilter = new WXRecordExcelHeaderFilter();
     }
 
-    public RecordExcel(String TIME, String TOWHO, String PAYFOR, String TYPE, String MONEY, String REMARK) {
-        this.TIME = TIME;
-        this.TOWHO = TOWHO;
-        this.PAYFOR = PAYFOR;
-        this.TYPE = TYPE;
-        this.MONEY = MONEY;
-        this.REMARK = REMARK;
-        this.headFilter=new WXRecordExcelHeaderFilter();
+    public RecordExcel(Model model) {
+        LogUtil.logD(model.toString());
+        bookId = -1;
+        userId = -1;
+        bookLocalId = -1;
+        this.TIME = model.getDate();
+        this.TOWHO = model.getToWho();
+//        this.PAYFOR = model.;
+        this.TYPE = model.getAmount_Type();
+        this.MONEY = model.getAmount();
+        this.REMARK = model.getRemark();
+        this.CATEGORY = model.getName();
+        this.headFilter = new WXRecordExcelHeaderFilter();
         initIndex();
     }
-    public List<Record> getRecordBean(File excel){
+
+    public List<Record> getRecordBean(File excel) {
         try {
             return getRecordBean(new FileInputStream(excel));
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
-    public List<Record> getRecordBean(InputStream excel){
-        List<Record> res=new ArrayList<>();
-        BufferedReader bufferedReader=null;
+
+    public List<Record> getRecordBean(String path) {
+        return getRecordBean(new File(path));
+    }
+
+    public List<Record> getRecordBean(InputStream excel) throws Exception {
+        if (bookId == -1 || userId == -1 || bookLocalId == -1)
+            throw new Exception("需要提供bookId或userId");
+        List<Record> res = new ArrayList<>();
+        BufferedReader bufferedReader = null;
         try {
-            bufferedReader=new BufferedReader(new InputStreamReader(excel));
+            bufferedReader = new BufferedReader(new InputStreamReader(excel));
             String str;
-            if(headFilter!=null){
-                while((str=bufferedReader.readLine())!=null){
-                    if(headFilter.isToHead(str))
+            if (headFilter != null) {
+                while ((str = bufferedReader.readLine()) != null) {
+                    if (headFilter.isToHead(str))
                         break;
                 }
             }
-            str=bufferedReader.readLine();
+            //去掉头部后
+            str = bufferedReader.readLine();
             updateIndexs(str);
-            Log.d(TAG, "getRecordBean: "+toWhoIndex+"  "+payForIndex+"  "+moneyIndex);
             //得到表头各标签索引
-            while((str=bufferedReader.readLine())!=null&&!str.equals("")){
+            while ((str = bufferedReader.readLine()) != null && !str.equals("")) {
                 res.add(getRecordFormLine(str));
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                if(bufferedReader!=null)
+                if (bufferedReader != null)
                     bufferedReader.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -100,50 +125,82 @@ public class RecordExcel {
         }
         return res;
     }
-    private Record getRecordFormLine(String line){
-        String[] value=line.split(",");
-        String time=timeIndex==-1||timeIndex>=value.length?"":value[timeIndex];
-        String toWho=toWhoIndex==-1||toWhoIndex>=value.length?"":value[toWhoIndex];
-        String payFor=payForIndex==-1||payForIndex>=value.length?"":value[payForIndex];
-        String money=moneyIndex==-1||moneyIndex>=value.length?"":value[moneyIndex];
-        String type=typeIndex==-1||typeIndex>=value.length?"":value[typeIndex];
-        String remark=remarkIndex==-1||remarkIndex>=value.length?"":value[remarkIndex];
-        int amount_type;
-        if(type.equals("收入")||type.equals("/"))  amount_type= Tag.IN;
-            else if(type.equals("支出"))  amount_type=Tag.OUT;
-//        return new Record(time,money,toWho,payFor,remark);
-        return null;
-    }
-    private void initIndex(){
-        timeIndex=-1;
-        toWhoIndex=-1;
-        payForIndex=-1;
-        typeIndex=-1;
-        moneyIndex=-1;
-    }
-    public void updateIndexs(String titles){
-        String[] title=titles.split(",");
-        for(int i=0;i<title.length;i++){
-            updateIndex(title[i],i);
+
+    private Record getRecordFormLine(String line) {
+        String[] value = line.split(",");
+        String time = timeIndex == -1 || timeIndex >= value.length ? "" : value[timeIndex];
+        String toWho = toWhoIndex == -1 || toWhoIndex >= value.length ? "" : value[toWhoIndex];
+//        String payFor = payForIndex == -1 || payForIndex >= value.length ? "" : value[payForIndex];
+        String money = moneyIndex == -1 || moneyIndex >= value.length ? "" : value[moneyIndex];
+        String type = typeIndex == -1 || typeIndex >= value.length ? "" : value[typeIndex];
+        String remark = remarkIndex == -1 || remarkIndex >= value.length ? "" : value[remarkIndex];
+
+        int amount_type = Tag.IN;
+        if (money.startsWith("¥") || money.startsWith("$")) {
+            money = money.substring(1);
         }
+        if (type.equals("收入") || type.equals("/")) amount_type = Tag.IN;
+        else if (type.equals("支出")) {
+            amount_type = Tag.OUT;
+            if (!money.startsWith("-"))
+                money = "-" + money;
+        }
+
+        if (!money.equals("")) {
+            if (money.compareTo("0") < 0) {
+                amount_type = Tag.OUT;
+                if (money.startsWith("-"))
+                    money = money.substring(1);
+            } else {
+                amount_type = Tag.IN;
+            }
+        }
+        return new Record(userId, bookId, bookLocalId, time, money, amount_type, toWho, remark, CATEGORY);
     }
-    public void updateIndex(String title,int index){
-        if(TIME.equals(title)){
-            timeIndex=index;
-        }else if(TOWHO.equals(title)){
-            toWhoIndex=index;
-        }else if(PAYFOR.equals(title)){
-            payForIndex=index;
-        }else if(TYPE.equals(title)){
-            typeIndex=index;
-        }else if(MONEY.equals(title)){
-            moneyIndex=index;
-        }else if(REMARK.equals(title)){
-            remarkIndex=index;
+
+    public RecordExcel setBookLocalId(long bookLocalId) {
+        this.bookLocalId = bookLocalId;
+        this.bookId = Book.queryByLocalId(bookLocalId).getBook_id();
+        return this;
+    }
+
+    public RecordExcel setUserId(long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    private void initIndex() {
+        timeIndex = -1;
+        toWhoIndex = -1;
+//        payForIndex = -1;
+        typeIndex = -1;
+        moneyIndex = -1;
+    }
+
+    public void updateIndexs(String titles) {
+        String[] title = titles.split(",");
+        for (int i = 0; i < title.length; i++) {
+            updateIndex(title[i], i);
         }
     }
 
-    public void setHeadFilter(RecordExcelHeadFilter headFilter) {
+    public void updateIndex(String title, int index) {
+        LogUtil.logD(title + "  " + index);
+        if (TIME.equals(title)) {
+            timeIndex = index;
+        } else if (TOWHO.equals(title)) {
+            toWhoIndex = index;
+        } else if (TYPE.equals(title)) {
+            typeIndex = index;
+        } else if (MONEY.equals(title)) {
+            moneyIndex = index;
+        } else if (REMARK.equals(title)) {
+            remarkIndex = index;
+        }
+    }
+
+    public RecordExcel setHeadFilter(RecordExcelHeadFilter headFilter) {
         this.headFilter = headFilter;
+        return this;
     }
 }

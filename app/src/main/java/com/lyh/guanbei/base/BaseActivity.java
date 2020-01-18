@@ -52,8 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
     protected abstract void init();
 
     protected void startActivity(Class activity) {
-        Intent intent = new Intent(this, activity);
-        startActivity(intent);
+        startActivity(activity,new Bundle());
     }
 
     protected void startActivity(Class activity, Bundle bundle) {

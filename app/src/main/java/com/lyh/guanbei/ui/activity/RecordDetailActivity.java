@@ -29,6 +29,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
     private TextView mCategory;
     private TextView mAmount;
     private TextView mUser;
+    private TextView mToWho;
     private TextView mDate;
     private TextView mRemark;
 
@@ -49,6 +50,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
         mCategory=findViewById(R.id.activity_record_detail_category);
         mAmount=findViewById(R.id.activity_record_detail_amount);
         mUser=findViewById(R.id.activity_record_detail_user);
+        mToWho=findViewById(R.id.activity_record_detail_towho);
         mDate=findViewById(R.id.activity_record_detail_date);
         mRemark=findViewById(R.id.activity_record_detail_remark);
         findViewById(R.id.activity_record_detail_back).setOnClickListener(this);
@@ -87,6 +89,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
         Glide.with(this).load(iconId).into(mIcon);
         mCategory.setText(record.getCategory());
         mAmount.setText(record.getAmount());
+        mToWho.setText(record.getTowho());
         mDate.setText(record.getDate());
         mRemark.setText(record.getRemark());
         //查询用户信息
@@ -110,7 +113,8 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
                 if(checkIsOwn()){
                     //跳转Activity
                     Bundle bundle=new Bundle();
-                    bundle.putLong("recordId",record.getRecord_id());
+                    bundle.putInt("status",AddByMyselfActivity.UPDATE_STATUS);
+                    bundle.putSerializable("record",record);
                     startActivity(AddByMyselfActivity.class,bundle);
                 }else{
                     showErrorDialog("你没有权限修改该账单");

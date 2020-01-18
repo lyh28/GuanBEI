@@ -1,11 +1,11 @@
 package com.lyh.guanbei.bean;
 
-import com.lyh.guanbei.common.GuanBeiApplication;
-import com.lyh.guanbei.db.DBManager;
+import com.lyh.guanbei.manager.DBManager;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Unique;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
+    @Transient
     public static final long serialVersionUID=11111L;
     @Id(autoincrement = true)
     private long user_id;
@@ -43,6 +44,7 @@ public class User implements Serializable {
     @Generated(hash = 586692638)
     public User() {
     }
+
     @Override
     public String toString() {
         return "User{" +
@@ -54,8 +56,10 @@ public class User implements Serializable {
                 ", user_pwd='" + user_pwd + '\'' +
                 ", last_login_time='" + last_login_time + '\'' +
                 ", book_id='" + book_id + '\'' +
+                ", local_book_id='" + local_book_id + '\'' +
                 '}';
     }
+
     public long getUser_id() {
         return this.user_id;
     }
