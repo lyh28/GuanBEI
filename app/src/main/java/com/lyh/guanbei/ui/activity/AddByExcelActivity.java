@@ -98,7 +98,7 @@ public class AddByExcelActivity extends BaseActivity implements View.OnClickList
         currentIndex=0;
         mDialog = new BottomBookDialog(this, mBook);
         //初始化当前book名称
-        mBook.setText(Book.queryByLocalId(CustomSharedPreferencesManager.getInstance(this).getCurrBookId()).getBook_name());
+        mBook.setText(Book.queryByLocalId(CustomSharedPreferencesManager.getInstance().getCurrBookId()).getBook_name());
     }
 
     @Override

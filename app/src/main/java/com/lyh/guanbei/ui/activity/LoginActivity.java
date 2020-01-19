@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mLogin.setOnClickListener(this);
         findViewById(R.id.activity_login_back).setOnClickListener(this);
         findViewById(R.id.activity_login_forget).setOnClickListener(this);
-
+        findViewById(R.id.activity_login_pass).setOnClickListener(this);
         mDialog=new QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
@@ -116,7 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void showBook(List<Book> list) {
         if(isFirst) {
-            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance(this);
+            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance();
             if(list.size()==0) {
                 preferencesManager.saveCurrBookId(-1);
             }else{
@@ -127,7 +127,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 local_book_id=Util.addToData(book.getLocal_id(),local_book_id);
             user.setLocal_book_id(local_book_id);
             preferencesManager.saveUser(user);
-            DBManager.getInstance().getDaoSession().getUserDao().update(user);
+            DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
+            isFirst = false;
+            mDialog.dismiss();
+            startActivity(MainActivity.class);
+        }
+    }
+
+    @Override
+    public void queryBookFailed() {
+        if(isFirst){
+            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance();
+            preferencesManager.saveCurrBookId(-1);
+            preferencesManager.saveUser(user);
+            DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
             isFirst = false;
             mDialog.dismiss();
             startActivity(MainActivity.class);
@@ -147,6 +160,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.activity_login_forget:
+                break;
+            case R.id.activity_login_pass:
+                //设置userId为-1
+                user=new User();
+                user.setUser_id(-1);
+                //可能需要删除上一个userId为-1留下的数据
+                CustomSharedPreferencesManager.getInstance().saveUser(user);
+                DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
+                startActivity(MainActivity.class);
                 break;
         }
     }

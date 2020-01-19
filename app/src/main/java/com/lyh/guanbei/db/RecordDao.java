@@ -30,7 +30,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
         public final static Property Book_id = new Property(3, long.class, "book_id", false, "BOOK_ID");
         public final static Property Book_local_id = new Property(4, long.class, "book_local_id", false, "BOOK_LOCAL_ID");
         public final static Property Date = new Property(5, String.class, "date", false, "DATE");
-        public final static Property Amount = new Property(6, String.class, "amount", false, "AMOUNT");
+        public final static Property Amount = new Property(6, double.class, "amount", false, "AMOUNT");
         public final static Property Amount_type = new Property(7, int.class, "amount_type", false, "AMOUNT_TYPE");
         public final static Property Towho = new Property(8, String.class, "towho", false, "TOWHO");
         public final static Property Remark = new Property(9, String.class, "remark", false, "REMARK");
@@ -57,7 +57,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
                 "\"BOOK_ID\" INTEGER NOT NULL ," + // 3: book_id
                 "\"BOOK_LOCAL_ID\" INTEGER NOT NULL ," + // 4: book_local_id
                 "\"DATE\" TEXT," + // 5: date
-                "\"AMOUNT\" TEXT NOT NULL ," + // 6: amount
+                "\"AMOUNT\" REAL NOT NULL ," + // 6: amount
                 "\"AMOUNT_TYPE\" INTEGER NOT NULL ," + // 7: amount_type
                 "\"TOWHO\" TEXT," + // 8: towho
                 "\"REMARK\" TEXT," + // 9: remark
@@ -95,7 +95,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
         if (date != null) {
             stmt.bindString(6, date);
         }
-        stmt.bindString(7, entity.getAmount());
+        stmt.bindDouble(7, entity.getAmount());
         stmt.bindLong(8, entity.getAmount_type());
  
         String towho = entity.getTowho();
@@ -132,7 +132,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
         if (date != null) {
             stmt.bindString(6, date);
         }
-        stmt.bindString(7, entity.getAmount());
+        stmt.bindDouble(7, entity.getAmount());
         stmt.bindLong(8, entity.getAmount_type());
  
         String towho = entity.getTowho();
@@ -166,7 +166,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
             cursor.getLong(offset + 3), // book_id
             cursor.getLong(offset + 4), // book_local_id
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // date
-            cursor.getString(offset + 6), // amount
+            cursor.getDouble(offset + 6), // amount
             cursor.getInt(offset + 7), // amount_type
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // towho
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // remark
@@ -184,7 +184,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
         entity.setBook_id(cursor.getLong(offset + 3));
         entity.setBook_local_id(cursor.getLong(offset + 4));
         entity.setDate(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setAmount(cursor.getString(offset + 6));
+        entity.setAmount(cursor.getDouble(offset + 6));
         entity.setAmount_type(cursor.getInt(offset + 7));
         entity.setTowho(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setRemark(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));

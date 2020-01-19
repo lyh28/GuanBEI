@@ -115,10 +115,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 mViewPager.setCurrentItem(index, true);
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            startForegroundService(new Intent(this, CustomNotificationManager.NotificationService.class));
-        else
-            startService(new Intent(this, CustomNotificationManager.NotificationService.class));
+        //启动前台服务
+        CustomNotificationManager.init(this);
     }
 
     private void showBookPage() {

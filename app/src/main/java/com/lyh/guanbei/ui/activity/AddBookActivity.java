@@ -74,6 +74,6 @@ public class AddBookActivity extends BaseActivity implements InsertBookContract.
         }
     }
     private Book createBook(){
-        return new Book(mName.getText().toString(), CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id());
+        return new Book(mName.getText().toString(), CustomSharedPreferencesManager.getInstance().getUser().getUser_id());
     }
 }

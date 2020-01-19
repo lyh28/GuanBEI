@@ -4,6 +4,7 @@
     <color name="colorNormal">#e98f36</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colordefaultbg">#FAFAFA</color>
+    <color name="colorbg">#F4F5F7</color>
     <color name="colorBlack">#000000</color>
     <color name="colorTransparent">#30969696</color>
 </resources>

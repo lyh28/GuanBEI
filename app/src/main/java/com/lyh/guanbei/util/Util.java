@@ -86,33 +86,6 @@ public class Util {
             res=calculate(res,numList.pollFirst(),methodList.pollFirst());
         }
         return res;
-//        int res=0;
-//        int start=0;
-//        char deal;
-//        //寻找第一个数
-//        for(int i=0;i<amount.length();i++){
-//            char c=amount.charAt(i);
-//            if(c=='+'||c=='-'){
-//                deal=c;
-//                res=Integer.parseInt(amount.substring(start,i));
-//                start=i+1;
-//                if(start>=amount.length())
-//                    break;
-//            }
-//        }
-//        for(int i=start;i<amount.length();i++){
-//            char c=amount.charAt(i);
-//            if(c=='+'||c=='-'){
-//                deal=c;
-//                //获得左边的数
-//                int left=Integer.parseInt(amount.substring(start,i));
-//                if(res==0)  res=left;
-//                if(start>=amount.length())
-//                    break;
-//
-//            }
-//        }
-//        return res;
     }
     private static int calculate(int num1,int num2,char c){
         if(c=='+')

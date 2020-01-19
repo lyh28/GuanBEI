@@ -9,12 +9,16 @@ import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseFragment;
 import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.jpush.PushMessageReceiver;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.ui.activity.IndexActivity;
 import com.lyh.guanbei.ui.activity.LoginActivity;
 import com.lyh.guanbei.ui.activity.UserActivity;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.service.JPushMessageReceiver;
 
 public class MePageFragment extends BaseFragment implements View.OnClickListener {
     private ImageView mIcon;
@@ -48,6 +52,7 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
         findViewById(R.id.fragment_me_page_login_register).setOnClickListener(this);
         findViewById(R.id.fragment_me_page_help).setOnClickListener(this);
         findViewById(R.id.fragment_me_page_about).setOnClickListener(this);
+        findViewById(R.id.fragment_me_page_lockerview).setOnClickListener(this);
         mQuit.setOnClickListener(this);
         initShadowLayout();
     }
@@ -66,7 +71,7 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
         refreshData();
     }
     private void refreshData(){
-        mUser = CustomSharedPreferencesManager.getInstance(getmActivity()).getUser();
+        mUser = CustomSharedPreferencesManager.getInstance().getUser();
         if(mUser==null){
 
         }else{
@@ -86,12 +91,15 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
                 startActivity(LoginActivity.class);
                 break;
             case R.id.fragment_me_page_quit:
-                CustomSharedPreferencesManager.getInstance(getmActivity()).saveUser(null);
+                CustomSharedPreferencesManager.getInstance().saveUser(null);
+                JPushInterface.deleteAlias(getmActivity(), PushMessageReceiver.USERALIAS);
                 startActivity(IndexActivity.class);
                 getmActivity().finish();
                 break;
             case R.id.fragment_me_page_me:
                 startActivity(UserActivity.class);
+                break;
+            case R.id.fragment_me_page_lockerview:
                 break;
         }
     }

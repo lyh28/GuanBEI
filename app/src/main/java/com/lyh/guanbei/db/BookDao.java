@@ -29,9 +29,12 @@ public class BookDao extends AbstractDao<Book, Long> {
         public final static Property Book_id = new Property(2, long.class, "book_id", false, "BOOK_ID");
         public final static Property Manager_id = new Property(3, long.class, "manager_id", false, "MANAGER_ID");
         public final static Property Person_id = new Property(4, String.class, "person_id", false, "PERSON_ID");
-        public final static Property Max_sum = new Property(5, String.class, "max_sum", false, "MAX_SUM");
-        public final static Property Now_sum = new Property(6, String.class, "now_sum", false, "NOW_SUM");
-        public final static Property Status = new Property(7, int.class, "status", false, "STATUS");
+        public final static Property Max_sum = new Property(5, double.class, "max_sum", false, "MAX_SUM");
+        public final static Property Now_in_sum = new Property(6, double.class, "now_in_sum", false, "NOW_IN_SUM");
+        public final static Property Now_out_sum = new Property(7, double.class, "now_out_sum", false, "NOW_OUT_SUM");
+        public final static Property Status = new Property(8, int.class, "status", false, "STATUS");
+        public final static Property In_sum = new Property(9, double.class, "in_sum", false, "IN_SUM");
+        public final static Property Out_sum = new Property(10, double.class, "out_sum", false, "OUT_SUM");
     }
 
 
@@ -52,9 +55,12 @@ public class BookDao extends AbstractDao<Book, Long> {
                 "\"BOOK_ID\" INTEGER NOT NULL ," + // 2: book_id
                 "\"MANAGER_ID\" INTEGER NOT NULL ," + // 3: manager_id
                 "\"PERSON_ID\" TEXT," + // 4: person_id
-                "\"MAX_SUM\" TEXT," + // 5: max_sum
-                "\"NOW_SUM\" TEXT," + // 6: now_sum
-                "\"STATUS\" INTEGER NOT NULL );"); // 7: status
+                "\"MAX_SUM\" REAL NOT NULL ," + // 5: max_sum
+                "\"NOW_IN_SUM\" REAL NOT NULL ," + // 6: now_in_sum
+                "\"NOW_OUT_SUM\" REAL NOT NULL ," + // 7: now_out_sum
+                "\"STATUS\" INTEGER NOT NULL ," + // 8: status
+                "\"IN_SUM\" REAL NOT NULL ," + // 9: in_sum
+                "\"OUT_SUM\" REAL NOT NULL );"); // 10: out_sum
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_BOOK_MANAGER_ID ON \"BOOK\"" +
                 " (\"MANAGER_ID\" ASC);");
@@ -82,17 +88,12 @@ public class BookDao extends AbstractDao<Book, Long> {
         if (person_id != null) {
             stmt.bindString(5, person_id);
         }
- 
-        String max_sum = entity.getMax_sum();
-        if (max_sum != null) {
-            stmt.bindString(6, max_sum);
-        }
- 
-        String now_sum = entity.getNow_sum();
-        if (now_sum != null) {
-            stmt.bindString(7, now_sum);
-        }
-        stmt.bindLong(8, entity.getStatus());
+        stmt.bindDouble(6, entity.getMax_sum());
+        stmt.bindDouble(7, entity.getNow_in_sum());
+        stmt.bindDouble(8, entity.getNow_out_sum());
+        stmt.bindLong(9, entity.getStatus());
+        stmt.bindDouble(10, entity.getIn_sum());
+        stmt.bindDouble(11, entity.getOut_sum());
     }
 
     @Override
@@ -111,17 +112,12 @@ public class BookDao extends AbstractDao<Book, Long> {
         if (person_id != null) {
             stmt.bindString(5, person_id);
         }
- 
-        String max_sum = entity.getMax_sum();
-        if (max_sum != null) {
-            stmt.bindString(6, max_sum);
-        }
- 
-        String now_sum = entity.getNow_sum();
-        if (now_sum != null) {
-            stmt.bindString(7, now_sum);
-        }
-        stmt.bindLong(8, entity.getStatus());
+        stmt.bindDouble(6, entity.getMax_sum());
+        stmt.bindDouble(7, entity.getNow_in_sum());
+        stmt.bindDouble(8, entity.getNow_out_sum());
+        stmt.bindLong(9, entity.getStatus());
+        stmt.bindDouble(10, entity.getIn_sum());
+        stmt.bindDouble(11, entity.getOut_sum());
     }
 
     @Override
@@ -137,9 +133,12 @@ public class BookDao extends AbstractDao<Book, Long> {
             cursor.getLong(offset + 2), // book_id
             cursor.getLong(offset + 3), // manager_id
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // person_id
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // max_sum
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // now_sum
-            cursor.getInt(offset + 7) // status
+            cursor.getDouble(offset + 5), // max_sum
+            cursor.getDouble(offset + 6), // now_in_sum
+            cursor.getDouble(offset + 7), // now_out_sum
+            cursor.getInt(offset + 8), // status
+            cursor.getDouble(offset + 9), // in_sum
+            cursor.getDouble(offset + 10) // out_sum
         );
         return entity;
     }
@@ -151,9 +150,12 @@ public class BookDao extends AbstractDao<Book, Long> {
         entity.setBook_id(cursor.getLong(offset + 2));
         entity.setManager_id(cursor.getLong(offset + 3));
         entity.setPerson_id(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setMax_sum(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setNow_sum(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setStatus(cursor.getInt(offset + 7));
+        entity.setMax_sum(cursor.getDouble(offset + 5));
+        entity.setNow_in_sum(cursor.getDouble(offset + 6));
+        entity.setNow_out_sum(cursor.getDouble(offset + 7));
+        entity.setStatus(cursor.getInt(offset + 8));
+        entity.setIn_sum(cursor.getDouble(offset + 9));
+        entity.setOut_sum(cursor.getDouble(offset + 10));
      }
     
     @Override

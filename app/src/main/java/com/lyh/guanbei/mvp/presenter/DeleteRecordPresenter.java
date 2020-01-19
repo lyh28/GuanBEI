@@ -2,6 +2,7 @@ package com.lyh.guanbei.mvp.presenter;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
+import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.DeleteRecord;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.DBManager;
@@ -37,6 +38,7 @@ public class DeleteRecordPresenter extends BasePresenter<DeleteRecordContract.ID
             localList.add(record.getLocal_id());
         }
         getmModel().deleteLocal(localList);
+        Book.updateBookSum(recordList);
         if (serviceDeleteList.size() != 0) {
             if (!NetUtil.isNetWorkAvailable())
                 insertDeleteRecord(serviceDeleteList);

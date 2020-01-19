@@ -160,7 +160,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
             currBookId = mRecord.getBook_local_id();
             if (!"".equals(mRecord.getDate()))
                 mDate.setText(mRecord.getDate().split(" ")[1]);
-            mAmount.setText(mRecord.getAmount());
+            mAmount.setText(mRecord.getAmount()+"");
             mCategory.setText(mRecord.getCategory());
             mRemark.setText(mRecord.getRemark());
             mToWho.setText(mRecord.getTowho());
@@ -172,10 +172,10 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
             }
         } else {
             status = 0;
-            CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
+            CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
             type = Tag.OUT;
             currBookId = customSharedPreferencesManager.getCurrBookId();
-            mDate.setText(DateUtil.getNowDateTime().split(" ")[1]);
+            mDate.setText(DateUtil.getNowDateTimeWithoutSecond().split(" ")[1]);
             //设置大图标
             setDefaultCategoryData();
         }
@@ -287,10 +287,10 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     }
 
     private Record createRecord() {
-        long user_id = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
+        long user_id = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         long book_id = mDialog.getCurrBookId();
         //此处需要修改
-        String date = DateUtil.getNowDateTime();
+        String date = DateUtil.getNowDateTimeWithoutSecond();
         String amount = mAmount.getText().toString();
         String payTo = mToWho.getText().toString();
         String remark = mRemark.getText().toString();

@@ -24,8 +24,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:textColor="@color/colorWhite"
-                    android:textSize="30sp"
-                    android:text="预支"/>
+                    android:textSize="25sp"/>
                 <TextView
                     android:id="@+id/fragment_book_inNum"
                     android:layout_margin="20dp"
@@ -33,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:text="12月份收入"/>
                 <TextView
                     android:id="@+id/fragment_book_outNum"
@@ -43,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:text="12月份支出"/>
             </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>

@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
+import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
@@ -48,6 +49,7 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
             return;
         }
         getmModel().save(record);
+        Book.updateBookSum(record);
         commitService(record);
     }
 
@@ -83,7 +85,7 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
         if (TextUtils.isEmpty(record.getDate())) {
             getmView().onMessageError("日期不能为空");
             return false;
-        } else if (TextUtils.isEmpty(record.getAmount())) {
+        } else if (record.getAmount()<=0) {
             getmView().onMessageError("金额不能为空");
             return false;
         }

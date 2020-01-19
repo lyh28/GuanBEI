@@ -91,8 +91,8 @@ public class Model implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public static void init(Context context){
-        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(context);
+    public static void init(){
+        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance();
         if(!(boolean)customSharedPreferencesManager.getParam(MODEL_KEY,false)){
             //微信账单
             Model model=new Model("微信模板","交易时间","交易对方","金额(元)","收/支","备注");

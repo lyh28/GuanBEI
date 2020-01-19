@@ -88,7 +88,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
             mTitle.setText("支出");
         Glide.with(this).load(iconId).into(mIcon);
         mCategory.setText(record.getCategory());
-        mAmount.setText(record.getAmount());
+        mAmount.setText(record.getAmount()+"");
         mToWho.setText(record.getTowho());
         mDate.setText(record.getDate());
         mRemark.setText(record.getRemark());
@@ -123,7 +123,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
         }
     }
     private boolean checkIsOwn(){
-        return record.getUser_id()== CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
+        return record.getUser_id()== CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
     }
     private void showErrorDialog(String msg){
         final QMUITipDialog dialog=new QMUITipDialog.Builder(this)

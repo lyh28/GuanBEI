@@ -75,14 +75,14 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
     protected void init() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        mBookAdapter = new BookAdapter(CustomSharedPreferencesManager.getInstance(this).getCurrBookId());
+        mBookAdapter = new BookAdapter(CustomSharedPreferencesManager.getInstance().getCurrBookId());
         mBookAdapter.openLoadAnimation();
         mBookAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
                     case R.id.listitem_book_delete:
-                        if (mBookAdapter.getItem(position).getManager_id() != CustomSharedPreferencesManager.getInstance(ChangeBookActivity.this).getUser().getUser_id()) {
+                        if (mBookAdapter.getItem(position).getManager_id() != CustomSharedPreferencesManager.getInstance().getUser().getUser_id()) {
                             onDeleteError("没有权限删除该账本");
                         } else {
                             currDeleteBookIndex = position;
@@ -133,9 +133,9 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initBookData() {
-        List<Book> list = Book.queryByUserId(this);
+        List<Book> list = Book.queryByUserId();
         mBookAdapter.setNewData(list);
-        CustomSharedPreferencesManager sharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
+        CustomSharedPreferencesManager sharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         if (sharedPreferencesManager.getCurrBookId() == -1 && list.size() != 0) {
             Book book = list.get(0);
             sharedPreferencesManager.saveCurrBookId(book.getLocal_id());
@@ -185,7 +185,7 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onDeleteSuccess() {
         //从用户数据中删除bookid
-        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
+        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         User user = customSharedPreferencesManager.getUser();
         String bookId = user.getLocal_book_id();
         bookId = Util.deleteFormData(currDeleteBookId, bookId);
@@ -204,7 +204,7 @@ public class ChangeBookActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void finish() {
-        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
+        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         customSharedPreferencesManager.saveCurrBookId(mBookAdapter.getCurrentBookId());
         super.finish();
     }

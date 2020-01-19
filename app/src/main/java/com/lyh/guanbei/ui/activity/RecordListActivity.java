@@ -74,7 +74,7 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
     }
 
     private List<Record> parseExcel(String path) {
-        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(this);
+        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         RecordExcel recordExcel = new RecordExcel(mModel)
                 .setBookLocalId(mBookLocalId).setUserId(customSharedPreferencesManager.getUser().getUser_id());
         return recordExcel.getRecordBean(path);

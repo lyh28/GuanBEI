@@ -2,10 +2,12 @@ package com.lyh.guanbei.manager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.util.Base64;
 import android.util.Log;
 
 import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.common.GuanBeiApplication;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,21 +23,21 @@ public class CustomSharedPreferencesManager {
     private static final String PREFERENCES_NAME="guanbei";
     private static final String USER="user";
     private static final String BOOKID="currentBookId";
-    private CustomSharedPreferencesManager(Context context){
-        init(context);
+    private CustomSharedPreferencesManager(){
+        init();
     }
-    public static CustomSharedPreferencesManager getInstance(Context context){
+    public static CustomSharedPreferencesManager getInstance(){
         if(singleton==null){
             synchronized (CustomSharedPreferencesManager.class){
                 if(singleton==null){
-                    singleton=new CustomSharedPreferencesManager(context);
+                    singleton=new CustomSharedPreferencesManager();
                 }
             }
         }
         return singleton;
     }
-    private void init(Context context){
-        preferences=context.getApplicationContext().getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
+    private void init(){
+        preferences= GuanBeiApplication.getContext().getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
         editor=preferences.edit();
     }
 

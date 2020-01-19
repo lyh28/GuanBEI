@@ -30,7 +30,7 @@ public class Record implements Serializable {
     private long book_local_id;
     private String date;
     @NotNull
-    private String amount;
+    private double amount;
     private int amount_type;     //收入还是支出   1 收入    2  支出
     private String towho;
     private String remark;      //备注
@@ -44,9 +44,22 @@ public class Record implements Serializable {
         -1： 删除状态，仅客户端已经删除，需要同步至服务端
      */
 
-    @Generated(hash = 1512997784)
-    public Record(Long local_id, long record_id, long user_id, long book_id, long book_local_id, String date,
-            @NotNull String amount, int amount_type, String towho, String remark, String category, int status) {
+    public Record(long user_id, long book_id, long book_local_id, String date, String amount, int amount_type, String towho, String remark, String category) {
+        this.user_id = user_id;
+        this.book_id = book_id;
+        this.book_local_id = book_local_id;
+        this.date = date;
+        this.amount = Double.parseDouble(amount);
+        this.amount_type = amount_type;
+        this.towho = towho;
+        this.remark = remark;
+        this.category = category;
+    }
+
+
+    @Generated(hash = 1513510675)
+    public Record(Long local_id, long record_id, long user_id, long book_id, long book_local_id, String date, double amount, int amount_type, String towho,
+            String remark, String category, int status) {
         this.local_id = local_id;
         this.record_id = record_id;
         this.user_id = user_id;
@@ -61,21 +74,11 @@ public class Record implements Serializable {
         this.status = status;
     }
 
-    public Record(long user_id, long book_id, long book_local_id, String date, String amount, int amount_type, String towho, String remark, String category) {
-        this.user_id = user_id;
-        this.book_id = book_id;
-        this.book_local_id = book_local_id;
-        this.date = date;
-        this.amount = amount;
-        this.amount_type = amount_type;
-        this.towho = towho;
-        this.remark = remark;
-        this.category = category;
-    }
 
     @Generated(hash = 477726293)
     public Record() {
     }
+
 
     public Long getRecord_id() {
         return this.record_id;
@@ -101,16 +104,17 @@ public class Record implements Serializable {
         this.book_id = book_id;
     }
 
-    public String getAmount() {
-        return this.amount;
+
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
-
-
-
+    public void setAmount(String amount) {
+        this.amount = Double.parseDouble(amount);
+    }
     public String getRemark() {
         return this.remark;
     }

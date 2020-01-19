@@ -65,7 +65,7 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
         mTagRecyclerView=findViewById(R.id.activity_input_tag_recyclerview);
         mBookRecyclerView=findViewById(R.id.activity_input_book_recyclerview);
         mAmount.setOnClickListener(this);
-        findViewById(R.id.activity_input_other).setOnClickListener(this);
+//        findViewById(R.id.activity_input_other).setOnClickListener(this);
         findViewById(R.id.activity_input_back).setOnClickListener(this);
         findViewById(R.id.activity_input_done).setOnClickListener(this);
         findViewById(R.id.activity_input_type_view).setOnClickListener(this);
@@ -73,11 +73,9 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
 
     private void initWindow() {
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        int height = QMUIDisplayHelper.getScreenHeight(this);
-        int width = QMUIDisplayHelper.getScreenWidth(this);
+        int width = (int)(0.8*QMUIDisplayHelper.getScreenWidth(this));
         layoutParams.width = width;
-        layoutParams.height = height;
-        layoutParams.gravity = Gravity.TOP;
+        layoutParams.gravity = Gravity.CENTER;
         getWindow().setAttributes(layoutParams);
     }
 
@@ -111,7 +109,7 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
         mTagRecyclerView.setLayoutManager(layoutManager);
         mTagRecyclerView.setAdapter(mTagAdapter);
         //账本名列表
-        mBookAdapter=new BookLinearAdapter(CustomSharedPreferencesManager.getInstance(this).getCurrBookId(),Book.queryByUserId(this));
+        mBookAdapter=new BookLinearAdapter(CustomSharedPreferencesManager.getInstance().getCurrBookId(),Book.queryByUserId());
         mBookAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -127,12 +125,11 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.activity_input_other:
-                if(keyBoardUtil.isKeyBoardShow())
-                    keyBoardUtil.hideKeyBoard();
-
-                keyBoardUtil.hideSystemKeyboard(this);
-                break;
+//            case R.id.activity_input_other:
+//                if(keyBoardUtil.isKeyBoardShow())
+//                    keyBoardUtil.hideKeyBoard();
+//                keyBoardUtil.hideSystemKeyboard(this);
+//                break;
             case R.id.activity_input_back:
                 mCommitRecordPresenter.commit();
                 finish();
@@ -164,10 +161,10 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
         super.onBackPressed();
     }
     private Record createRecord() {
-        long user_id = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
+        long user_id = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         long book_id = mBookAdapter.getCurrentId();
         //此处需要修改
-        String date = DateUtil.getNowDateTime();
+        String date = DateUtil.getNowDateTimeWithoutSecond();
         String amount = mAmount.getText().toString();
         String payTo = "";
         String remark = mRemark.getText().toString();

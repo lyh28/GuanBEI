@@ -41,23 +41,23 @@ public class InsertBookPresenter extends BasePresenter<InsertBookContract.IInser
     }
     private void insertBookLocalIdToUser(List<Book> bookList){
         //在用户表数据中添加bookId
-        User user=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User user=CustomSharedPreferencesManager.getInstance().getUser();
         String bookId=user.getLocal_book_id();
         for(Book book:bookList){
             bookId=Util.addToData(book.getLocal_id(),bookId);
         }
         user.setLocal_book_id(bookId);
-        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
+        CustomSharedPreferencesManager.getInstance().saveUser(user);
         DBManager.getInstance().getDaoSession().getUserDao().update(user);
     }
     private void insertBookIdToUser(List<Book> bookList){
-        User user=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User user=CustomSharedPreferencesManager.getInstance().getUser();
         String bookId=user.getBook_id();
         for(Book book:bookList){
             bookId=Util.addToData(book.getBook_id(),bookId);
         }
         user.setBook_id(bookId);
-        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
+        CustomSharedPreferencesManager.getInstance().saveUser(user);
         DBManager.getInstance().getDaoSession().getUserDao().update(user);
     }
     @Override

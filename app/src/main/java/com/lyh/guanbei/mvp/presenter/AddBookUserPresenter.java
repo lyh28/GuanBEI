@@ -16,12 +16,12 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
     public void addUserRequest(long userId, long bookId) {
         Book book=Book.queryByLocalId(bookId);
         //得到现登录用户的账号
-        User user =CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User user =CustomSharedPreferencesManager.getInstance().getUser();
         if(user ==null){
             getmView().onNoAccount();
             return ;
         }
-        long requestId = CustomSharedPreferencesManager.getInstance(getmContext()).getUser().getUser_id();
+        long requestId = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         if (requestId == -1) {
             getmView().onNoAccount();
             return;
@@ -47,14 +47,14 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
     @Override
     public void addUser (final long bookId) {
         //参数bookId为同步ID
-        User userBean=CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User userBean=CustomSharedPreferencesManager.getInstance().getUser();
         if (!NetUtil.isNetWorkAvailable())
             getmView().onAddBookUserRequestFailed("网络异常");
         else
             getmModel().addUser(userBean.getUser_id(), bookId, new ICallbackListener<Book>() {
                 @Override
                 public void onSuccess(Book data) {
-                    CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(getmContext());
+                    CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance();
                     if(customSharedPreferencesManager.getCurrBookId()==-1)
                         customSharedPreferencesManager.saveCurrBookId(bookId);
                     //获取本地数据库中对应的book

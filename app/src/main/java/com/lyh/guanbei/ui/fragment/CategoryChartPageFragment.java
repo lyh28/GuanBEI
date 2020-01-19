@@ -112,7 +112,7 @@ public class CategoryChartPageFragment extends BaseFragment {
         mEntries.clear();
         List<ChartCategoryAdapter.CategoryChart> list=mAdapter.getData();
         for(ChartCategoryAdapter.CategoryChart categoryChart:list){
-            mEntries.add(new PieEntry(categoryChart.getmSum(),categoryChart.getmCategory()));
+            mEntries.add(new PieEntry((float)categoryChart.getmSum(),categoryChart.getmCategory()));
         }
     }
     public void setData(){

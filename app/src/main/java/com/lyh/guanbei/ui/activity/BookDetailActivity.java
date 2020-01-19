@@ -84,15 +84,14 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
         Bundle bundle=getIntentData();
         bookId = bundle.getLong("bookId");
         book = Book.queryByLocalId(bookId);
-        userId = CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
+        userId = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         initData();
     }
 
     private void initData() {
         mQueryUserPresenter.query(book.getManager_id());
         mName.setText(book.getBook_name());
-        if (TextUtils.isEmpty(book.getMax_sum()))
-            mBudget.setText("0");
+            mBudget.setText(book.getMax_sum()+"");
         int personNum = Util.getLongFromData(book.getPerson_id()).size();
         mPerson.setText(wrapPersonNum(personNum));
     }
@@ -133,7 +132,7 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.activity_book_detail_budget_view:
                 if (checkIsManager()) {
-                    showEditTextDialog(book.getMax_sum(), "预算", BUDGET_CODE);
+                    showEditTextDialog(book.getMax_sum()+"", "预算", BUDGET_CODE);
                 } else {
                     showErrorDialog();
                 }

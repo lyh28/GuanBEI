@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:background="@drawable/corners_shape_default_bg"
     tools:context=".ui.activity.InputActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/appbar_height"
-        android:background="@color/qmui_config_color_background"
         android:paddingLeft="@dimen/page_left_right_margin"
         android:paddingRight="@dimen/page_left_right_margin">
 
@@ -44,7 +44,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/qmui_config_color_background"
         android:paddingLeft="@dimen/page_left_right_margin"
         android:paddingRight="@dimen/page_left_right_margin">
 
@@ -83,20 +82,17 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/activity_input_other"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/qmui_config_color_background"
         android:orientation="vertical"
         android:paddingLeft="@dimen/page_left_right_margin"
         android:paddingRight="@dimen/page_left_right_margin">
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,7 +141,7 @@
             android:layout_margin="5dp"
             android:ellipsize="end"
             android:hint="备注"
-            android:maxLength="1"
+            android:maxLines="1"
             android:textColor="@color/colorBlack"
             android:textColorHint="@color/colorGray"
             android:textSize="15sp" />

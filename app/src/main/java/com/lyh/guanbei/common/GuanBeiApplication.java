@@ -43,7 +43,7 @@ public class GuanBeiApplication extends Application {
         Tag.InsertPresetInList();
         Tag.InsertPresetOutList();
         //模板init
-        Model.init(context);
+        Model.init();
     }
 
     public static Context getContext() {

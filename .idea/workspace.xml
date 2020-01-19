@@ -6,8 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="lyh_guanbei" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="BookmarkManager">
@@ -21,67 +20,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d5e9205-1b49-4342-89dd-f6d5b4848245" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookLinearAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/CategoryLinearAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/ModelAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Model.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ModelActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ModelDetailActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/FileUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/color_cursor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_model.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_model_detail.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_record_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/listitem_category_linear.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/listitem_model.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/notification_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/simple_list_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/corners_shape_default_bg.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_jiguang_sdk_jcore_2_1_6_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__cn_jiguang_sdk_jcore_2_1_6_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/ChartCategoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/ChartCategoryAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordSectionAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordSectionAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/base/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/base/BaseActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Record.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Record.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Tag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/GuanBeiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/GuanBeiApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/NetRestartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/NetRestartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/BookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/BookDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DaoMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DaoMaster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DaoSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DaoSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/APIManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/APIManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DeleteBookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DeleteBookDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DeleteRecordDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/DeleteRecordDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/ModelDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/ModelDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/RecordDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/RecordDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/TagDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/TagDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/db/UserDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseObscriber.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseObscriber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/TagManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/TagManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/CommitRecordContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/CommitRecordContract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/CommitRecordModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/CommitRecordModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/DeleteBookModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/DeleteBookModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/DeleteBookUserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/DeleteBookUserModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/DeleteRecordModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/DeleteRecordModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/InsertBookModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/InsertBookModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/QueryUserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/QueryUserModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/UpdateBookModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/UpdateBookModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/UpdateRecordModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/UpdateRecordModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/RetrofitManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/RetrofitManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/BookManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/BookManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomSharedPreferencesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomSharedPreferencesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/RecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/RecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/QueryBookContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/QueryBookContract.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/AddBookUserPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/AddBookUserPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/CommitRecordPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/CommitRecordPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/DeleteBookPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/DeleteBookPresenter.java" afterDir="false" />
@@ -89,35 +64,35 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/InsertBookPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/InsertBookPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/LoginPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/LoginPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryBookPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryBookPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryRecordPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryRecordPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/RegisterPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/RegisterPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/UpdateBookPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/UpdateBookPresenter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/UpdateRecordPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/UpdateRecordPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBookActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBookActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByExcelActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByExcelActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByMyselfActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByMyselfActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBySMSActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBySMSActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailAddUserActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailAddUserActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ChangeBookActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ChangeBookActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/WelcomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/WelcomeActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/BookPageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/BookPageFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/CategoryChartPageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/CategoryChartPageFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/ChartPageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/ChartPageFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/AskDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/AskDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/MePageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/MePageFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomBookDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomBookDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomRecordDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomRecordDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/KeyBoardUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/KeyBoardUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/excel/RecordExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/excel/RecordExcel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_by_excel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_by_excel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/DateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/DateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/Util.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_myself.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_myself.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_record_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_record_detail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_ask.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_ask.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listitem_record.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/listitem_record.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/parting_line.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/parting_line.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_book_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_me_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_me_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/customer_keyboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/customer_keyboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,26 +120,7 @@
     <favorites_list name="guanbei" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Book.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -174,8 +130,8 @@
         <option value="layoutResourceFile" />
         <option value="Interface" />
         <option value="layoutResourceFile_vertical" />
-        <option value="resourceFile" />
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -193,6 +149,7 @@
       <find>remove</find>
       <find>mShadowInset</find>
       <find>decorationBottom</find>
+      <find>mLockscreenVisibility</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -207,61 +164,61 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/ModelAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_model.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_model.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_model_detail.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ModelActivity.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/simple_list_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_by_excel.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_record_detail.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ModelDetailActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/AskDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_ask.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Model.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByExcelActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/TagManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_record.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/KeyBoardUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/xml/customer_keyboard.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/NotificationManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/excel/RecordExcel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseObscriber.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/notification_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/CategoryLinearAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/color_cursor.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_myself.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookLinearAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_category_linear.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Record.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/BookPageFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/InsertBookModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordSectionAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/User.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Record.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/CategoryChartPageFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_book_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_myself.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseObscriber.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/RecordManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomSharedPreferencesManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Model.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/GuanBeiApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/InsertBookPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/DeleteBookPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ChangeBookActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/AddBookUserPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/LoginPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/RegisterPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBookActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/CommitRecordContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/CommitRecordPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByExcelActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomBookDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByMyselfActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Tag.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Book.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBySMSActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailAddUserActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ChangeBookActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/BookManager.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/CommitRecordPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/DeleteRecordPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/UpdateRecordPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/DateUtil.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/BookPageFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_me_page.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/MePageFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Book.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/RetrofitManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/QueryBookContract.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/WelcomeActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryBookPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/corners_shape_default_bg.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="width" value="1386" />
     <option name="height" value="788" />
@@ -274,36 +231,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
-              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -327,14 +254,14 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="guanbei" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="adapter" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="guanbei" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="guanbei" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="bean" type="462c0819:PsiDirectoryNode" />
+              <item name="http" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="guanbei" type="1abcf292:AndroidViewProjectNode" />
@@ -353,12 +280,20 @@
             </path>
             <path>
               <item name="guanbei" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="guanbei" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Local Unit Tests">
           <expand>
@@ -442,6 +377,35 @@
               <item name="test/java" type="cbb8eebc:String" user="test/java" />
               <item name="com/lyh/guanbei" type="cbb8eebc:String" user="com/lyh/guanbei" />
               <item name="http" type="cbb8eebc:String" user="http" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="guanbei" type="b2602c69:ProjectViewProjectNode" />
+              <item name="guanbei" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -713,8 +677,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49836066" visible="true" weight="0.2624811" />
       <window_info id="Structure" order="1" sideWeight="0.50124687" side_tool="true" weight="0.32980332" />
@@ -733,10 +696,10 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32786885" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49924356" weight="0.34860885" />
-      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.49167928" weight="0.34918034" />
-      <window_info anchor="bottom" id="Android Profiler" order="9" weight="0.9508197" />
+      <window_info anchor="bottom" id="Build" order="8" sideWeight="0.49167928" weight="0.6032787" />
+      <window_info anchor="bottom" id="Android Profiler" order="9" show_stripe_button="false" weight="0.9508197" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50832075" side_tool="true" weight="0.34918034" />
-      <window_info anchor="bottom" x="22" y="132" width="1322" height="464" id="Logcat" order="11" sideWeight="0.49546143" weight="0.69508195" />
+      <window_info anchor="bottom" x="22" y="132" width="1322" height="464" id="Logcat" order="11" sideWeight="0.49546143" weight="0.7918033" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.3295082" />
       <window_info anchor="bottom" id="Flutter Performance" order="13" side_tool="true" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -795,412 +758,389 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseObscriber.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/AddBookUserPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="25" column="48" selection-start-line="25" selection-start-column="48" selection-end-line="25" selection-end-column="48" />
+        <state relative-caret-position="-152">
+          <caret line="56" column="125" selection-start-line="56" selection-start-column="125" selection-end-line="56" selection-end-column="125" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/NotificationService.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/APIManager.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/LoginPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+        <state relative-caret-position="72">
+          <caret line="29" column="67" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/CommitRecordModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/RegisterPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+        <state relative-caret-position="64">
+          <caret line="34" column="67" selection-start-line="34" selection-start-column="67" selection-end-line="34" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByExcelActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="136" column="26" selection-start-line="136" selection-start-column="26" selection-end-line="136" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/notification_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="40" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/JPushCallbackManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_book_change.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/IndexActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="16" column="50" lean-forward="true" selection-start-line="16" selection-start-column="50" selection-end-line="16" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/qmui-2.0.0-alpha02.aar/7b39036aa39791a1fb86adaa5fe6a642/res/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="291" column="43" selection-start-line="291" selection-start-column="43" selection-end-line="291" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/CategoryAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="13" column="30" lean-forward="true" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/color/color_radiobtn.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="37" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/color_cursor.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/base/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="33" selection-start-line="33" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/CategoryChartPageFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="70" column="57" lean-forward="true" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomBookDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_myself.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="192" column="37" lean-forward="true" selection-start-line="192" selection-start-column="37" selection-end-line="192" selection-end-column="37" />
-          <folding>
-            <element signature="e#7121#7152#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_category_linear.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="86" column="20" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
-          <folding>
-            <element signature="e#1995#2026#0" expanded="true" />
-            <element signature="e#2056#2087#0" expanded="true" />
-            <element signature="e#3666#3697#0" expanded="true" />
-            <element signature="e#3727#3758#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/KeyBoardUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="86" column="19" selection-start-line="86" selection-start-column="19" selection-end-line="86" selection-end-column="19" />
-          <folding>
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3210#3211#0" expanded="true" />
-            <element signature="e#3244#3245#0" expanded="true" />
-            <element signature="e#3298#3299#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="55" column="46" lean-forward="true" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.qmuiteam/qmui/2.0.0-alpha02/8b90ec5feeb5b51fb9a96db6f7abd203e82c1ff6/qmui-2.0.0-alpha02-sources.jar!/com/qmuiteam/qmui/widget/dialog/QMUITipDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="164" lean-forward="true" selection-start-line="164" selection-end-line="164" />
-          <folding>
-            <element signature="e#3422#3423#0" expanded="true" />
-            <element signature="e#3464#3465#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="18" column="76" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-29">
-          <caret line="41" column="63" selection-start-line="41" selection-start-column="63" selection-end-line="41" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/BookPageFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="160" column="52" selection-start-line="160" selection-start-column="52" selection-end-line="160" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Record.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="131" column="5" lean-forward="true" selection-start-line="131" selection-start-column="5" selection-end-line="131" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/InsertBookContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/model/InsertBookModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="16" column="82" selection-start-line="16" selection-start-column="82" selection-end-line="16" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/RecordSectionAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="59" column="9" lean-forward="true" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
-          <folding>
-            <element signature="e#2488#2489#0" expanded="true" />
-            <element signature="e#2529#2530#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0-rc01/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-rc01-sources.jar!/androidx/recyclerview/widget/RecyclerView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="7513" column="26" selection-start-line="7513" selection-start-column="26" selection-end-line="7513" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomRecordDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
-          <folding>
-            <element signature="e#1059#1786#0" expanded="true" />
-            <element signature="e#1785#1786#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBySMSActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="35" column="39" lean-forward="true" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="102" column="32" selection-start-line="102" selection-start-column="32" selection-end-line="102" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="48" column="18" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.CymChad/BaseRecyclerViewAdapterHelper/2.9.47/7c01aa206d1c5af63e465c980b4e5fb7ef2061cc/BaseRecyclerViewAdapterHelper-2.9.47-sources.jar!/com/chad/library/adapter/base/BaseQuickAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="737" column="17" selection-start-line="737" selection-start-column="17" selection-end-line="737" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/DeleteBookPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="121" column="28" selection-start-line="121" selection-start-column="28" selection-end-line="121" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/InsertBookPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
+        <state relative-caret-position="72">
+          <caret line="100" column="85" selection-start-line="100" selection-start-column="85" selection-end-line="100" selection-end-column="85" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBookActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="110">
+          <caret line="78" column="1" lean-forward="true" selection-start-line="78" selection-start-column="1" selection-end-line="78" selection-end-column="1" />
           <folding>
+            <element signature="e#1706#1707#0" expanded="true" />
             <element signature="e#1730#1731#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/widget/BottomBookDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddBySMSActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="104" column="63" selection-start-line="104" selection-start-column="63" selection-end-line="104" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="86" column="60" selection-start-line="86" selection-start-column="60" selection-end-line="86" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/BookDetailAddUserActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="129" column="115" selection-start-line="129" selection-start-column="115" selection-end-line="129" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/ChangeBookActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-936">
-          <caret line="134" column="33" selection-start-line="134" selection-start-column="33" selection-end-line="134" selection-end-column="33" />
-          <folding>
-            <element signature="e#2842#3963#0" expanded="true" />
-            <element signature="e#3962#3963#0" expanded="true" />
-            <element signature="e#5940#5941#0" expanded="true" />
-            <element signature="e#5991#5992#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="7">
+          <caret line="206" column="115" selection-start-line="206" selection-start-column="115" selection-end-line="206" selection-end-column="115" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/CommitRecordContract.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="17" column="19" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookLinearAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#734#735#0" expanded="true" />
-            <element signature="e#766#767#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-270">
+          <caret line="76" column="115" selection-start-line="76" selection-start-column="115" selection-end-line="76" selection-end-column="115" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/AddByMyselfActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="267" column="30" selection-start-line="267" selection-start-column="30" selection-end-line="267" selection-end-column="30" />
+        <state relative-caret-position="2781">
+          <caret line="300" column="35" selection-start-line="300" selection-start-column="35" selection-end-line="300" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/CategoryLinearAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+        <state relative-caret-position="152">
+          <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="159" column="13" selection-start-line="159" selection-start-column="13" selection-end-line="159" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/adapter/BookAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="37" column="49" lean-forward="true" selection-start-line="37" selection-start-column="49" selection-end-line="37" selection-end-column="50" />
+          <folding>
+            <element signature="e#1729#1730#0" expanded="true" />
+            <element signature="e#1778#1779#0" expanded="true" />
+            <element signature="e#1820#1821#0" expanded="true" />
+            <element signature="e#1870#1871#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/common/Contact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="22" lean-forward="true" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/BookManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-86">
+          <caret line="40" column="44" lean-forward="true" selection-start-line="40" selection-start-column="44" selection-end-line="40" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/CommitRecordPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="51" selection-start-line="51" selection-end-line="52" />
+          <folding>
+            <element signature="e#850#851#0" expanded="true" />
+            <element signature="e#884#885#0" expanded="true" />
+            <element signature="e#2354#2355#0" expanded="true" />
+            <element signature="e#2400#2401#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/UpdateRecordPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="54" column="34" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/DeleteRecordPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="39" column="28" lean-forward="true" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/util/DateUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_book_page.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/BookPageFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="182" column="48" selection-start-line="182" selection-start-column="48" selection-end-line="182" selection-end-column="48" />
+          <folding>
+            <element signature="e#6516#6517#0" expanded="true" />
+            <element signature="e#6552#6553#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryRecordPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-665">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/manager/CustomNotificationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="38" column="16" lean-forward="true" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Tag.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/RecordDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="84" column="76" selection-start-line="84" selection-start-column="76" selection-end-line="84" selection-end-column="76" />
+        <state relative-caret-position="19">
+          <caret line="125" column="80" selection-start-line="125" selection-start-column="80" selection-end-line="125" selection-end-column="80" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/fragment/MePageFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="156" column="13" selection-start-line="156" selection-start-column="5" selection-end-line="156" selection-end-column="13" />
-          <folding>
-            <element signature="e#3291#3526#0" expanded="true" />
-            <element signature="e#3525#3526#0" expanded="true" />
-            <element signature="e#3687#3953#0" expanded="true" />
-            <element signature="e#3952#3953#0" expanded="true" />
-            <element signature="e#4395#4663#0" expanded="true" />
-            <element signature="e#4662#4663#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/CommitRecordPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-          <folding>
-            <element signature="e#850#851#0" expanded="true" />
-            <element signature="e#884#885#0" expanded="true" />
-            <element signature="e#2400#2401#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        <state relative-caret-position="1520">
+          <caret line="102" column="22" selection-start-line="102" selection-start-column="22" selection-end-line="102" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Book.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+        <state relative-caret-position="2565">
+          <caret line="190" column="97" selection-start-line="190" selection-start-column="97" selection-end-line="190" selection-end-column="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="97" selection-start-line="29" selection-start-column="97" selection-end-line="29" selection-end-column="97" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="27" column="59" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/bean/Record.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="29" column="30" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_me_page.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4826">
+          <caret line="254" column="18" selection-start-line="254" selection-start-column="18" selection-end-line="254" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/RetrofitManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/APIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="126" column="19" selection-start-line="126" selection-start-column="8" selection-end-line="126" selection-end-column="19" />
+          <folding>
+            <element signature="e#8247#8572#0" expanded="true" />
+            <element signature="e#8571#8572#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/http/BaseObscriber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/contract/QueryBookContract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/WelcomeActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/mvp/presenter/QueryBookPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1154">
+          <caret line="74" column="53" selection-start-line="74" selection-start-column="53" selection-end-line="74" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_index.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-378" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/IndexActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="102" column="44" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="44" />
+          <folding>
+            <element signature="e#352#383#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="170" column="50" selection-start-line="170" selection-start-column="50" selection-end-line="170" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lyh/guanbei/ui/activity/InputActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/qmui-2.0.0-alpha02.aar/7b39036aa39791a1fb86adaa5fe6a642/res/values/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="291" column="54" selection-start-line="291" selection-start-column="48" selection-end-line="291" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="41" lean-forward="true" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bg_chart_btn.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/circle_up_shape.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/corners_shape_normal_bg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_input.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/corners_shape_default_bg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
         </state>
       </provider>
     </entry>

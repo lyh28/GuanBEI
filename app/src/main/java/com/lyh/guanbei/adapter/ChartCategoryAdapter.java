@@ -23,8 +23,8 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
     private Map<String, CategoryChart> mInMap;      //收入
     private Map<String, CategoryChart> mOutMap;      //支出
 
-    private float mInSum;
-    private float mOutSum;
+    private double mInSum;
+    private double mOutSum;
     private int type;
     private Context context;
 
@@ -74,10 +74,10 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
         for (Record record : datas) {
             if (record.getAmount_type() == Tag.IN) {
                 addToMap(mInMap, record);
-                mInSum+=Float.parseFloat(record.getAmount());
+                mInSum+=record.getAmount();
             } else {
                 addToMap(mOutMap, record);
-                mOutSum+=Float.parseFloat(record.getAmount());
+                mOutSum+=record.getAmount();
             }
         }
 
@@ -106,19 +106,19 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
     public static class CategoryChart {
         private int mIconId;
         private String mCategory;
-        private float mSum;
+        private double mSum;
         private int mNum;
-        private float mRate;
+        private double mRate;
 
         public CategoryChart(Record record) {
             this.mIconId = TagManager.getIconByCategory(record.getCategory(), record.getAmount_type());
             this.mCategory = record.getCategory();
-            this.mSum = Float.parseFloat(record.getAmount());
+            this.mSum =record.getAmount();
             this.mNum = 1;
         }
 
         public void addRecord(Record record) {
-            mSum += Float.parseFloat(record.getAmount());
+            mSum += record.getAmount();
             mNum++;
         }
 
@@ -131,7 +131,7 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
             return mCategory;
         }
 
-        public float getmSum() {
+        public double getmSum() {
             return mSum;
         }
 
@@ -140,11 +140,11 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
             return mNum;
         }
 
-        public float getmRate() {
+        public double getmRate() {
             return mRate;
         }
 
-        public void setmRate(float mRate) {
+        public void setmRate(double mRate) {
             this.mRate = mRate;
         }
     }

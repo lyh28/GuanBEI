@@ -71,11 +71,16 @@ public class QueryBookPresenter extends BasePresenter<QueryBookContract.IQueryBo
 
                 @Override
                 public void onFailed(String msg) {
+                    if (checkAttach())
+                        getmView().queryBookFailed();
                 }
             });
-        }
+        } else if (checkAttach())
+            getmView().queryBookFailed();
+
     }
-    public void queryBookServer(List<Long> idList){
+
+    public void queryBookServer(List<Long> idList) {
         if (NetUtil.isNetWorkAvailable()) {
             getmModel().queryBookFormService(idList, new ICallbackListener<List<Book>>() {
                 @Override
@@ -87,10 +92,14 @@ public class QueryBookPresenter extends BasePresenter<QueryBookContract.IQueryBo
 
                 @Override
                 public void onFailed(String msg) {
+                    if (checkAttach())
+                        getmView().queryBookFailed();
                 }
             });
-        }
+        } else if (checkAttach())
+            getmView().queryBookFailed();
     }
+
     @Override
     public QueryBookContract.IQueryBookModel createModel() {
         return new QueryBookModel();

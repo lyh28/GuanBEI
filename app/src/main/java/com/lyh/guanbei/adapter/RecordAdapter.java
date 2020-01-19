@@ -35,7 +35,7 @@ public class RecordAdapter extends BaseQuickAdapter<Record, BaseViewHolder> {
             helper.setText(R.id.listitem_record_user, item.getUser_id() + "");
         else
             helper.setText(R.id.listitem_record_user, user.getUser_name());
-        String amount=item.getAmount();
+        String amount=item.getAmount()+"";
         if(item.getAmount_type()==Tag.OUT&&!amount.startsWith("-"))
             amount="-"+amount;
         helper.setText(R.id.listitem_record_amount, amount);

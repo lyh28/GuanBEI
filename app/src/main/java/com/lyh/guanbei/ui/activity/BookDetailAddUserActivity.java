@@ -127,7 +127,7 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
                 //封装数据
                 Bundle bundle = new Bundle();
                 bundle.putString("memberId", mBook.getPerson_id());
-                bundle.putBoolean("isManager", mBook.getManager_id() == CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id());
+                bundle.putBoolean("isManager", mBook.getManager_id() == CustomSharedPreferencesManager.getInstance().getUser().getUser_id());
                 bundle.putLong("bookId", mBook.getLocal_id());
                 startActivity(MemberActivity.class, bundle);
                 break;

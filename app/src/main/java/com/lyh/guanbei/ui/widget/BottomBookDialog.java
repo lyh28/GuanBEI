@@ -32,9 +32,9 @@ public class BottomBookDialog extends Dialog {
     public BottomBookDialog(@NonNull Context context,TextView name) {
         super(context, R.style.CustomDialog);
         this.context=context;
-        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance(context);
+        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance();
         currBookId=customSharedPreferencesManager.getCurrBookId();
-        bookList= Book.queryByUserId(context);
+        bookList= Book.queryByUserId();
         mName=name;
     }
 

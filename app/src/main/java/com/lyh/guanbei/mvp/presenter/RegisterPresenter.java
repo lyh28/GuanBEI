@@ -32,7 +32,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.IRegisterV
                 public void onSuccess(User data) {
                     DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(data);
                     if (checkAttach()) {
-                        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(data);
+                        CustomSharedPreferencesManager.getInstance().saveUser(data);
                         getmView().onRegisterSuccess(data);
                     }
                 }

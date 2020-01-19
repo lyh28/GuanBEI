@@ -27,7 +27,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginView, Logi
                 public void onSuccess(User data) {
                     DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(data);
                     if(checkAttach()) {
-                        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(data);
+                        CustomSharedPreferencesManager.getInstance().saveUser(data);
                         getmView().onLoginSuccess(data);
                     }
                 }

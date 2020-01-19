@@ -37,9 +37,15 @@ public class BookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
         }
         helper.setText(R.id.listitem_book_person,wrapPersonCount(Util.getCountFormData(item.getPerson_id())+1));
         helper.setText(R.id.listitem_book_name,item.getBook_name());
-        helper.setText(R.id.listitem_book_in,"收入");
-        helper.setText(R.id.listitem_book_out,"支出");
+        helper.setText(R.id.listitem_book_in,wrapInSum(item));
+        helper.setText(R.id.listitem_book_out,wrapOutSum(item));
         helper.addOnClickListener(R.id.listitem_book_delete,R.id.listitem_book_edit);
+    }
+    private String wrapInSum(Book book){
+        return "收入 "+book.getIn_sum()+"元";
+    }
+    private String wrapOutSum(Book book){
+        return "支出 "+book.getOut_sum()+"元";
     }
     private String wrapPersonCount(int num){
         return "共"+num+"人";

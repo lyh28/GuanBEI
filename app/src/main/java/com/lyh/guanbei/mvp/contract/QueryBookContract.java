@@ -11,6 +11,7 @@ import java.util.List;
 public interface QueryBookContract {
     interface IQueryBookView extends IView{
         void showBook(List<Book> list);
+        void queryBookFailed();
     }
     interface IQueryBookPresenter extends IPresenter<IQueryBookView,IQueryBookModel>{
         void queryBook(List<Long> idList);

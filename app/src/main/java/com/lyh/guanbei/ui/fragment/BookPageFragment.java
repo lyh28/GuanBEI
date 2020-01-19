@@ -22,6 +22,7 @@ import com.lyh.guanbei.ui.activity.ChangeBookActivity;
 import com.lyh.guanbei.ui.activity.FilterActivity;
 import com.lyh.guanbei.ui.activity.RecordDetailActivity;
 import com.lyh.guanbei.util.CustomOffsetChangeListener;
+import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
@@ -123,12 +124,11 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
     @Override
     public void onResume() {
-        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance(getmActivity());
+        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         long id = customSharedPreferencesManager.getCurrBookId();
         if (bookId != id) {
             bookId = id;
             Book book = Book.queryByLocalId(bookId);
-
             if (bookId == -1L || book == null) {
                 //处理掉没有book的情况
                 mRootView = getmView().findViewById(R.id.fragment_book_rootview);
@@ -147,6 +147,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
             List<Record> list = Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
             mRecordSectionAdapter.setNewDatas(list);
         }
+        updateBookSumStr();
         super.onResume();
     }
 
@@ -176,7 +177,20 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     public void endLoading() {
 
     }
-
+    private void updateBookSumStr(){
+        Book book=Book.queryByLocalId(bookId);
+        String month=DateUtil.getMonth();
+        mIn.setText(month+"收入: "+book.getNow_in_sum());
+        mOut.setText(month+"支出: "+book.getNow_out_sum());
+        mBudget.setText(book.getMax_sum()+"");
+    }
+    private String wrapBudget(Book book){
+        double budget=book.getMax_sum();
+        if(budget==0){
+            return "设置预算";
+        }else
+            return budget+"";
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -2,6 +2,7 @@ package com.lyh.guanbei.mvp.presenter;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
+import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
@@ -17,6 +18,7 @@ public class UpdateRecordPresenter extends BasePresenter<UpdateRecordContract.IU
         if (DBManager.isClientServer(record.getStatus())) {
             record.setStatus(DBManager.CLIENT_UPDATE_STATUS);
             getmModel().updateLocal(record);
+            Book.updateBookSum(record.getBook_local_id());
             if (NetUtil.isNetWorkAvailable())
                 getmModel().updateService(record, new ICallbackListener<String>() {
                     @Override
@@ -31,6 +33,7 @@ public class UpdateRecordPresenter extends BasePresenter<UpdateRecordContract.IU
                 });
         } else {
             getmModel().updateLocal(record);
+            Book.updateBookSum(record.getBook_local_id());
         }
     }
 
@@ -49,6 +52,7 @@ public class UpdateRecordPresenter extends BasePresenter<UpdateRecordContract.IU
             }
         }
         getmModel().updateLocal(records);
+        Book.updateBookSum(records);
         if (serviceList.size() != 0&& NetUtil.isNetWorkAvailable()) {
             updateService(serviceList);
         }

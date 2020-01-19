@@ -17,7 +17,6 @@ public class RecordManager {
         mSum=new SparseIntArray();
         mRecordMap=new HashMap<>();
         //如果第一次登陆的话就查询服务端   需要设置强制退出
-
     }
     public static RecordManager getInstance(){
         if(singleton==null){

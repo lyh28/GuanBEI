@@ -101,10 +101,10 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
 
     private Record createRecordBean() {
         Random random = new Random();
-        long userId= CustomSharedPreferencesManager.getInstance(this).getUser().getUser_id();
-        long bookId=CustomSharedPreferencesManager.getInstance(this).getCurrBookId();
+        long userId= CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
+        long bookId=CustomSharedPreferencesManager.getInstance().getCurrBookId();
         Book book=Book.queryByLocalId(bookId);
-        return new Record(userId,book.getBook_id(),bookId, DateUtil.getNowDateTime(),""+random.nextInt(100)*50,1,"","","");
+        return new Record(userId,book.getBook_id(),bookId, DateUtil.getNowDateTimeWithoutSecond(),""+random.nextInt(100)*50,1,"","","");
     }
 
     @Override

@@ -38,7 +38,7 @@ public class DeleteBookPresenter extends BasePresenter<DeleteBookContract.IDelet
             return;
         if(book.getBook_id()==0)
             book=Book.queryByLocalId(book.getLocal_id());
-        if (book.getManager_id() != CustomSharedPreferencesManager.getInstance(getmContext()).getUser().getUser_id()) {
+        if (book.getManager_id() != CustomSharedPreferencesManager.getInstance().getUser().getUser_id()) {
             if (checkAttach())
                 getmView().onDeleteError("您不是该账本管理员，无权限进行删除");
             return;
@@ -99,19 +99,19 @@ public class DeleteBookPresenter extends BasePresenter<DeleteBookContract.IDelet
     }
 
     private void updateUser(Book book) {
-        User user = CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User user = CustomSharedPreferencesManager.getInstance().getUser();
         String localId = user.getLocal_book_id();
         String id = user.getBook_id();
         localId = Util.deleteFormData(book.getLocal_id(), localId);
         id = Util.deleteFormData(book.getBook_id(), id);
         user.setLocal_book_id(localId);
         user.setBook_id(id);
-        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
+        CustomSharedPreferencesManager.getInstance().saveUser(user);
         DBManager.getInstance().getDaoSession().getUserDao().update(user);
     }
 
     private void updateUser(List<Book> list) {
-        User user = CustomSharedPreferencesManager.getInstance(getmContext()).getUser();
+        User user = CustomSharedPreferencesManager.getInstance().getUser();
         String localId = user.getLocal_book_id();
         String id = user.getBook_id();
         for (Book book : list) {
@@ -120,7 +120,7 @@ public class DeleteBookPresenter extends BasePresenter<DeleteBookContract.IDelet
         }
         user.setLocal_book_id(localId);
         user.setBook_id(id);
-        CustomSharedPreferencesManager.getInstance(getmContext()).saveUser(user);
+        CustomSharedPreferencesManager.getInstance().saveUser(user);
         DBManager.getInstance().getDaoSession().getUserDao().update(user);
     }
 
