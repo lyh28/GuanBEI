@@ -17,19 +17,14 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
         Book book=Book.queryByLocalId(bookId);
         //得到现登录用户的账号
         User user =CustomSharedPreferencesManager.getInstance().getUser();
-        if(user ==null){
+        if(user ==null||user.getUser_id()==-1){
             getmView().onNoAccount();
             return ;
-        }
-        long requestId = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
-        if (requestId == -1) {
-            getmView().onNoAccount();
-            return;
         }
         if (!NetUtil.isNetWorkAvailable())
             getmView().onAddBookUserRequestFailed("网络异常");
         else
-            getmModel().addUserRequest(userId, requestId, book.getBook_id(), new ICallbackListener<String>() {
+            getmModel().addUserRequest(userId, user.getUser_id(), book.getBook_id(), new ICallbackListener<String>() {
                 @Override
                 public void onSuccess(String data) {
                     if (checkAttach())
@@ -50,7 +45,9 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
         User userBean=CustomSharedPreferencesManager.getInstance().getUser();
         if (!NetUtil.isNetWorkAvailable())
             getmView().onAddBookUserRequestFailed("网络异常");
-        else
+        else if (userBean==null||userBean.getUser_id()==-1){
+            getmView().onNoAccount();
+        }else
             getmModel().addUser(userBean.getUser_id(), bookId, new ICallbackListener<Book>() {
                 @Override
                 public void onSuccess(Book data) {
@@ -79,32 +76,6 @@ public class AddBookUserPresenter extends BasePresenter<AddBookUserContract.IAdd
                 }
             });
     }
-//    @Override
-//    public void changeManager(long newId, final long bookId) {
-//        //得到现登录用户的账号
-//        long oldId = 1;
-//        if (oldId == -1) {
-//            getmView().onNoAccount();
-//            return;
-//        }
-//        if (!NetUtil.isNetWorkAvailable())
-//            getmView().onAddBookUserFailed("网络异常");
-//        else
-//            getmModel().changeManager(oldId, newId, bookId, new ICallbackListener<Book>() {
-//                @Override
-//                public void onSuccess(Book data) {
-//                    if (checkAttach())
-//                        getmView().onChangeManagerSuccess();
-//                    updateBook(data);
-//                }
-//
-//                @Override
-//                public void onFailed(String msg) {
-//                    if (checkAttach())
-//                        getmView().onAddBookUserFailed("网络异常");
-//                }
-//            });
-//    }
 
     @Override
     public AddBookUserContract.IAddBookUserModel createModel() {

@@ -23,7 +23,7 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
         greendao {
-            schemaVersion 19 //数据库版本
+            schemaVersion 24 //数据库版本
             targetGenDir 'src/main/java' //指定生成代码的目录
             daoPackage "com.lyh.guanbei.db"//生成代码到具体包下
         }
@@ -72,5 +72,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     //图表库
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //分包
     implementation 'androidx.multidex:multidex:2.0.1'
+    //图片裁剪
+    implementation 'com.github.yalantis:ucrop:2.2.4'
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
 }

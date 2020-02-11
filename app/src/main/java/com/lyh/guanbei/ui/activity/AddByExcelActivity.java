@@ -4,6 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -30,7 +33,10 @@ import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Model;
 import com.lyh.guanbei.bean.Record;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.common.Contact;
+import com.lyh.guanbei.http.APIManager;
+import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
@@ -44,6 +50,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

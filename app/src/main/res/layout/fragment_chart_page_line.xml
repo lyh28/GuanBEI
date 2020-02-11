@@ -2,58 +2,140 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RadioGroup
+        android:id="@+id/fragment_chart_page_line_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/fragment_chart_page_line_week"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector_3dp"
+            android:button="@null"
+            android:padding="5dp"
+            android:text="周"
+            android:textAlignment="center" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+        <RadioButton
+            android:id="@+id/fragment_chart_page_line_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector_3dp"
+            android:button="@null"
+            android:padding="5dp"
+            android:text="月"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/fragment_chart_page_line_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector_3dp"
+            android:button="@null"
+            android:padding="5dp"
+            android:text="年"
+            android:textAlignment="center" />
+    </RadioGroup>
+    <TextView
+        android:id="@+id/fragment_chart_page_line_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:background="@color/qmui_config_color_background">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:layout_height="wrap_content"
-            android:text="2019年12月1日"
-            android:textColor="@color/colorNormal"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="@color/colorNormal"
-            android:layout_marginLeft="@dimen/left_right_margin"
-            android:layout_marginRight="@dimen/left_right_margin"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="月"
-            android:textColor="@color/colorNormal"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:textColor="@color/colorNormal"
-            android:layout_marginLeft="@dimen/left_right_margin"
-            android:layout_marginRight="@dimen/left_right_margin"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="2019年12月31日"
-            android:textColor="@color/colorNormal"/>
-    </LinearLayout>
+        android:background="@color/qmui_config_color_background"
+        android:text="2020-02-04"
+        android:textColor="@color/colorNormal"
+        android:textAlignment="center"/>
+
     <FrameLayout
-        android:layout_marginTop="20dp"
+        android:id="@+id/fragment_chart_page_line_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <com.github.mikephil.charting.charts.LineChart
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragment_chart_page_line_linechart"/>
     </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/fragment_chart_page_line_in"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="#89E651"
+            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="收入"/>
+        <TextView
+            android:id="@+id/fragment_chart_page_line_out"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="#59C7FA"
+            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="支出"/>
+        <TextView
+            android:id="@+id/fragment_chart_page_line_sum"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:layout_height="wrap_content"
+            android:textColor="#FA6868"
+            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="结余"/>
+    </LinearLayout>
+    <include layout="@layout/split_line_gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/qmui_config_color_background"
+        android:padding="@dimen/dp_10">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="周"/>
+        <TextView
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="收入"/>
+        <TextView
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="支出"/>
+        <TextView
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="结余"/>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_chart_page_category_recyclerview"
+        android:id="@+id/fragment_chart_page_line_recycerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

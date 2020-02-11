@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lyh.guanbei.manager.ActivityManager;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
+import com.lyh.guanbei.ui.activity.UnlockActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
         super.onCreate(savedInstanceState);
         setStatusBar();
         setContentView(getLayoutId());
+        ActivityManager.getInstance().addActivity(this);
         mPresenterList = new ArrayList<>();
         createPresenters();
         for (IPresenter iPresenter : mPresenterList)
@@ -35,9 +39,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
         for (IPresenter iPresenter : mPresenterList)
             iPresenter.onDettach();
+        ActivityManager.getInstance().finishActivity();
         super.onDestroy();
     }
 
@@ -69,5 +79,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
             p.setMargins(l, t, r, b);
             v.requestLayout();
         }
+    }
+    protected boolean isLocked(){
+        return true;
     }
 }

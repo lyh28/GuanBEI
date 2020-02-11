@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.lyh.guanbei.bean.Notification;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.manager.JPushCallbackManager;
 import com.lyh.guanbei.ui.activity.LoginActivity;
+import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.LogUtil;
 
 import org.json.JSONObject;
@@ -31,13 +34,15 @@ public class PushMessageReceiver extends JPushMessageReceiver {
         super.onNotifyMessageArrived(context, notificationMessage);
         //通知回调
         LogUtil.logD("通知 "+notificationMessage.notificationExtras);
+        Notification.save(notificationMessage.notificationTitle,notificationMessage.notificationContent,notificationMessage.notificationExtras
+        , DateUtil.getNowDateTimeWithoutSecond());
     }
 
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage notificationMessage) {
         //点击通知的回调
         LogUtil.logD("onNotifyMessageOpened   "+notificationMessage.notificationExtras);
-        JPushCallbackManager.onClick(context,notificationMessage);
+        JPushCallbackManager.onClick(context,notificationMessage.notificationExtras);
     }
     @Override
     public void onAliasOperatorResult(Context context, JPushMessage jPushMessage) {

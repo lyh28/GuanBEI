@@ -12,8 +12,11 @@ import android.widget.Toast;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.HomePageAdapter;
 import com.lyh.guanbei.base.BaseActivity;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.common.NetRestartService;
 import com.lyh.guanbei.manager.CustomNotificationManager;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
+import com.lyh.guanbei.manager.RecordRepository;
 import com.lyh.guanbei.mvp.contract.NetListenerContract;
 import com.lyh.guanbei.mvp.presenter.NetListenerPresenter;
 import com.lyh.guanbei.ui.fragment.BookPageFragment;
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private static final int SMS_PERMISSION = 100;
     private static final int STORAGE_PERMISSION = 101;
 
+    private boolean isOpenFirst;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -63,12 +67,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void init() {
+        isOpenFirst=true;
         mNetListenerPresenter.startNetListener();
         mFragments = new ArrayList<>(3);
         mFragments.add(new ChartPageFragment());
         mFragments.add(new BookPageFragment());
         mFragments.add(new MePageFragment());
         mViewPager.setAdapter(new HomePageAdapter(getSupportFragmentManager(), mFragments));
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -116,7 +122,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             }
         });
         //启动前台服务
-        CustomNotificationManager.init(this);
+        if (CustomSharedPreferencesManager.getInstance().getUser().getSetting().getNotify_input())
+            CustomNotificationManager.initInPutNotification(this);
+        //更新上次使用时间
+        User.updateLastTime();
+        RecordRepository.getSingleton();
     }
 
     private void showBookPage() {
@@ -138,7 +148,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void createPresenters() {
         mNetListenerPresenter = new NetListenerPresenter();
-
         addPresenter(mNetListenerPresenter);
     }
 
@@ -148,6 +157,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.activity_main_add:
                 showAddButton();
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isOpenFirst&&CustomSharedPreferencesManager.getInstance().getUser().getSetting().isLocked()&&isLocked()){
+            //手势密码解锁页
+            startActivity(UnlockActivity.class);
+        }
+        if(isOpenFirst){
+            isOpenFirst=false;
         }
     }
 

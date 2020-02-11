@@ -10,8 +10,10 @@ import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.Notification;
 import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.AddBookUserContract;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
 import com.lyh.guanbei.mvp.contract.QueryUserContract;
@@ -36,6 +38,7 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
 
     private long mBookId;
     private long mRequestId;
+    private long mNotificationId;
     private Book mBook;
     @Override
     protected int getLayoutId() {
@@ -60,20 +63,28 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
         Bundle bundle=getIntentData();
         mBookId = bundle.getLong("bookId");
         mRequestId=bundle.getLong("requestId");
+        mNotificationId=bundle.getLong("timeId");
         initData();
     }
     private void initData(){
         mQueryBookPresenter.queryBookServer(mBookId);
-        mQueryUserPresenter.queryServer(mRequestId);
     }
     @Override
     public void showBook(List<Book> list) {
-        if(list.size()!=0)
-            mBook=list.get(0);
-        mPerson.setText(wrapPersonNum(Util.getLongFromData(mBook.getPerson_id()).size()));
-        mBookName.setText(mBook.getBook_name());
-        mQueryUserPresenter.queryServer(mBook.getManager_id());
+        if(list.size()!=0) {
+            mQueryUserPresenter.queryServer(mRequestId);
+            mBook = list.get(0);
+            mPerson.setText(wrapPersonNum(Util.getLongFromData(mBook.getPerson_id()).size()));
+            mBookName.setText(mBook.getBook_name());
+            mQueryUserPresenter.queryServer(mBook.getManager_id());
+        }
     }
+
+    @Override
+    public void queryBookFailed() {
+
+    }
+
     private String wrapPersonNum(int num) {
         if (num == 0)
             return "暂无成员";
@@ -132,6 +143,9 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
                 startActivity(MemberActivity.class, bundle);
                 break;
             case R.id.activity_book_detail_add_user_btn:
+                Notification notification= DBManager.getInstance().getDaoSession().getNotificationDao().load(mNotificationId);
+                notification.setStatus(1);
+                notification.save();
                 mAddBookUserPresenter.addUser(mBookId);
                 finish();
                 break;

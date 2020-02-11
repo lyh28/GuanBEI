@@ -7,7 +7,6 @@ import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.manager.BookManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
 import com.lyh.guanbei.mvp.presenter.QueryBookPresenter;
@@ -21,6 +20,7 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
     private int status=0;
     private final int FINISH_STATUS=2;
     private QueryBookPresenter mQueryBookPresenter;
+    private long currId;        //服务端ID
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -49,12 +49,18 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
     protected void init() {
         //得到登录账户
         User user=CustomSharedPreferencesManager.getInstance().getUser();
+        long localId=CustomSharedPreferencesManager.getInstance().getCurrBookId();
+        Book book=Book.queryByLocalId(localId);
+        if(book==null)
+            currId=-1;
+        else
+            currId=book.getBook_id();
         if ( user!= null) {
             //更新book数据
             mQueryBookPresenter.queryBookServer(Util.getLongFromData(user.getBook_id()));
-            mHandler.sendEmptyMessageDelayed(MAIN_CODE, 1500);
+            mHandler.sendEmptyMessageDelayed(MAIN_CODE, 500);
         } else {
-            mHandler.sendEmptyMessageDelayed(LOGIN_CODE, 1500);
+            mHandler.sendEmptyMessageDelayed(LOGIN_CODE, 500);
         }
     }
 
@@ -68,7 +74,13 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
 
     @Override
     public void showBook(List<Book> list) {
-        BookManager.getInstance().init();
+        User.updateBookLocalIdToUser(list);
+        Book book=null;
+        if(currId!=-1)  book=Book.queryByBookId(currId);
+        else if(list.size()!=0)   book=list.get(0);
+        if(book!=null)  CustomSharedPreferencesManager.getInstance().saveCurrBookId(book.getLocal_id());
+        else
+            CustomSharedPreferencesManager.getInstance().saveCurrBookId(-1);
         if(++status==FINISH_STATUS) {
             startActivity(MainActivity.class);
             finish();
@@ -79,5 +91,9 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
     public void createPresenters() {
         mQueryBookPresenter=new QueryBookPresenter();
         addPresenter(mQueryBookPresenter);
+    }
+    @Override
+    protected boolean isLocked() {
+        return false;
     }
 }

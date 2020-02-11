@@ -7,4 +7,5 @@
     <color name="colorbg">#F4F5F7</color>
     <color name="colorBlack">#000000</color>
     <color name="colorTransparent">#30969696</color>
+    <color name="colorGreen">#05C160</color>
 </resources>

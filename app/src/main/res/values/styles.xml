@@ -27,7 +27,7 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
-    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
         <!--背景颜色及和透明程度-->
         <item name="android:windowBackground">@android:color/transparent</item>
         <!--是否去除标题 -->

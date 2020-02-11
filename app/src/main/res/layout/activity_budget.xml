@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.activity.BudgetActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/page_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:text="预算" />
+    </LinearLayout>
+
+    <include layout="@layout/split_line_gray" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="月总预算" />
+
+    <TextView
+        android:id="@+id/activity_budget_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="日期"
+        android:textSize="10dp" />
+
+    <com.lyh.guanbei.ui.widget.WaveBollView
+        android:id="@+id/activity_budget_wavebollview"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/dp_10" />
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已花："/>
+        <TextView
+            android:id="@+id/activity_budget_outSum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/qmui_config_color_red"
+            android:text="3000"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:layout_height="wrap_content"
+            android:text="预算："/>
+        <TextView
+            android:id="@+id/activity_budget_budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3000"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            android:text="剩余预算："/>
+        <TextView
+            android:id="@+id/activity_budget_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            android:text="3000"/>
+        <TextView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:textAlignment="textEnd"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            android:text="每日可用："/>
+        <TextView
+            android:id="@+id/activity_budget_averagesum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            android:text="3000"/>
+    </LinearLayout>
+</LinearLayout>

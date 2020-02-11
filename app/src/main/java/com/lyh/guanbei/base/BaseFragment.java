@@ -55,6 +55,10 @@ public abstract class BaseFragment extends Fragment implements IView {
         return mView;
     }
 
+    public void setmActivity(Activity mActivity) {
+        this.mActivity = mActivity;
+    }
+
     protected abstract int getLayoutId();
     protected abstract void initUi();
     protected abstract void init();

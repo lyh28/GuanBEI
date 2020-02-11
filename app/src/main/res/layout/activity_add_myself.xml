@@ -146,13 +146,12 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/date"/>
-            <EditText
+            <TextView
                 style="@style/CustomEditTextStyle"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                android:text="12-16"
                 android:id="@+id/activity_add_myself_date"/>
         </LinearLayout>
     </LinearLayout>
@@ -190,7 +189,7 @@
             android:layout_height="match_parent"
             android:textSize="15sp"
             android:hint="备注"
-            android:maxLines="1"
+            android:singleLine="true"
             android:ellipsize="end"/>
     </LinearLayout>
     <android.inputmethodservice.KeyboardView

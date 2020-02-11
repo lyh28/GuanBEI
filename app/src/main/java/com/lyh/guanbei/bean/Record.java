@@ -1,7 +1,11 @@
 package com.lyh.guanbei.bean;
 
+import android.database.Cursor;
+
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.RecordDao;
+import com.lyh.guanbei.util.LogUtil;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -17,7 +21,7 @@ import java.util.List;
 @Entity
 public class Record implements Serializable {
     @Transient
-    public static final long serialVersionUID=22222L;
+    public static final long serialVersionUID = 22222L;
     @Id(autoincrement = true)
     private Long local_id;
     @Index
@@ -59,7 +63,7 @@ public class Record implements Serializable {
 
     @Generated(hash = 1513510675)
     public Record(Long local_id, long record_id, long user_id, long book_id, long book_local_id, String date, double amount, int amount_type, String towho,
-            String remark, String category, int status) {
+                  String remark, String category, int status) {
         this.local_id = local_id;
         this.record_id = record_id;
         this.user_id = user_id;
@@ -112,9 +116,11 @@ public class Record implements Serializable {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
     public void setAmount(String amount) {
         this.amount = Double.parseDouble(amount);
     }
+
     public String getRemark() {
         return this.remark;
     }
@@ -131,17 +137,44 @@ public class Record implements Serializable {
         this.category = category;
     }
 
-    public static List<Record> query(WhereCondition cond, WhereCondition... condMore){
-        return DBManager.getInstance().getDaoSession().getRecordDao().queryBuilder().where(cond,condMore).orderDesc(RecordDao.Properties.Date).list();
+    public static List<Record> query(WhereCondition cond, WhereCondition... condMore) {
+        return DBManager.getInstance().getDaoSession().getRecordDao().queryBuilder().where(cond, condMore).orderDesc(RecordDao.Properties.Date, RecordDao.Properties.Local_id).list();
     }
-    public static Record queryByRecordId(long id){
-        List<Record> list=query(RecordDao.Properties.Record_id.eq(id));
-        if(list==null||list.size()==0)
+
+    public static Record queryByRecordId(long id) {
+        List<Record> list = query(RecordDao.Properties.Record_id.eq(id));
+        if (list == null || list.size() == 0)
             return null;
         return list.get(0);
     }
-    public static Record queryByLocalId(long id){
+
+    public static Record queryByLocalId(long id) {
         return DBManager.getInstance().getDaoSession().getRecordDao().load(id);
+    }
+
+    public static List<Record> queryByKey(String key, long userId) {
+        key = "%" + key + "%";
+        return query(RecordDao.Properties.User_id.eq(userId)
+                , DBManager.getInstance().getDaoSession().getRecordDao().queryBuilder()
+                        .or(RecordDao.Properties.Remark.like(key), RecordDao.Properties.Towho.like(key), RecordDao.Properties.Category.like(key), RecordDao.Properties.Amount.like(key)));
+    }
+
+    private static final String FIRSTDATE = "select min(date) as date from record where user_id = ? and book_local_id = ?";
+    private static final String DATE_COLUMN="date";
+    public static String getFirstRecordDate(long book_id) {
+        long userId= CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
+        String[] args=new String[2];
+        args[0]=userId+"";
+        args[1]=book_id+"";
+        return getResFromSQL(FIRSTDATE,DATE_COLUMN,args);
+    }
+    private static String getResFromSQL(String sql, String columnName, String[] args) {
+        Cursor c = DBManager.getInstance().getDaoSession().getDatabase().rawQuery(sql, args);
+        String res="";
+        if (c.moveToFirst())
+            res = c.getString(c.getColumnIndex(columnName));
+        c.close();
+        return res;
     }
     public int getStatus() {
         return this.status;

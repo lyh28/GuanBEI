@@ -1,5 +1,6 @@
 package com.lyh.guanbei.util.excel;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.lyh.guanbei.bean.Book;
@@ -24,14 +25,14 @@ public class RecordExcel {
     //默认值
     private final String TIMEDEFAULT = "交易时间";
     private final String TOWHODEFAULT = "交易对方";
-//    private final String PAYFORDEFAULT = "商品";
+    private final String PAYFORDEFAULT = "商品";
     private final String TYPEDEFAULT = "收/支";
     private final String MONEYDEFAULT = "金额(元)";
     private final String REMARKDEFAULT = "备注";
 
     private String TIME;
     private String TOWHO;
-//    private String PAYFOR;
+    private String PAYFOR;
     private String TYPE;
     private String MONEY;        //￥$
     private String REMARK;
@@ -42,40 +43,28 @@ public class RecordExcel {
     //默认索引
     private int timeIndex;
     private int toWhoIndex;
-//    private int payForIndex;
+    private int payForIndex;
     private int typeIndex;
     private int moneyIndex;
     private int remarkIndex;
+
+    private boolean isWeChat;       //是否微信模板
     private RecordExcelHeadFilter headFilter;
 
-    public RecordExcel() {
-        bookId = -1;
-        userId = -1;
-        bookLocalId = -1;
-        TIME = TIMEDEFAULT;
-        TOWHO = TOWHODEFAULT;
-//        PAYFOR = PAYFORDEFAULT;
-        TYPE = TYPEDEFAULT;
-        MONEY = MONEYDEFAULT;
-        REMARK = REMARKDEFAULT;
-        CATEGORY = "";
-        initIndex();
-        headFilter = new WXRecordExcelHeaderFilter();
-    }
-
     public RecordExcel(Model model) {
-        LogUtil.logD(model.toString());
         bookId = -1;
         userId = -1;
         bookLocalId = -1;
+        isWeChat = model.getName().equals("微信模板");
+        PAYFOR = PAYFORDEFAULT;
         this.TIME = model.getDate();
         this.TOWHO = model.getToWho();
-//        this.PAYFOR = model.;
         this.TYPE = model.getAmount_Type();
         this.MONEY = model.getAmount();
         this.REMARK = model.getRemark();
         this.CATEGORY = model.getName();
-        this.headFilter = new WXRecordExcelHeaderFilter();
+        if (isWeChat)
+            this.headFilter = new WXRecordExcelHeaderFilter();
         initIndex();
     }
 
@@ -112,6 +101,7 @@ public class RecordExcel {
             //得到表头各标签索引
             while ((str = bufferedReader.readLine()) != null && !str.equals("")) {
                 res.add(getRecordFormLine(str));
+                LogUtil.logD(res.get(res.size() - 1).toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,10 +120,12 @@ public class RecordExcel {
         String[] value = line.split(",");
         String time = timeIndex == -1 || timeIndex >= value.length ? "" : value[timeIndex];
         String toWho = toWhoIndex == -1 || toWhoIndex >= value.length ? "" : value[toWhoIndex];
-//        String payFor = payForIndex == -1 || payForIndex >= value.length ? "" : value[payForIndex];
+        String payFor = payForIndex == -1 || payForIndex >= value.length ? "" : value[payForIndex];
         String money = moneyIndex == -1 || moneyIndex >= value.length ? "" : value[moneyIndex];
         String type = typeIndex == -1 || typeIndex >= value.length ? "" : value[typeIndex];
         String remark = remarkIndex == -1 || remarkIndex >= value.length ? "" : value[remarkIndex];
+        LogUtil.logD("towho  " + toWho);
+        LogUtil.logD("payfor  " + payFor);
 
         int amount_type = Tag.IN;
         if (money.startsWith("¥") || money.startsWith("$")) {
@@ -155,6 +147,10 @@ public class RecordExcel {
                 amount_type = Tag.IN;
             }
         }
+        if (isWeChat) {
+            if (!TextUtils.isEmpty(payFor) && !("/").equals(payFor))
+                remark = payFor + "-" + remark;
+        }
         return new Record(userId, bookId, bookLocalId, time, money, amount_type, toWho, remark, CATEGORY);
     }
 
@@ -172,7 +168,7 @@ public class RecordExcel {
     private void initIndex() {
         timeIndex = -1;
         toWhoIndex = -1;
-//        payForIndex = -1;
+        payForIndex = -1;
         typeIndex = -1;
         moneyIndex = -1;
     }
@@ -185,7 +181,6 @@ public class RecordExcel {
     }
 
     public void updateIndex(String title, int index) {
-        LogUtil.logD(title + "  " + index);
         if (TIME.equals(title)) {
             timeIndex = index;
         } else if (TOWHO.equals(title)) {
@@ -196,6 +191,8 @@ public class RecordExcel {
             moneyIndex = index;
         } else if (REMARK.equals(title)) {
             remarkIndex = index;
+        } else if (PAYFOR.equals(title)) {
+            payForIndex = index;
         }
     }
 

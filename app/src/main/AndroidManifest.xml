@@ -27,23 +27,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.InputActivity" android:theme="@style/CustomActivityFloating" android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.BudgetActivity"></activity>
+        <activity android:name=".ui.activity.RecordListActivity1" />
+        <activity android:name=".ui.activity.DateChooseActivity" />
+        <activity android:name=".ui.activity.NotificationListActivity" />
+        <activity android:name=".ui.activity.NoDisturbActivity" />
+        <activity android:name=".ui.activity.UserNameEditActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ui.activity.MeEditActivity" />
+        <activity android:name=".ui.activity.VerifyLockerActivity" />
+        <activity android:name=".ui.activity.UnlockActivity" />
+        <activity android:name=".ui.activity.PatternLockerActivity" />
+        <activity
+            android:name=".ui.activity.InputActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/CustomActivityFloating" />
         <activity android:name=".ui.activity.ModelDetailActivity" />
         <activity android:name=".ui.activity.ModelActivity" />
         <activity android:name=".ui.activity.RecordListActivity" />
-        <activity android:name=".ui.activity.UserActivity" />
         <activity android:name=".ui.activity.AddByExcelActivity" />
         <activity android:name=".ui.activity.FilterActivity" />
         <activity android:name=".ui.activity.RecordDetailActivity" />
         <activity android:name=".ui.activity.BookDetailAddUserActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
-        <activity android:name=".ui.activity.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.AddUserActivity" />
         <activity android:name=".ui.activity.MemberActivity" />
@@ -56,6 +65,13 @@
             android:theme="@style/CustomActivityDialog" />
         <activity android:name=".ui.activity.AddByMyselfActivity" />
         <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".jpush.PushMessageReceiver"

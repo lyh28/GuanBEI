@@ -3,11 +3,15 @@ package com.lyh.guanbei.mvp.presenter;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.db.BookDao;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
 import com.lyh.guanbei.mvp.model.QueryBookModel;
+import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.NetUtil;
+import com.lyh.guanbei.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,31 +64,16 @@ public class QueryBookPresenter extends BasePresenter<QueryBookContract.IQueryBo
     public void queryBookServer(long id) {
         List<Long> idList = new ArrayList<>();
         idList.add(id);
-        if (NetUtil.isNetWorkAvailable()) {
-            getmModel().queryBookFormService(idList, new ICallbackListener<List<Book>>() {
-                @Override
-                public void onSuccess(List<Book> data) {
-                    DBManager.getInstance().getDaoSession().getBookDao().insertOrReplaceInTx(data);
-                    if (checkAttach())
-                        getmView().showBook(data);
-                }
-
-                @Override
-                public void onFailed(String msg) {
-                    if (checkAttach())
-                        getmView().queryBookFailed();
-                }
-            });
-        } else if (checkAttach())
-            getmView().queryBookFailed();
-
+        queryBookServer(idList);
     }
 
-    public void queryBookServer(List<Long> idList) {
+    public void queryBookServer(final List<Long> idList) {
         if (NetUtil.isNetWorkAvailable()) {
             getmModel().queryBookFormService(idList, new ICallbackListener<List<Book>>() {
                 @Override
                 public void onSuccess(List<Book> data) {
+                    //删除相应的bookid
+                    Book.delete(BookDao.Properties.Book_id.in(idList));
                     DBManager.getInstance().getDaoSession().getBookDao().insertOrReplaceInTx(data);
                     if (checkAttach())
                         getmView().showBook(data);
@@ -99,6 +88,8 @@ public class QueryBookPresenter extends BasePresenter<QueryBookContract.IQueryBo
         } else if (checkAttach())
             getmView().queryBookFailed();
     }
+
+
 
     @Override
     public QueryBookContract.IQueryBookModel createModel() {

@@ -26,21 +26,31 @@
         android:layout_marginLeft="10dp">
         <TextView
             android:textAlignment="textStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textSize="15sp"
             android:textColor="@color/colorBlack"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="用户"
             android:id="@+id/listitem_record_user"/>
-        <TextView
-            android:gravity="bottom"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"
-            android:text="账单分类"
-            android:id="@+id/listitem_record_category"/>
+            android:layout_weight="1">
+            <TextView
+                android:gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="账单分类"
+                android:singleLine="true"
+                android:textSize="10sp"
+                android:ellipsize="end"
+                android:id="@+id/listitem_record_category"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -55,7 +65,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:text="3000"
             android:textColor="@color/colorBlack"
             android:id="@+id/listitem_record_amount"/>
         <TextView
@@ -66,7 +75,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textColor="@color/colorBlack"
-            android:text="15:43"
             android:id="@+id/listitem_record_date"/>
     </LinearLayout>
     <TextView

@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CircleBorder">
-        <attr name="color" format="color"/>
+        <attr name="color" format="color|reference"/>
         <attr name="circle_type">
             <enum name="up_circle" value="0"/>
             <enum name="down_circle" value="1"/>
             <enum name="circle" value="2"/>
         </attr>
         <attr name="border_width" format="integer"/>
+    </declare-styleable>
+    <attr name="point_num" format="integer"/>
+    <attr name="circle_color" format="color|reference"/>
+    <attr name="circle_width" format="integer"/>
+    <declare-styleable name="PatternLockerView">
+        <attr name="line_color" format="color|reference"/>
+        <attr name="hit_color" format="color|reference"/>
+        <attr name="error_color" format="color|reference"/>
+        <attr name="point_num"/>
+        <attr name="circle_width"/>
+        <attr name="circle_color"/>
+        <attr name="auto_clean" format="boolean"/>
+        <attr name="clean_duration" format="integer"/>
+        <attr name="line_width" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="PatternIndicatorView">
+        <attr name="point_num"/>
+        <attr name="circle_width"/>
+        <attr name="circle_color"/>
     </declare-styleable>
 </resources>

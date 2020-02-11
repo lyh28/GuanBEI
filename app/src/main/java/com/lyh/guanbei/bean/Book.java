@@ -18,7 +18,9 @@ import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Book {
@@ -36,6 +38,7 @@ public class Book {
     private int status;         //DB状态
     private double in_sum;      //总收入
     private double out_sum;     //总支出
+
     /*
             状态描述：
             0：  仅客户端拥有，服务端未拥有
@@ -47,9 +50,10 @@ public class Book {
         this.book_name = book_name;
         this.manager_id = manager_id;
     }
+
     @Generated(hash = 812964935)
     public Book(Long local_id, @NotNull String book_name, long book_id, long manager_id, String person_id, double max_sum, double now_in_sum,
-            double now_out_sum, int status, double in_sum, double out_sum) {
+                double now_out_sum, int status, double in_sum, double out_sum) {
         this.local_id = local_id;
         this.book_name = book_name;
         this.book_id = book_id;
@@ -62,9 +66,11 @@ public class Book {
         this.in_sum = in_sum;
         this.out_sum = out_sum;
     }
+
     @Generated(hash = 1839243756)
     public Book() {
     }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -105,9 +111,11 @@ public class Book {
     public void setMax_sum(double max_sum) {
         this.max_sum = max_sum;
     }
+
     public void setMax_sum(String max_sum) {
         this.max_sum = Double.parseDouble(max_sum);
     }
+
     public double getIn_sum() {
         return in_sum;
     }
@@ -160,6 +168,10 @@ public class Book {
         return DBManager.getInstance().getDaoSession().getBookDao().queryBuilder().where(cond, condMore).list();
     }
 
+    public static void delete(WhereCondition cond, WhereCondition... condMore) {
+        DBManager.getInstance().getDaoSession().getBookDao().deleteInTx(query(cond, condMore));
+    }
+
     public static List<Book> queryByUserId() {
         return query(BookDao.Properties.Local_id.in(Util.getLongFromData(CustomSharedPreferencesManager.getInstance().getUser().getLocal_book_id())));
     }
@@ -174,45 +186,49 @@ public class Book {
     public static Book queryByLocalId(long localId) {
         return DBManager.getInstance().getDaoSession().getBookDao().load(localId);
     }
-    private static final String QUERYSUMBETWEENDATE="select  sum(amount) as amount,amount_type from Record" +
+
+    private static final String QUERYSUMBETWEENDATE = "select  sum(amount) as amount,amount_type from Record" +
             " where book_local_id=? and amount_type= ? and date between ? and ? ";
-    private static final String QUERYSUM="select sum(amount) as amount,amount_type from Record" +
+    private static final String QUERYSUM = "select sum(amount) as amount,amount_type from Record" +
             " where book_local_id=? and amount_type= ? ";
-    private static final String COLUMN_NAME="amount";
-    public static void updateBookSum(long localid){
-        Book book=queryByLocalId(localid);
+    private static final String COLUMN_NAME = "amount";
+
+    public static void updateBookSum(long localid) {
+        Book book = queryByLocalId(localid);
         //当月收入
-        book.setNow_in_sum(getResFromSQL(QUERYSUMBETWEENDATE,COLUMN_NAME,new String[]{localid+"",Tag.IN+"", DateUtil.getMonthFirstDay(), DateUtil.getNowDateTimeWithoutSecond()}));
+        book.setNow_in_sum(getResFromSQL(QUERYSUMBETWEENDATE, COLUMN_NAME, new String[]{localid + "", Tag.IN + "", DateUtil.getMonthFirstDay(), DateUtil.getNowDateTimeWithoutSecond()}));
         //当月支出
-        book.setNow_out_sum(getResFromSQL(QUERYSUMBETWEENDATE,COLUMN_NAME,new String[]{localid+"",Tag.OUT+"", DateUtil.getMonthFirstDay(), DateUtil.getNowDateTimeWithoutSecond()}));
+        book.setNow_out_sum(getResFromSQL(QUERYSUMBETWEENDATE, COLUMN_NAME, new String[]{localid + "", Tag.OUT + "", DateUtil.getMonthFirstDay(), DateUtil.getNowDateTimeWithoutSecond()}));
         //总收入
-        book.setIn_sum(getResFromSQL(QUERYSUM,COLUMN_NAME,new String[]{localid+"",Tag.IN+""}));
+        book.setIn_sum(getResFromSQL(QUERYSUM, COLUMN_NAME, new String[]{localid + "", Tag.IN + ""}));
         //总支出
-        book.setOut_sum(getResFromSQL(QUERYSUM,COLUMN_NAME,new String[]{localid+"",Tag.OUT+""}));
+        book.setOut_sum(getResFromSQL(QUERYSUM, COLUMN_NAME, new String[]{localid + "", Tag.OUT + ""}));
         DBManager.getInstance().getDaoSession().getBookDao().update(book);
     }
-    public static void updateBookSum(List<Record> recordList){
-        for(long id:getBookListAbout(recordList))
+
+    public static void updateBookSum(List<Record> recordList) {
+        for (long id : getBookListAbout(recordList))
             updateBookSum(id);
     }
-    private static double getResFromSQL(String sql,String columnName,String[] args){
-        Cursor c=DBManager.getInstance().getDaoSession().getDatabase().rawQuery(sql,args);
-        double res=0;
-        if(c.moveToFirst())
-            res=c.getDouble(c.getColumnIndex(columnName));
+
+    private static double getResFromSQL(String sql, String columnName, String[] args) {
+        Cursor c = DBManager.getInstance().getDaoSession().getDatabase().rawQuery(sql, args);
+        double res = 0;
+        if (c.moveToFirst())
+            res = c.getDouble(c.getColumnIndex(columnName));
         c.close();
         return res;
     }
-    //返回有关的booklist
-    public static List<Long> getBookListAbout(List<Record> recordList){
-        List<Long> bookIdList = new ArrayList<>();
+
+    //返回有关的booklist(localId)
+    public static Set<Long> getBookListAbout(List<Record> recordList) {
+        Set<Long> bookIdList = new HashSet<>();
         for (Record r : recordList) {
-            long bookId = r.getBook_local_id();
-            if (!bookIdList.contains(bookId))
-                bookIdList.add(bookId);
+            bookIdList.add(r.getBook_local_id());
         }
         return bookIdList;
     }
+
     public int getStatus() {
         return this.status;
     }

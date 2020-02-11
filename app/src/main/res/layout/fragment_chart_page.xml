@@ -6,12 +6,12 @@
     <RelativeLayout
         android:id="@+id/fragment_chart_page_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/appbar_height"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/page_left_right_margin"
-        android:paddingRight="@dimen/page_left_right_margin"
-        android:layout_marginBottom="10dp">
+        android:paddingRight="@dimen/page_left_right_margin">
         <TextView
+            android:id="@+id/fragment_chart_page_book"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -28,16 +28,16 @@
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp"
                 android:paddingRight="7dp"
-                android:id="@+id/fragment_chart_page_category_btn"
+                android:id="@+id/fragment_chart_page_pie_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/add_type_bg_check_righttoleft"
                 android:textColor="@drawable/add_type_color_check"
-                android:text="分类"
+                android:text="饼状图"
                 android:button="@null"
                 android:paddingLeft="20dp"/>
             <RadioButton
-                android:id="@+id/fragment_chart_page_acount_btn"
+                android:id="@+id/fragment_chart_page_line_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="7dp"
@@ -45,8 +45,7 @@
                 android:paddingLeft="7dp"
                 android:background="@drawable/add_type_bg_check_lefttoright"
                 android:textColor="@drawable/add_type_color_check"
-                android:checked="true"
-                android:text="流水"
+                android:text="折线图"
                 android:button="@null"
                 android:paddingRight="20dp"/>
         </RadioGroup>

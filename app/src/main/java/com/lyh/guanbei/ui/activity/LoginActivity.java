@@ -19,6 +19,7 @@ import com.lyh.guanbei.mvp.contract.LoginContract;
 import com.lyh.guanbei.mvp.contract.QueryBookContract;
 import com.lyh.guanbei.mvp.presenter.LoginPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryBookPresenter;
+import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.Util;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -116,18 +117,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void showBook(List<Book> list) {
         if(isFirst) {
-            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance();
-            if(list.size()==0) {
-                preferencesManager.saveCurrBookId(-1);
-            }else{
-                preferencesManager.saveCurrBookId(list.get(0).getLocal_id());
-            }
-            String local_book_id="";
-            for(Book book:list)
-                local_book_id=Util.addToData(book.getLocal_id(),local_book_id);
-            user.setLocal_book_id(local_book_id);
-            preferencesManager.saveUser(user);
-            DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
+            User.updateUserBook(list);
+//            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance();
+//            if(list.size()==0) {
+//                preferencesManager.saveCurrBookId(-1);
+//            }else{
+//                preferencesManager.saveCurrBookId(list.get(0).getLocal_id());
+//            }
+//            String local_book_id="";
+//            for(Book book:list)
+//                local_book_id=Util.addToData(book.getLocal_id(),local_book_id);
+//            user.setLocal_book_id(local_book_id);
+//            preferencesManager.saveUser(user);
+//            DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
             isFirst = false;
             mDialog.dismiss();
             startActivity(MainActivity.class);
@@ -164,6 +166,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.activity_login_pass:
                 //设置userId为-1
                 user=new User();
+                user.setUser_phone("");
+                user.setCreate_time(DateUtil.getNowDateTimeWithSecond());
                 user.setUser_id(-1);
                 //可能需要删除上一个userId为-1留下的数据
                 CustomSharedPreferencesManager.getInstance().saveUser(user);
@@ -179,5 +183,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         mQueryBookPresenter=new QueryBookPresenter();
         addPresenter(mQueryBookPresenter);
         addPresenter(mLoginPresenter);
+    }
+    @Override
+    protected boolean isLocked() {
+        return false;
     }
 }

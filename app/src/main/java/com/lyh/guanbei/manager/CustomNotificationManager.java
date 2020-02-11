@@ -13,6 +13,7 @@ import android.widget.RemoteViews;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.ui.activity.InputActivity;
+import com.lyh.guanbei.util.LogUtil;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -20,12 +21,18 @@ import androidx.core.app.NotificationCompat;
 public class CustomNotificationManager {
     private static final String INPUT_CHANNEL_ID = "input";
     private static final String INPUT_CHANNEL_NAME = "快捷输入";
-    public static void init(Context context){
+
+    public static void initInPutNotification(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             context.startForegroundService(new Intent(context, CustomNotificationManager.NotificationService.class));
         else
             context.startService(new Intent(context, CustomNotificationManager.NotificationService.class));
     }
+
+    public static void stopInPutNotification(Context context) {
+        context.stopService(new Intent(context, CustomNotificationManager.NotificationService.class));
+    }
+
     private static NotificationCompat.Builder getInputNotification(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -38,7 +45,6 @@ public class CustomNotificationManager {
             builder = new NotificationCompat.Builder(context, INPUT_CHANNEL_ID);
         } else {
             builder = new NotificationCompat.Builder(context);
-            builder.setPriority(NotificationCompat.PRIORITY_MIN);
         }
         //跳转
         Intent i = new Intent(context, InputActivity.class);
@@ -63,6 +69,13 @@ public class CustomNotificationManager {
         @Override
         public IBinder onBind(Intent intent) {
             return null;
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            LogUtil.logD("ondestory");
+            stopForeground(true);
         }
     }
 }

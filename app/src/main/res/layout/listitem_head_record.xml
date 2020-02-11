@@ -3,18 +3,10 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp">
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
-        <View
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#000000"/>
-    </RelativeLayout>
+    android:paddingRight="10dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@color/qmui_config_color_background">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,14 +14,4 @@
         android:paddingRight="5dp"
         android:id="@+id/listitem_head_date"
         android:text="时间"/>
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
-        <View
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#000000"/>
-    </RelativeLayout>
 </LinearLayout>

@@ -43,4 +43,9 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
+
+    @Override
+    protected boolean isLocked() {
+        return false;
+    }
 }

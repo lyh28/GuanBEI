@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@color/colorWhite"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/dialog_top_list_part1"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/dialog_top_list_title1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="标题1"
+                android:textAlignment="center" />
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                app:tag_gravity="center"
+                android:layout_marginBottom="10dp"
+                app:max_select="1"
+                android:id="@+id/dialog_top_list_TagFlowLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/split_line_gray"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/dialog_top_list_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:text="标题2"
+            android:textAlignment="center" />
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            app:tag_gravity="center"
+            app:max_select="1"
+            android:id="@+id/dialog_top_list_TagFlowLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

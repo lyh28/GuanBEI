@@ -17,6 +17,7 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 import retrofit2.Retrofit;
 
 public class APIManager {
@@ -26,6 +27,12 @@ public class APIManager {
     }
     public static void register(User user, BaseObscriber<User> baseObscriber){
         getRetrofit().create(UserServiceApi.class).register(user).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
+    public static void updateIcon(long id, MultipartBody.Part icon,BaseObscriber<User> baseObscriber){
+        getRetrofit().create(UserServiceApi.class).updateIcon(id,icon).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
+    public static void update(User user,BaseObscriber<User> baseObscriber){
+        getRetrofit().create(UserServiceApi.class).update(user).compose(getMainThreadTransformer()).subscribe(baseObscriber);
     }
     public static void queryUserById(List<Long> id,BaseObscriber<List<User>> baseObscriber){
         getRetrofit().create(UserServiceApi.class).queryById(id).compose(getMainThreadTransformer()).subscribe(baseObscriber);

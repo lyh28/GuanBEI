@@ -3,6 +3,7 @@ package com.lyh.guanbei.manager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -40,11 +41,13 @@ public class CustomSharedPreferencesManager {
         preferences= GuanBeiApplication.getContext().getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
         editor=preferences.edit();
     }
-
+    public void clearAll(){
+        editor.clear();
+        editor.commit();
+    }
     public void saveUser(User user){
         saveParam(USER,user);
     }
-
     public User getUser(){
         return (User) getParam(USER,null);
     }

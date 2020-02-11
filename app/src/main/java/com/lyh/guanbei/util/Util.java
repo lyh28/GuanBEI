@@ -30,6 +30,15 @@ public class Util {
 
     //添加至"A-B-C"格式中
     public static String addToData(long data, String str) {
+        str=str==null?"":str;
+        if (str.equals("")) {
+            str += data;
+        } else {
+            str = str + Contact.SEPARATOR + data;
+        }
+        return str;
+    }
+    public static String addToData(int data, String str) {
         if (str.equals("")) {
             str += data;
         } else {
@@ -45,6 +54,12 @@ public class Util {
     }
     public static String[] splitData(String data){
         return data.split(Contact.SEPARATOR);
+    }
+    public static String getDataFromList(List<Integer> list){
+        String data="";
+        for(int i:list)
+            data=addToData(i,data);
+        return data;
     }
     public static List<Long> getLongFromData(String data){
         List<Long> list=new ArrayList<>();

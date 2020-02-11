@@ -18,6 +18,8 @@ import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.QueryRecordContract;
 import com.lyh.guanbei.mvp.presenter.QueryRecordPresenter;
+import com.lyh.guanbei.ui.activity.AddBookActivity;
+import com.lyh.guanbei.ui.activity.BudgetActivity;
 import com.lyh.guanbei.ui.activity.ChangeBookActivity;
 import com.lyh.guanbei.ui.activity.FilterActivity;
 import com.lyh.guanbei.ui.activity.RecordDetailActivity;
@@ -133,6 +135,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                 //处理掉没有book的情况
                 mRootView = getmView().findViewById(R.id.fragment_book_rootview);
                 mNoDataView = LayoutInflater.from(getmActivity()).inflate(R.layout.fragment_book_page_nodata, null);
+                mNoDataView.findViewById(R.id.fragment_book_nodata_add).setOnClickListener(this);
                 mRootView.addView(mNoDataView);
             } else {
                 if (mNoDataView != null) {
@@ -141,7 +144,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                 }
                 mBookName.setText(book.getBook_name());
                 mQueryRecordPresenter.queryRecordById(QueryRecordPresenter.BOOKID, bookId);
-
             }
         } else {
             List<Record> list = Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
@@ -179,10 +181,12 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     }
     private void updateBookSumStr(){
         Book book=Book.queryByLocalId(bookId);
-        String month=DateUtil.getMonth();
-        mIn.setText(month+"收入: "+book.getNow_in_sum());
-        mOut.setText(month+"支出: "+book.getNow_out_sum());
-        mBudget.setText(book.getMax_sum()+"");
+        if(book!=null) {
+            String month=DateUtil.getMonth();
+            mIn.setText(month + "收入: " + book.getNow_in_sum());
+            mOut.setText(month + "支出: " + book.getNow_out_sum());
+            mBudget.setText(book.getMax_sum() + "");
+        }
     }
     private String wrapBudget(Book book){
         double budget=book.getMax_sum();
@@ -200,10 +204,14 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
             case R.id.fragment_book_more:
                 break;
             case R.id.fragment_book_budget:
+                startActivity(BudgetActivity.class);
                 break;
             case R.id.fragment_book_nameView:
                 //开启下拉
                 startActivity(ChangeBookActivity.class);
+                break;
+            case R.id.fragment_book_nodata_add:
+                startActivity(AddBookActivity.class);
                 break;
         }
     }

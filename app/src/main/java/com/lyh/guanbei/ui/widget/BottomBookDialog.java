@@ -29,13 +29,14 @@ public class BottomBookDialog extends Dialog {
     private List<Book> bookList;
     private long currBookId;
     private TextView mName;
-    public BottomBookDialog(@NonNull Context context,TextView name) {
+
+    public BottomBookDialog(@NonNull Context context, TextView name) {
         super(context, R.style.CustomDialog);
-        this.context=context;
-        CustomSharedPreferencesManager customSharedPreferencesManager=CustomSharedPreferencesManager.getInstance();
-        currBookId=customSharedPreferencesManager.getCurrBookId();
-        bookList= Book.queryByUserId();
-        mName=name;
+        this.context = context;
+        CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
+        currBookId = customSharedPreferencesManager.getCurrBookId();
+        bookList = Book.queryByUserId();
+        mName = name;
     }
 
     @Override
@@ -45,28 +46,30 @@ public class BottomBookDialog extends Dialog {
         initWindowConfig();
         initView();
     }
-    private void initWindowConfig(){
+
+    private void initWindowConfig() {
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         int height = (int) (0.5f * QMUIDisplayHelper.getScreenHeight(context));
-        int width =  QMUIDisplayHelper.getScreenWidth(context);
+        int width = QMUIDisplayHelper.getScreenWidth(context);
         layoutParams.width = width;
         layoutParams.height = height;
         layoutParams.gravity = Gravity.BOTTOM;
         getWindow().setAttributes(layoutParams);
         setCanceledOnTouchOutside(true);
     }
-    private void initView(){
-        recyclerView=findViewById(R.id.dialog_bottom_book_recyclerview);
-        bookAdapter=new BookAdapter(currBookId);
+
+    private void initView() {
+        recyclerView = findViewById(R.id.dialog_bottom_book_recyclerview);
+        bookAdapter = new BookAdapter(currBookId);
         bookAdapter.setNewData(bookList);
         bookAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 bookAdapter.setCurrentBookId(bookList.get(position).getLocal_id());
-                currBookId=bookAdapter.getCurrentBookId();
+                currBookId = bookAdapter.getCurrentBookId();
             }
         });
-        LinearLayoutManager layoutManager=new LinearLayoutManager(context);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setAdapter(bookAdapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -74,10 +77,12 @@ public class BottomBookDialog extends Dialog {
 
     @Override
     public void cancel() {
-        mName.setText(Book.queryByLocalId(currBookId).getBook_name());
+        if (currBookId != -1)
+            mName.setText(Book.queryByLocalId(currBookId).getBook_name());
         super.cancel();
     }
-    public long getCurrBookId(){
+
+    public long getCurrBookId() {
         return currBookId;
     }
 }

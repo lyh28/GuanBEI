@@ -64,6 +64,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
         mDialog.setListener(new AskDialog.onClickListener() {
             @Override
             public void onEnsure() {
+                //删除账单
             }
 
             @Override

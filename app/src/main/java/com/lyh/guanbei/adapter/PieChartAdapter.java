@@ -11,6 +11,8 @@ import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.Tag;
 import com.lyh.guanbei.manager.TagManager;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,16 +21,16 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.CategoryChart, BaseViewHolder> {
-    private Map<String, CategoryChart> mInMap;      //收入
-    private Map<String, CategoryChart> mOutMap;      //支出
+public class PieChartAdapter extends BaseQuickAdapter<PieChartAdapter.PieChartData, BaseViewHolder> {
+    private Map<String, PieChartData> mInMap;      //收入
+    private Map<String, PieChartData> mOutMap;      //支出
 
     private double mInSum;
     private double mOutSum;
     private int type;
     private Context context;
 
-    public ChartCategoryAdapter(Context context) {
+    public PieChartAdapter(Context context) {
         super(R.layout.listitem_chart_category);
         mInMap = new HashMap<>();
         mOutMap = new HashMap<>();
@@ -39,7 +41,7 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
     }
 
     @Override
-    protected void convert(@NonNull BaseViewHolder helper, CategoryChart item) {
+    protected void convert(@NonNull BaseViewHolder helper, PieChartData item) {
         helper.setText(R.id.listitem_chart_category_name, item.getmCategory());
         helper.setText(R.id.listitem_chart_category_num, wrapNumAndRate(item));
         ImageView icon = helper.getView(R.id.listitem_chart_category_icon);
@@ -47,11 +49,11 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
         helper.setText(R.id.listitem_chart_category_sum, item.getmSum()+"");
     }
 
-    public Map<String, CategoryChart> getmInMap() {
+    public Map<String, PieChartData> getmInMap() {
         return mInMap;
     }
 
-    public Map<String, CategoryChart> getmOutMap() {
+    public Map<String, PieChartData> getmOutMap() {
         return mOutMap;
     }
 
@@ -64,11 +66,13 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
         changeData();
     }
 
-    private String wrapNumAndRate(CategoryChart item) {
+    private String wrapNumAndRate(PieChartData item) {
         return item.getmRate() + "% " + item.getmNum() + "笔";
     }
 
     public void setDatas(@Nullable List<Record> datas) {
+        mInSum=0;
+        mOutSum=0;
         mInMap.clear();
         mOutMap.clear();
         for (Record record : datas) {
@@ -80,11 +84,10 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
                 mOutSum+=record.getAmount();
             }
         }
-
-        for(CategoryChart categoryChart:mInMap.values())
-            categoryChart.setmRate((categoryChart.getmSum()/mInSum*100));
-        for(CategoryChart categoryChart:mOutMap.values())
-            categoryChart.setmRate((categoryChart.getmSum()/mOutSum*100));
+        for(PieChartData pieChartData:mInMap.values())
+            pieChartData.setmRate((pieChartData.getmSum()/mInSum*100));
+        for(PieChartData pieChartData:mOutMap.values())
+            pieChartData.setmRate((pieChartData.getmSum()/mOutSum*100));
         changeData();
     }
     public void changeData(){
@@ -94,23 +97,31 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
             setNewData(new ArrayList<>(mOutMap.values()));
         }
     }
-    private void addToMap(Map<String, CategoryChart> map, Record record) {
+    private void addToMap(Map<String, PieChartData> map, Record record) {
         String category = record.getCategory();
         if (map.containsKey(record.getCategory())) {
             map.get(category).addRecord(record);
         } else {
-            map.put(category, new CategoryChart(record));
+            map.put(category, new PieChartData(record));
         }
     }
 
-    public static class CategoryChart {
+    public double getmInSum() {
+        return mInSum;
+    }
+
+    public double getmOutSum() {
+        return mOutSum;
+    }
+
+    public static class PieChartData {
         private int mIconId;
         private String mCategory;
         private double mSum;
         private int mNum;
-        private double mRate;
+        private String mRate;
 
-        public CategoryChart(Record record) {
+        public PieChartData(Record record) {
             this.mIconId = TagManager.getIconByCategory(record.getCategory(), record.getAmount_type());
             this.mCategory = record.getCategory();
             this.mSum =record.getAmount();
@@ -140,12 +151,28 @@ public class ChartCategoryAdapter extends BaseQuickAdapter<ChartCategoryAdapter.
             return mNum;
         }
 
-        public double getmRate() {
+        public String getmRate() {
             return mRate;
         }
 
         public void setmRate(double mRate) {
-            this.mRate = mRate;
+            DecimalFormat df = new DecimalFormat("0.0");
+            df.setMaximumFractionDigits(1);
+            df.setRoundingMode(RoundingMode.HALF_UP);
+            String rate=df.format(mRate);
+            this.mRate = rate;
+        }
+
+        @Override
+        public String toString() {
+            return "CategoryChart{" +
+                    "mIconId=" + mIconId +
+                    ", mCategory='" + mCategory + '\'' +
+                    ", mSum=" + mSum +
+                    ", mNum=" + mNum +
+                    ", mRate='" + mRate + '\'' +
+                    '}';
         }
     }
+
 }

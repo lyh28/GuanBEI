@@ -11,6 +11,9 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
+import java.io.IOException;
+
 public class FileUtil {
     public static String getFilePathByUri(Context context, Uri uri) {
         String path = null;
@@ -59,8 +62,6 @@ public class FileUtil {
                     // MediaProvider
                     final String docId = DocumentsContract.getDocumentId(uri);
                     final String[] split = docId.split(":");
-                    for(String s:split)
-                        LogUtil.logD("split:  "+s);
                     final String type = split[0];
                     Uri contentUri = null;
                     if ("image".equals(type)) {
@@ -119,5 +120,18 @@ public class FileUtil {
 
     private static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    public static File getTmpFile(Context context,String fileName){
+        File tmp=new File(context.getCacheDir(),fileName);
+        try {
+            if(tmp.exists())
+                tmp.delete();
+            tmp.createNewFile();
+            return tmp;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

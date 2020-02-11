@@ -19,23 +19,26 @@ import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.Tag;
+import com.lyh.guanbei.common.Contact;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.CommitRecordContract;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
 import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.UpdateRecordPresenter;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
+import com.lyh.guanbei.ui.widget.BottomDateDialog;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.KeyBoardUtil;
 import com.lyh.guanbei.manager.TagManager;
 import com.lyh.guanbei.util.LogUtil;
 
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AddByMyselfActivity extends BaseActivity implements UpdateRecordContract.IUpdateRecordView, CommitRecordContract.ICommitRecordView, View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class AddByMyselfActivity extends BaseActivity implements UpdateRecordContract.IUpdateRecordView, CommitRecordContract.ICommitRecordView, View.OnClickListener, RadioGroup.OnCheckedChangeListener, BottomDateDialog.onDoneListener {
     private RadioGroup mRadioGroup;
     private ImageView mBack;
     private ImageView mDone;
@@ -45,7 +48,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     private EditText mAmount;
     private RecyclerView mRecyclerview;
     private TextView mBookName;
-    private EditText mDate;
+    private TextView mDate;
     private EditText mToWho;
     private EditText mRemark;
     private View mRootView;
@@ -59,6 +62,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     private long currBookId;
     private int type;   //当前状态  收入还是支出
     private int status;       //状态    添加还是更新还是编辑   0  1  2
+    private String date;
     public static final int INSERT_STATUS = 0;
     public static final int UPDATE_STATUS = 1;
     public static final int EDIT_STATUS = 2;
@@ -155,12 +159,14 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     private void initData() {
         Bundle bundle = getIntentData();
         if (bundle != null) {
+            //更新编辑状态
             status = bundle.getInt("status");
             mRecord = (Record) bundle.getSerializable("record");
             currBookId = mRecord.getBook_local_id();
+            date=mRecord.getDate();
             if (!"".equals(mRecord.getDate()))
                 mDate.setText(mRecord.getDate().split(" ")[1]);
-            mAmount.setText(mRecord.getAmount()+"");
+            mAmount.setText(mRecord.getAmount() + "");
             mCategory.setText(mRecord.getCategory());
             mRemark.setText(mRecord.getRemark());
             mToWho.setText(mRecord.getTowho());
@@ -171,7 +177,9 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
                 mRadioGroup.check(R.id.activity_add_myself_out_btn);
             }
         } else {
-            status = 0;
+            //插入状态
+            status = INSERT_STATUS;
+            date=DateUtil.getNowDateTimeWithoutSecond();
             CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
             type = Tag.OUT;
             currBookId = customSharedPreferencesManager.getCurrBookId();
@@ -179,7 +187,10 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
             //设置大图标
             setDefaultCategoryData();
         }
-        mBookName.setText(Book.queryByLocalId(currBookId).getBook_name());
+        if (currBookId != -1)
+            mBookName.setText(Book.queryByLocalId(currBookId).getBook_name());
+        else
+            mBookName.setText("暂无账本");
     }
 
     @Override
@@ -209,26 +220,60 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
                     Record record = createRecord();
                     Intent intent = new Intent();
                     intent.putExtra("record", record);
-                    setResult(RESULT_OK,intent);
+                    setResult(RESULT_OK, intent);
                 } else
                     commitRecordPresenter.commit(createRecord());
                 finish();
                 break;
             case R.id.activity_add_myself_date_view:
                 //选择日期
-                Toast.makeText(this, "选择日期", Toast.LENGTH_SHORT).show();
+                Calendar calendar = Calendar.getInstance();
+                if (status != INSERT_STATUS) {
+                    int[] res = new int[5];
+                    getFromDate(mRecord.getDate(), res);
+                    calendar.set(res[0], res[1]-1, res[2], res[3], res[4]);
+                }
+                new BottomDateDialog(this, calendar).setDoneListener(this).show();
                 break;
             case R.id.activity_add_myself_rootview:
-                mRootView.setFocusable(true);
-                mRootView.setFocusableInTouchMode(true);
-                mRootView.requestFocus();
-                keyBoardUtil.hideKeyBoard();
+                setRootViewFocus();
                 keyBoardUtil.hideSystemKeyboard(AddByMyselfActivity.this);
                 break;
             case R.id.activity_add_myself_bookview:
                 mDialog.show();
                 break;
         }
+    }
+
+    @Override
+    public void onDone(String dateAndTime) {
+        LogUtil.logD("date  "+dateAndTime);
+        date=dateAndTime;
+        mDate.setText(dateAndTime.split(" ")[1]);
+    }
+
+    private void getFromDate(String date, int[] res) {
+        String dates = date.split(" ")[0];
+        String times = date.split(" ")[1];
+        String[] dateArr = dates.split(Contact.SEPARATOR);
+        res[0] = Integer.parseInt(dateArr[0]);
+        res[1] = Integer.parseInt(dateArr[1]);
+        res[2] = Integer.parseInt(dateArr[2]);
+        String[] timeArr = times.split(":");
+        res[3] = Integer.parseInt(timeArr[0]);
+        res[4] = Integer.parseInt(timeArr[1]);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setRootViewFocus();
+    }
+
+    private void setRootViewFocus() {
+        mRootView.setFocusable(true);
+        mRootView.setFocusableInTouchMode(true);
+        mRootView.requestFocus();
     }
 
     @Override
@@ -290,7 +335,6 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         long user_id = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         long book_id = mDialog.getCurrBookId();
         //此处需要修改
-        String date = DateUtil.getNowDateTimeWithoutSecond();
         String amount = mAmount.getText().toString();
         String payTo = mToWho.getText().toString();
         String remark = mRemark.getText().toString();

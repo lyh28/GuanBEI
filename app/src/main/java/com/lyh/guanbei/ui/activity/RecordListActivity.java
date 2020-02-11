@@ -55,7 +55,7 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
         getData();
         recordList = new ArrayList<>();
         //初始化列表
-        mAdapter = new RecordAdapter(this);
+        mAdapter = new RecordAdapter(this,true,false);
         mAdapter.setOnItemChildClickListener(this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -120,12 +120,9 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
         if (requestCode == EDIT_CODE) {
             if (resultCode == RESULT_OK) {
                 Record record = (Record) data.getSerializableExtra("record");
-                LogUtil.logD("新Record "+record.toString());
-                LogUtil.logD("旧Record "+recordList.get(editPosition).toString());
                 recordList.set(editPosition, record);
                 Record r = mAdapter.getItem(editPosition);
                 r = record;
-                LogUtil.logD("替换Record "+recordList.get(editPosition).toString());
                 mAdapter.notifyItemChanged(editPosition);
             }
         }
