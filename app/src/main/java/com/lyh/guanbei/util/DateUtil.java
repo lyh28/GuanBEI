@@ -27,12 +27,18 @@ public class DateUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
         return simpleDateFormat.format(new Date()) + "-" + FIRST_DAY + " " + ZERO_TIME;
     }
-
+    public static String getMonthLastDay(){
+        String month=getMonth();
+        int year=getYear();
+        return year+"-"+month+ "-" + getDaysOfMonth(year,Integer.valueOf(month)) + " " + FILL_TIME;
+    }
     public static String getYearFirstDay() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
         return simpleDateFormat.format(new Date()) + "-" + FIRST_DAY + "-" + FIRST_DAY + " " + ZERO_TIME;
     }
-
+    public static String getYearLastDay(){
+        return getYear()+"-12-31"+" "+FILL_TIME;
+    }
     public static String getMonth() {
         Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH) + 1;

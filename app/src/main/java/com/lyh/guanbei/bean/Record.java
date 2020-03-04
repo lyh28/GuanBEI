@@ -160,7 +160,11 @@ public class Record implements Serializable {
     }
 
     private static final String FIRSTDATE = "select min(date) as date from record where user_id = ? and book_local_id = ?";
+    private static final String UPDATE_BOOKLOCALID="update record set book_local_id = ? where book_id = ?";
     private static final String DATE_COLUMN="date";
+    public static void updateBookLocalId(String bookLocalId,String bookId){
+        DBManager.getInstance().getDaoSession().getDatabase().execSQL(UPDATE_BOOKLOCALID,new String[]{bookLocalId,bookId});
+    }
     public static String getFirstRecordDate(long book_id) {
         long userId= CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         String[] args=new String[2];

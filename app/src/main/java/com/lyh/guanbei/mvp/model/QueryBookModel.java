@@ -11,7 +11,7 @@ import java.util.List;
 
 public class QueryBookModel implements QueryBookContract.IQueryBookModel {
     @Override
-    public void queryBookFormService(List<Long> idList, final ICallbackListener<List<Book>> iCallbackListener) {
+    public void queryBookService(List<Long> idList, final ICallbackListener<List<Book>> iCallbackListener) {
         APIManager.queryBook(idList, new BaseObscriber<List<Book>>() {
             @Override
             protected void onSuccess(List<Book> data) {
@@ -25,7 +25,7 @@ public class QueryBookModel implements QueryBookContract.IQueryBookModel {
     }
 
     @Override
-    public void queryBookFormLocal(List<Long> idList, ICallbackListener<List<Book>> iCallbackListener) {
+    public void queryBookLocal(List<Long> idList, ICallbackListener<List<Book>> iCallbackListener) {
         List<Book> list = Book.query(BookDao.Properties.Local_id.in(idList));
         if (list.size() == 0 || list == null)
             iCallbackListener.onFailed("无此记录");

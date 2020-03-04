@@ -13,6 +13,7 @@ import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Unique;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.io.Serializable;
 import java.util.List;
@@ -135,7 +136,9 @@ public class User implements Serializable {
     public static User queryById(long id) {
         return DBManager.getInstance().getDaoSession().getUserDao().load(id);
     }
-
+    public static List<User> query(WhereCondition cond, WhereCondition... condMore){
+        return DBManager.getInstance().getDaoSession().getUserDao().queryBuilder().where(cond,condMore).list();
+    }
     public static void updateLastTime() {
         User user = CustomSharedPreferencesManager.getInstance().getUser();
         user.setLast_login_time(DateUtil.getNowDateTimeWithSecond());

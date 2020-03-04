@@ -22,8 +22,8 @@ public interface QueryRecordContract {
     interface IQueryRecordPresenter extends IPresenter<IQueryRecordView,IQueryRecordModel>{
         String USERID="userId";
         String BOOKID="bookId";
-        void queryRecordById(String type,long id);
         void queryRecordById(String type,List<Long> ids);
+        void queryRecordServiceById(String type,List<Long> ids);
     }
     interface IQueryRecordModel extends IModel{
         void queryRecordFromServiceById(String type,List<Long> ids, ICallbackListener<List<Record>> iCallbackListener);

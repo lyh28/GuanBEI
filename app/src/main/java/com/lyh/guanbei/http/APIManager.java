@@ -1,8 +1,12 @@
 package com.lyh.guanbei.http;
 
+import com.lyh.guanbei.bean.Apk;
 import com.lyh.guanbei.bean.Book;
+import com.lyh.guanbei.bean.CheckCode;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.http.api.CheckCodeServiceApi;
+import com.lyh.guanbei.http.api.UpdateServiceApi;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.http.api.BookServiceApi;
 import com.lyh.guanbei.http.api.RecordServiceApi;
@@ -18,7 +22,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Header;
 
 public class APIManager {
     //登录注册
@@ -33,6 +42,9 @@ public class APIManager {
     }
     public static void update(User user,BaseObscriber<User> baseObscriber){
         getRetrofit().create(UserServiceApi.class).update(user).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
+    public static void resetPwd(User user,BaseObscriber<String> baseObscriber){
+        getRetrofit().create(UserServiceApi.class).resetPwd(user).compose(getMainThreadTransformer()).subscribe(baseObscriber);
     }
     public static void queryUserById(List<Long> id,BaseObscriber<List<User>> baseObscriber){
         getRetrofit().create(UserServiceApi.class).queryById(id).compose(getMainThreadTransformer()).subscribe(baseObscriber);
@@ -140,6 +152,14 @@ public class APIManager {
             }
         }).subscribe(baseObscriber);
     }
+
+    //新版本
+    public static void getNewVersion(BaseObscriber<Apk> baseObscriber){
+        getRetrofit().create(UpdateServiceApi.class).getNewVersion().compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
+    public static void download(String start,String url, Callback<ResponseBody> callback){
+        getRetrofit().create(UpdateServiceApi.class).downloadFile(start,url).enqueue(callback);
+    }
     //发起请求，需要等待对方确认
     public static void addUserRequest(long userId,long requestId,long bookId,BaseObscriber<String> baseObscriber){
         getRetrofit().create(BookServiceApi.class).addUserRequest(userId,requestId,bookId).compose(getMainThreadTransformer()).subscribe(baseObscriber);
@@ -156,7 +176,13 @@ public class APIManager {
         }).subscribe(baseObscriber);
     }
 
-
+    //验证码
+    public static void sendCheckCode(String phone,BaseObscriber<String> baseObscriber){
+        getRetrofit().create(CheckCodeServiceApi.class).sendCheckCode(phone).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
+    public static void checkCheckCode(CheckCode checkCode,BaseObscriber<String> baseObscriber){
+        getRetrofit().create(CheckCodeServiceApi.class).checkdCheckCode(checkCode).compose(getMainThreadTransformer()).subscribe(baseObscriber);
+    }
     private static Retrofit getRetrofit(){
         return RetrofitManager.getRetrofit();
     }

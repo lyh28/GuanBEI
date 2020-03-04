@@ -6,8 +6,10 @@ import android.widget.Toast;
 
 import com.lyh.guanbei.bean.Model;
 import com.lyh.guanbei.bean.Tag;
-import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.DaoMaster;
+import com.lyh.guanbei.manager.DBManager;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -16,7 +18,7 @@ import cn.jpush.android.api.JPushInterface;
 
 public class GuanBeiApplication extends Application {
     private static Context context;
-
+    private static RefWatcher refWatcher;
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -27,7 +29,6 @@ public class GuanBeiApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-
         //推送 可异步
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -44,6 +45,19 @@ public class GuanBeiApplication extends Application {
         Tag.InsertPresetOutList();
         //模板init
         Model.init();
+
+        //LeakCanary
+        refWatcher=setupLeakCanary();
+    }
+    private RefWatcher setupLeakCanary(){
+        if(LeakCanary.isInAnalyzerProcess(this))
+            return RefWatcher.DISABLED;
+        else
+            return LeakCanary.install(this);
+    }
+
+    public static RefWatcher getRefWatcher() {
+        return refWatcher;
     }
 
     public static Context getContext() {

@@ -276,17 +276,20 @@ public class LineChartPageFragment extends BaseFragment implements RadioGroup.On
         switch (checkedId) {
             case R.id.fragment_chart_page_line_week:
                 type = "周";
+                mEndDate=DateUtil.getNowDateTimeWithoutSecond();
                 mStartDate = DateUtil.getDateBeforeDays(6) + " " + DateUtil.ZERO_TIME;
                 mDate.setText(week + "周" + "(" + DateUtil.getDayByDate(mStartDate) + "," + DateUtil.getDayByDate(mEndDate) + ")");
                 break;
             case R.id.fragment_chart_page_line_month:
                 type = "月";
                 mStartDate = DateUtil.getMonthFirstDay();
+                mEndDate=DateUtil.getMonthLastDay();
                 mDate.setText(month + "月" + "(" + DateUtil.getDayByDate(mStartDate) + "," + DateUtil.getDayByDate(mEndDate) + ")");
                 break;
             case R.id.fragment_chart_page_line_year:
                 mStartDate = DateUtil.getYearFirstDay();
                 type = "年";
+                mEndDate=DateUtil.getYearLastDay();
                 mDate.setText(year + "年" + "(" + DateUtil.getDayByDate(mStartDate) + "," + DateUtil.getDayByDate(mEndDate) + ")");
                 break;
         }
@@ -414,7 +417,7 @@ public class LineChartPageFragment extends BaseFragment implements RadioGroup.On
                     break;
                 case "月":
                     int[] weeksRange = new int[2];
-                    DateUtil.getWeeksRangeOfMonth(2020, 2, weeksRange);
+                    DateUtil.getWeeksRangeOfMonth(DateUtil.getYear(), Integer.valueOf(DateUtil.getMonth()), weeksRange);
                     for (int i = weeksRange[0]; i <= weeksRange[1]; i++) {
                         map.put(i, new LineChartData(i, "第" + i + "周"));
                     }

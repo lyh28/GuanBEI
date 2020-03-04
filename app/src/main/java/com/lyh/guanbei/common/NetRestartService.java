@@ -8,7 +8,7 @@ import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.db.BookDao;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.RecordDao;
-import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
+import com.lyh.guanbei.mvp.presenter.InsertRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.DeleteBookPresenter;
 import com.lyh.guanbei.mvp.presenter.DeleteRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.InsertBookPresenter;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NetRestartService extends IntentService{
     //账单
-    private CommitRecordPresenter mCommitRecordPresenter;
+    private InsertRecordPresenter mInsertRecordPresenter;
     private DeleteRecordPresenter mDeleteRecordPresenter;
     private UpdateRecordPresenter mUpdateRecordPresenter;
 
@@ -65,8 +65,8 @@ public class NetRestartService extends IntentService{
         //取出需要提交到服务器的
         List<Record> commitRecord= Record.query(RecordDao.Properties.Status.eq(DBManager.CLIENT_ONLY_STATUS));
         if(commitRecord!=null&&commitRecord.size()!=0){
-            mCommitRecordPresenter=new CommitRecordPresenter();
-            mCommitRecordPresenter.commitService(commitRecord);
+            mInsertRecordPresenter =new InsertRecordPresenter();
+            mInsertRecordPresenter.insertService(commitRecord);
         }
         //取出需要更新到服务器的
         List<Record> updateRecord= Record.query(RecordDao.Properties.Status.eq(DBManager.CLIENT_UPDATE_STATUS));

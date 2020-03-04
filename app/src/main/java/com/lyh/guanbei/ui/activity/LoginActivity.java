@@ -2,11 +2,14 @@ package com.lyh.guanbei.ui.activity;
 
 import cn.jpush.android.api.JPushInterface;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
@@ -51,7 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.activity_login_back).setOnClickListener(this);
         findViewById(R.id.activity_login_forget).setOnClickListener(this);
         findViewById(R.id.activity_login_pass).setOnClickListener(this);
-        mDialog=new QMUITipDialog.Builder(this)
+        mDialog = new QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
                 .setTipWord("正在加载")
                 .create();
@@ -59,6 +62,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //检测到11位时把焦点跳到密码中
@@ -67,6 +71,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 } else
                     mLogin.setEnabled(false);
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -75,6 +80,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() != 0)
@@ -82,6 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 else
                     mLogin.setEnabled(false);
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -90,22 +97,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void init() {
-        isFirst=true;
+        isFirst = true;
     }
 
     @Override
     public void onLoginSuccess(User user) {
         //设置别名
-        this.user=user;
-        JPushInterface.setAlias(this, PushMessageReceiver.USERALIAS, user.getUser_id()+"");
-        String bookids= user.getBook_id();
-        List<Long> list= Util.getLongFromData(bookids);
-        mQueryBookPresenter.queryBookServer(list);
+        this.user = user;
+        JPushInterface.setAlias(this, PushMessageReceiver.USERALIAS, user.getUser_id() + "");
+        String bookids = user.getBook_id();
+        List<Long> list = Util.getLongFromData(bookids);
+        mQueryBookPresenter.queryBookService(list);
     }
 
     @Override
     public void onLoginFailed(String msg) {
-        LogUtil.logD("登录失败 "+msg);
+        LogUtil.logD("登录失败 " + msg);
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
         mDialog.dismiss();
     }
 
@@ -115,21 +123,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void showBook(List<Book> list) {
-        if(isFirst) {
+    public void queryBookSuccess(List<Book> list) {
+        if (isFirst) {
             User.updateUserBook(list);
-//            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance();
-//            if(list.size()==0) {
-//                preferencesManager.saveCurrBookId(-1);
-//            }else{
-//                preferencesManager.saveCurrBookId(list.get(0).getLocal_id());
-//            }
-//            String local_book_id="";
-//            for(Book book:list)
-//                local_book_id=Util.addToData(book.getLocal_id(),local_book_id);
-//            user.setLocal_book_id(local_book_id);
-//            preferencesManager.saveUser(user);
-//            DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
             isFirst = false;
             mDialog.dismiss();
             startActivity(MainActivity.class);
@@ -138,8 +134,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void queryBookFailed() {
-        if(isFirst){
-            CustomSharedPreferencesManager preferencesManager=CustomSharedPreferencesManager.getInstance();
+        if (isFirst) {
+            CustomSharedPreferencesManager preferencesManager = CustomSharedPreferencesManager.getInstance();
             preferencesManager.saveCurrBookId(-1);
             preferencesManager.saveUser(user);
             DBManager.getInstance().getDaoSession().getUserDao().insertOrReplace(user);
@@ -151,21 +147,22 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.activity_login_login:
                 mDialog.show();
-                String phone=mPhone.getText().toString();
-                String pwd=mPwd.getText().toString();
-                mLoginPresenter.login(phone,pwd);
+                String phone = mPhone.getText().toString();
+                String pwd = mPwd.getText().toString();
+                mLoginPresenter.login(phone, pwd);
                 break;
             case R.id.activity_login_back:
                 finish();
                 break;
             case R.id.activity_login_forget:
+                startActivity(PhoneActivity.class);
                 break;
             case R.id.activity_login_pass:
                 //设置userId为-1
-                user=new User();
+                user = new User();
                 user.setUser_phone("");
                 user.setCreate_time(DateUtil.getNowDateTimeWithSecond());
                 user.setUser_id(-1);
@@ -180,10 +177,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void createPresenters() {
         mLoginPresenter = new LoginPresenter();
-        mQueryBookPresenter=new QueryBookPresenter();
+        mQueryBookPresenter = new QueryBookPresenter();
         addPresenter(mQueryBookPresenter);
         addPresenter(mLoginPresenter);
     }
+
     @Override
     protected boolean isLocked() {
         return false;

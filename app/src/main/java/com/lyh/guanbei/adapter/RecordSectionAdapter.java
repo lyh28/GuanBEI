@@ -37,6 +37,7 @@ public class RecordSectionAdapter extends BaseSectionQuickAdapter<RecordSection,
         Record record = item.t;
         ImageView icon = helper.getView(R.id.listitem_record_icon);
         Glide.with(context).load(TagManager.getIconByCategory(record.getCategory(), record.getAmount_type())).into(icon);
+        LogUtil.logD("列表  "+TagManager.getIconByCategory(record.getCategory(), record.getAmount_type())+"  "+record.getCategory()+"  "+record.getAmount_type());
         String amount = record.getAmount() + "";
         if (record.getAmount_type() == Tag.OUT && !amount.startsWith("-"))
             amount = "-" + amount;

@@ -11,7 +11,7 @@ import java.util.List;
 public interface InsertBookContract {
     interface IInsertBookView extends IView{
         void onMessageError(String msg);
-        void onInsertSuccess();
+        void onInsertSuccess(List<Book> books);
     }
     interface IInsertBookPresenter extends IPresenter<IInsertBookView,IInsertBookModel>{
         void insert(Book book);

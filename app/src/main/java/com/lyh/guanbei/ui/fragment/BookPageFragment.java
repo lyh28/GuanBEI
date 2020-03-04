@@ -1,5 +1,6 @@
 package com.lyh.guanbei.ui.fragment;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,19 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.appbar.AppBarLayout;
+import com.lyh.guanbei.DataViewModel;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.RecordSectionAdapter;
 import com.lyh.guanbei.base.BaseFragment;
+import com.lyh.guanbei.bean.Apk;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
-import com.lyh.guanbei.db.RecordDao;
+import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.http.APIManager;
+import com.lyh.guanbei.http.BaseObscriber;
+import com.lyh.guanbei.manager.ActivityManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
+import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.mvp.contract.QueryRecordContract;
 import com.lyh.guanbei.mvp.presenter.QueryRecordPresenter;
 import com.lyh.guanbei.ui.activity.AddBookActivity;
@@ -26,12 +33,20 @@ import com.lyh.guanbei.ui.activity.RecordDetailActivity;
 import com.lyh.guanbei.util.CustomOffsetChangeListener;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.LogUtil;
+import com.lyh.guanbei.util.Util;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BookPageFragment extends BaseFragment implements QueryRecordContract.IQueryRecordView, View.OnClickListener {
     private RecordSectionAdapter mRecordSectionAdapter;
@@ -122,12 +137,22 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                 mBudget.setAlpha(1 - rate);
             }
         });
+
+        //注册监听器
+        final DataViewModel dataViewModel = ViewModelProviders.of(ActivityManager.getInstance().getMainActivity()).get(DataViewModel.class);
+        dataViewModel.getRecordRespository().observe(this, new Observer<List<Record>>() {
+            @Override
+            public void onChanged(List<Record> records) {
+                mRecordSectionAdapter.setNewDatas(dataViewModel.getRecordRespository().getRecordLiveData(bookId));
+            }
+        });
     }
 
     @Override
     public void onResume() {
         CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         long id = customSharedPreferencesManager.getCurrBookId();
+        LogUtil.logD("onresume "+bookId+"  "+id);
         if (bookId != id) {
             bookId = id;
             Book book = Book.queryByLocalId(bookId);
@@ -146,8 +171,8 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                 mQueryRecordPresenter.queryRecordById(QueryRecordPresenter.BOOKID, bookId);
             }
         } else {
-            List<Record> list = Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
-            mRecordSectionAdapter.setNewDatas(list);
+//            List<Record> list = Record.query(RecordDao.Properties.Book_local_id.eq(bookId));
+//            mRecordSectionAdapter.setNewDatas(list);
         }
         updateBookSumStr();
         super.onResume();
@@ -162,6 +187,7 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
     @Override
     public void onQueryRecordSuccess(List<Record> records) {
+        LogUtil.logD("查询成功");
         mRecordSectionAdapter.setNewDatas(records);
     }
 
@@ -172,29 +198,32 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
     @Override
     public void startLoading() {
-        LogUtil.logD("开始加载");
+        mRecordSectionAdapter.setNewDatas(new ArrayList<Record>());
     }
 
     @Override
     public void endLoading() {
 
     }
-    private void updateBookSumStr(){
-        Book book=Book.queryByLocalId(bookId);
-        if(book!=null) {
-            String month=DateUtil.getMonth();
+
+    private void updateBookSumStr() {
+        Book book = Book.queryByLocalId(bookId);
+        if (book != null) {
+            String month = DateUtil.getMonth();
             mIn.setText(month + "收入: " + book.getNow_in_sum());
             mOut.setText(month + "支出: " + book.getNow_out_sum());
             mBudget.setText(book.getMax_sum() + "");
         }
     }
-    private String wrapBudget(Book book){
-        double budget=book.getMax_sum();
-        if(budget==0){
+
+    private String wrapBudget(Book book) {
+        double budget = book.getMax_sum();
+        if (budget == 0) {
             return "设置预算";
-        }else
-            return budget+"";
+        } else
+            return budget + "";
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -202,6 +231,21 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                 startActivity(FilterActivity.class);
                 break;
             case R.id.fragment_book_more:
+                LogUtil.logD("-------------user-------------");
+                List<User> user= DBManager.getInstance().getDaoSession().getUserDao().loadAll();
+                for(User u:user)
+                LogUtil.logD(u.toString());
+                LogUtil.logD("------------------------------");
+                LogUtil.logD("-------------book-------------");
+                List<Book> book=DBManager.getInstance().getDaoSession().getBookDao().loadAll();
+                for(Book u:book)
+                    LogUtil.logD(u.toString());
+                LogUtil.logD("------------------------------");
+                LogUtil.logD("-------------record-------------");
+                List<Record> record=DBManager.getInstance().getDaoSession().getRecordDao().loadAll();
+                for(Record u:record)
+                    LogUtil.logD(u.toString());
+                LogUtil.logD("------------------------------");
                 break;
             case R.id.fragment_book_budget:
                 startActivity(BudgetActivity.class);
@@ -215,4 +259,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
                 break;
         }
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.lyh.guanbei.manager;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.bean.Tag;
+import com.lyh.guanbei.util.LogUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -71,8 +72,10 @@ public class TagManager {
 
     public static int getIconByCategory(String name, int type) {
         Tag tag = Tag.getTagByName(name, type);
-        if (tag == null)
+        if (tag == null) {
+            LogUtil.logD("name "+name +"  "+type);
             return R.mipmap.icon_more_operation_share_friend;
+        }
         else
             return tag.getIconId();
     }

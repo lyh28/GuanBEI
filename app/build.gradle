@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -27,7 +28,6 @@ android {
             targetGenDir 'src/main/java' //指定生成代码的目录
             daoPackage "com.lyh.guanbei.db"//生成代码到具体包下
         }
-
     }
     buildTypes {
         release {
@@ -45,7 +45,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
-
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     //网络连接
@@ -76,5 +75,12 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     //图片裁剪
     implementation 'com.github.yalantis:ucrop:2.2.4'
+    //流式布局
     implementation 'com.hyman:flowlayout-lib:1.1.2'
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    //leakcanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1'
+
 }

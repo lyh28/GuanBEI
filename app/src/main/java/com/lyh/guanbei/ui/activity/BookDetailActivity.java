@@ -21,6 +21,7 @@ import com.lyh.guanbei.mvp.presenter.DeleteBookPresenter;
 import com.lyh.guanbei.mvp.presenter.QueryUserPresenter;
 import com.lyh.guanbei.mvp.presenter.UpdateBookPresenter;
 import com.lyh.guanbei.ui.widget.AskDialog;
+import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.Util;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
@@ -113,6 +114,7 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
                 if (checkIsManager()) {
                     updateBookData();
                     mUpdateBookPresenter.updateBook(book);
+                    finish();
                 }
                 break;
             case R.id.activity_book_detail_name_view:
@@ -153,6 +155,7 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private boolean checkIsManager() {
+        LogUtil.logD("book详细页 "+book.getManager_id()+"  "+userId);
         if (book.getManager_id() == userId)
             return true;
         return false;
@@ -222,6 +225,7 @@ public class BookDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onDeleteSuccess() {
+        finish();
     }
 
     @Override

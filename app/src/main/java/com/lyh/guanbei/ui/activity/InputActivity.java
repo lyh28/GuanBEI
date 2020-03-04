@@ -6,12 +6,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.BookLinearAdapter;
-import com.lyh.guanbei.adapter.CategoryAdapter;
 import com.lyh.guanbei.adapter.CategoryLinearAdapter;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
@@ -19,8 +17,7 @@ import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.Tag;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.TagManager;
-import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
-import com.lyh.guanbei.ui.widget.BottomBookDialog;
+import com.lyh.guanbei.mvp.presenter.InsertRecordPresenter;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.KeyBoardUtil;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
@@ -44,7 +41,7 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
     private KeyBoardUtil keyBoardUtil;
 
 
-    private CommitRecordPresenter mCommitRecordPresenter;
+    private InsertRecordPresenter mInsertRecordPresenter;
     private int type;   //当前状态  收入还是支出
     private List<Tag> categoryOutList;
     private List<Tag> categoryInList;
@@ -89,7 +86,7 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
         keyBoardUtil = new KeyBoardUtil(this, mKeyboardView, mAmount, new KeyBoardUtil.Listener() {
             @Override
             public void addMore() {
-                mCommitRecordPresenter.add(createRecord());
+                mInsertRecordPresenter.add(createRecord());
                 //清空
                 mAmount.getText().clear();
             }
@@ -131,11 +128,11 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
 //                keyBoardUtil.hideSystemKeyboard(this);
 //                break;
             case R.id.activity_input_back:
-                mCommitRecordPresenter.commit();
+                mInsertRecordPresenter.insert();
                 finish();
                 break;
             case R.id.activity_input_done:
-                mCommitRecordPresenter.commit(createRecord());
+                mInsertRecordPresenter.insert(createRecord());
                 finish();
                 break;
             case R.id.activity_input_type_view:
@@ -157,7 +154,7 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
             keyBoardUtil.hideKeyBoard();
             return;
         }
-        mCommitRecordPresenter.commit();
+        mInsertRecordPresenter.insert();
         super.onBackPressed();
     }
     private Record createRecord() {
@@ -179,7 +176,7 @@ public class InputActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void createPresenters() {
-        mCommitRecordPresenter=new CommitRecordPresenter();
-        addPresenter(mCommitRecordPresenter);
+        mInsertRecordPresenter =new InsertRecordPresenter();
+        addPresenter(mInsertRecordPresenter);
     }
 }

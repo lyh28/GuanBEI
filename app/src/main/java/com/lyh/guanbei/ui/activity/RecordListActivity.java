@@ -1,12 +1,10 @@
 package com.lyh.guanbei.ui.activity;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,16 +15,14 @@ import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Model;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.mvp.contract.CommitRecordContract;
-import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
-import com.lyh.guanbei.util.FileUtil;
-import com.lyh.guanbei.util.LogUtil;
+import com.lyh.guanbei.mvp.contract.InsertRecordContract;
+import com.lyh.guanbei.mvp.presenter.InsertRecordPresenter;
 import com.lyh.guanbei.util.excel.RecordExcel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordListActivity extends BaseActivity implements View.OnClickListener, BaseQuickAdapter.OnItemChildClickListener, CommitRecordContract.ICommitRecordView {
+public class RecordListActivity extends BaseActivity implements View.OnClickListener, BaseQuickAdapter.OnItemChildClickListener, InsertRecordContract.IInsertRecordView {
     private RecyclerView recyclerView;
     private RecordAdapter mAdapter;
 
@@ -35,7 +31,7 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
     private int editPosition;
     private Model mModel;
     private long mBookLocalId;
-    private CommitRecordPresenter mCommitRecordPresenter;
+    private InsertRecordPresenter mInsertRecordPresenter;
     private static final int EDIT_CODE = 2;
 
     @Override
@@ -88,7 +84,7 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.activity_record_list_done:
                 //保存
-                mCommitRecordPresenter.commit(recordList);
+                mInsertRecordPresenter.insert(recordList);
                 setResult(RESULT_OK);
                 finish();
                 break;
@@ -130,8 +126,8 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void createPresenters() {
-        mCommitRecordPresenter=new CommitRecordPresenter();
-        addPresenter(mCommitRecordPresenter);
+        mInsertRecordPresenter =new InsertRecordPresenter();
+        addPresenter(mInsertRecordPresenter);
     }
 
     @Override

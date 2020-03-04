@@ -36,7 +36,7 @@ public class InsertBookPresenter extends BasePresenter<InsertBookContract.IInser
         getmModel().insertLocal(bookList);
         insertBookLocalIdToUser(bookList);
         if (checkAttach())
-            getmView().onInsertSuccess();
+            getmView().onInsertSuccess(bookList);
         insertService(bookList);
     }
     private void insertBookLocalIdToUser(List<Book> bookList){

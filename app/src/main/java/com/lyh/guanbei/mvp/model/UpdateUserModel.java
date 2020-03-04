@@ -10,6 +10,21 @@ import okhttp3.MultipartBody;
 
 public class UpdateUserModel implements UpdateUserContract.IUpdateUserModel {
     @Override
+    public void resetPwd(User user, final ICallbackListener<String> iCallbackListener) {
+        APIManager.resetPwd(user, new BaseObscriber<String>() {
+            @Override
+            protected void onSuccess(String data) {
+                iCallbackListener.onSuccess(data);
+            }
+
+            @Override
+            protected void onFailed(String msg) {
+                iCallbackListener.onFailed(msg);
+            }
+        });
+    }
+
+    @Override
     public void updateIcon(long userId, MultipartBody.Part icon, final ICallbackListener<User> iCallbackListener) {
         APIManager.updateIcon(userId, icon, new BaseObscriber<User>() {
             @Override

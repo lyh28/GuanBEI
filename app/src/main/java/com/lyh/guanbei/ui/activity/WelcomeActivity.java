@@ -57,7 +57,7 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
             currId=book.getBook_id();
         if ( user!= null) {
             //更新book数据
-            mQueryBookPresenter.queryBookServer(Util.getLongFromData(user.getBook_id()));
+            mQueryBookPresenter.queryBookService(Util.getLongFromData(user.getBook_id()));
             mHandler.sendEmptyMessageDelayed(MAIN_CODE, 500);
         } else {
             mHandler.sendEmptyMessageDelayed(LOGIN_CODE, 500);
@@ -73,7 +73,7 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
     }
 
     @Override
-    public void showBook(List<Book> list) {
+    public void queryBookSuccess(List<Book> list) {
         User.updateBookLocalIdToUser(list);
         Book book=null;
         if(currId!=-1)  book=Book.queryByBookId(currId);

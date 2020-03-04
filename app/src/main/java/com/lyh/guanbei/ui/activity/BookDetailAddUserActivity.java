@@ -67,10 +67,11 @@ public class BookDetailAddUserActivity extends BaseActivity implements View.OnCl
         initData();
     }
     private void initData(){
-        mQueryBookPresenter.queryBookServer(mBookId);
+        mQueryBookPresenter.queryBookService(mBookId);
     }
+
     @Override
-    public void showBook(List<Book> list) {
+    public void queryBookSuccess(List<Book> list) {
         if(list.size()!=0) {
             mQueryUserPresenter.queryServer(mRequestId);
             mBook = list.get(0);

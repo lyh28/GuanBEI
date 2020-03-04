@@ -2,7 +2,6 @@ package com.lyh.guanbei.ui.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -126,7 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             CustomNotificationManager.initInPutNotification(this);
         //更新上次使用时间
         User.updateLastTime();
-        RecordRepository.getSingleton();
+        RecordRepository.getSingleton().init();
     }
 
     private void showBookPage() {
@@ -170,7 +169,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onResume();
         if(isOpenFirst&&CustomSharedPreferencesManager.getInstance().getUser().getSetting().isLocked()&&isLocked()){
             //手势密码解锁页
-            startActivity(UnlockActivity.class);
+            startActivity(UnLockActivity.class);
         }
         if(isOpenFirst){
             isOpenFirst=false;

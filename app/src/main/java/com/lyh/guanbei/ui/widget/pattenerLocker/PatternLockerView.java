@@ -20,7 +20,6 @@ import androidx.annotation.Nullable;
 public class PatternLockerView extends View {
     private PatternLockerStatusListener mListener;
     private Paint mPaint;
-    private List<Integer> mHitList;     //已经经过的点
     private static final int NOT_SET = -1;
     //可设置的常量
     private int mPointNum;      //总的点数
@@ -36,14 +35,15 @@ public class PatternLockerView extends View {
     private boolean mAutoClean;      //自动清除绘制图案
     private int mCleanDuration;      //自动清除的延迟时长 单位ms
 
-    //需要的数
+    //状态
     enum status {
-        FREE,
-        ING,
-        COMPLETE,
-        ERROR,
+        FREE,       //list为空的空闲状态，
+        ING,        //正在操作的状态
+        COMPLETE,   //完成操作的状态
+        ERROR,      //错误状态
     }
 
+    private List<Integer> mHitList;     //已经经过的点
     private status mStatus;     //状态
     private int mSize;  //整个View的大小
     private int mEdgeN; //每个边的个数
@@ -203,7 +203,7 @@ public class PatternLockerView extends View {
             return false;
         }
     }
-
+    //根据坐标，得到所属图形的中心点的坐标
     private int getCenterXYByPoint(int x, int y, int[] XY) throws Exception {
         if (XY.length < 2)
             throw new Exception("需传入长度大于等于2的数组");
@@ -213,7 +213,7 @@ public class PatternLockerView extends View {
         XY[1] = mOneSize * i + mOneR;
         return mEdgeN * i + j;
     }
-
+    //前两个参数为触摸点坐标，XY为中心点坐标，返回距离
     private int getDistanceToCenter(int x, int y, int[] XY) throws Exception {
         if (XY.length < 2)
             throw new Exception("需传入长度大于等于2的数组");
@@ -276,7 +276,6 @@ public class PatternLockerView extends View {
                     postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            mStatus=status.FREE;
                             clean();
                         }
                     }, mCleanDuration);

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.RecordAdapter;
 import com.lyh.guanbei.base.BaseActivity;
@@ -22,6 +23,7 @@ public class FilterActivity extends BaseActivity implements View.OnClickListener
     private EditText mKey;
     private RecyclerView mRecyclerview;
     private RecordAdapter mAdapter;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_filter;
@@ -29,8 +31,8 @@ public class FilterActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void initUi() {
-        mKey=findViewById(R.id.activity_filter_key);
-        mRecyclerview=findViewById(R.id.activity_filter_recyclerview);
+        mKey = findViewById(R.id.activity_filter_key);
+        mRecyclerview = findViewById(R.id.activity_filter_recyclerview);
         findViewById(R.id.page_back).setOnClickListener(this);
         findViewById(R.id.activity_filter_search).setOnClickListener(this);
 
@@ -40,26 +42,38 @@ public class FilterActivity extends BaseActivity implements View.OnClickListener
     protected void init() {
         initList();
     }
-    private void initList(){
-        mAdapter=new RecordAdapter(this,false,true);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+
+    private void initList() {
+        mAdapter = new RecordAdapter(this, false, true);
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putLong("recordId", mAdapter.getItem(position).getLocal_id());
+                startActivity(RecordDetailActivity.class, bundle);
+            }
+        });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerview.setAdapter(mAdapter);
         mRecyclerview.setLayoutManager(layoutManager);
 
+
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.activity_filter_search:
-                long id= CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
-                mAdapter.setNewData(Record.queryByKey(mKey.getText().toString(),id));
+                long id = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
+                mAdapter.setNewData(Record.queryByKey(mKey.getText().toString(), id));
                 break;
             case R.id.page_back:
                 finish();
                 break;
         }
     }
+
     @Override
     public void createPresenters() {
 

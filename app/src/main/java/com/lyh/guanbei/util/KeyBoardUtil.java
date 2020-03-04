@@ -60,7 +60,7 @@ public class KeyBoardUtil implements KeyboardView.OnKeyboardActionListener {
     /**
      * 隐藏软键盘(只适用于Activity，不适用于Fragment)
      */
-    public void hideSystemKeyboard(Activity activity) {
+    public static void hideSystemKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
         if (view != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

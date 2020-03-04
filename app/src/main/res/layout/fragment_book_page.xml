@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_book_rootview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_book_rootview"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,96 +13,107 @@
         android:background="@color/colorNormal"
         app:elevation="0dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="206dp"
-                android:minHeight="168dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-                <TextView
-                    android:id="@+id/fragment_book_budget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="25sp"/>
-                <TextView
-                    android:id="@+id/fragment_book_inNum"
-                    android:layout_margin="20dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="20sp"
-                    android:text="12月份收入"/>
-                <TextView
-                    android:id="@+id/fragment_book_outNum"
-                    android:layout_margin="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="20sp"
-                    android:text="12月份支出"/>
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="206dp"
+            android:minHeight="168dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <TextView
+                android:id="@+id/fragment_book_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/fragment_book_inNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:text="12月份收入"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/fragment_book_outNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"
+                android:text="12月份支出"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+        </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
-        android:fitsSystemWindows="true"
+        android:id="@+id/fragment_book_outView"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:fitsSystemWindows="true"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/page_left_right_margin"
-        android:paddingRight="@dimen/page_left_right_margin"
-        android:id="@+id/fragment_book_outView">
+        android:paddingRight="@dimen/page_left_right_margin">
+
         <ImageView
             android:id="@+id/fragment_book_filter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/filter"/>
+            android:src="@drawable/filter" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/fragment_book_more"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_more_horiz_white_24dp"/>
+            android:src="@drawable/baseline_more_horiz_white_24dp" />
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/fragment_book_inView"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
+        android:layout_gravity="center_horizontal"
+        android:fitsSystemWindows="true"
         android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/fragment_book_nameView"
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/corners_shape_white_border"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/fragment_book_name"
-                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="家庭"
                 android:layout_margin="5dp"
-                android:textColor="@color/colorWhite"/>
+                android:gravity="center"
+                android:text="家庭"
+                android:textColor="@color/colorWhite" />
+
             <ImageView
-                android:layout_marginRight="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/qmui_popup_arrow_down"/>
+                android:layout_marginRight="5dp"
+                android:src="@drawable/qmui_popup_arrow_down" />
         </LinearLayout>
     </FrameLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_book_recyclerview"
             android:layout_width="match_parent"

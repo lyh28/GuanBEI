@@ -58,7 +58,10 @@ public class AddBookActivity extends BaseActivity implements InsertBookContract.
     }
 
     @Override
-    public void onInsertSuccess() {
+    public void onInsertSuccess(List<Book> books) {
+        long id=CustomSharedPreferencesManager.getInstance().getCurrBookId();
+        if((id==-1||Book.queryByLocalId(id)==null)&&books.size()!=0)
+            CustomSharedPreferencesManager.getInstance().saveCurrBookId(books.get(0).getLocal_id());
         finish();
     }
 

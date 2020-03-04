@@ -164,6 +164,12 @@ public class Book {
         this.person_id = person_id;
     }
 
+    public static Book createNewBook(long id){
+        Book book=new Book();
+        book.setBook_name("个人");
+        book.setManager_id(id);
+        return book;
+    }
     public static List<Book> query(WhereCondition cond, WhereCondition... condMore) {
         return DBManager.getInstance().getDaoSession().getBookDao().queryBuilder().where(cond, condMore).list();
     }

@@ -32,7 +32,9 @@ public class SMSUtil {
 //            String name=getName(nameId,friendMap);
 //            if(name.equals("陌生人"))
 //                continue;
-            list.add(new SMS(DateUtil.getDateFromLong(date),name,body));
+            SMS sms=new SMS(DateUtil.getDateFromLong(date),name,body);
+            LogUtil.logD("sms  "+sms);
+            list.add(sms);
         }
         cur.close();
         return list;

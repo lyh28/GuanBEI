@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lyh.guanbei.common.GuanBeiApplication;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,12 +36,19 @@ public abstract class BaseFragment extends Fragment implements IView {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GuanBeiApplication.getRefWatcher().watch(this);
+    }
+
+    @Override
     public void onDestroyView() {
         for(IPresenter iPresenter:mPresenterList)
             iPresenter.onDettach();
         super.onDestroyView();
     }
-    protected void addPresenter(IPresenter iPresenter){
+    @Override
+    public void addPresenter(IPresenter iPresenter){
         mPresenterList.add(iPresenter);
     }
 

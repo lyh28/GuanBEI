@@ -6,6 +6,7 @@ import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.http.APIManager;
 import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.mvp.contract.QueryRecordContract;
+import com.lyh.guanbei.util.LogUtil;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.lyh.guanbei.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import cn.jpush.android.api.JPushInterface;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.User;
+import com.lyh.guanbei.jpush.PushMessageReceiver;
+import com.lyh.guanbei.manager.ActivityManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.ui.widget.pattenerLocker.PatternLockerStatusListener;
 import com.lyh.guanbei.ui.widget.pattenerLocker.PatternLockerView;
@@ -20,7 +23,7 @@ import com.lyh.guanbei.util.Util;
 
 import java.util.List;
 
-public class UnlockActivity extends BaseActivity implements PatternLockerStatusListener {
+public class UnLockActivity extends BaseActivity implements PatternLockerStatusListener , View.OnClickListener {
     private ImageView mIcon;
     private TextView mPhone;
     private TextView mTips;
@@ -47,6 +50,9 @@ public class UnlockActivity extends BaseActivity implements PatternLockerStatusL
         mChange = findViewById(R.id.activity_unlock_change);
 
         mLockerView.setmListener(this);
+        mForget.setOnClickListener(this);
+        mChange.setOnClickListener(this);
+
     }
 
     @Override
@@ -96,6 +102,25 @@ public class UnlockActivity extends BaseActivity implements PatternLockerStatusL
     @Override
     public void onClear() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activity_unlock_change:
+                //返回登录界面
+                break;
+            case R.id.activity_unlock_forget:
+                //进入到密码验证
+                //清除手势密码
+                CustomSharedPreferencesManager.getInstance().getUser().getSetting().setPattern_pwd("").save();
+                //清除当前登录用户，需要重新登录
+                CustomSharedPreferencesManager.getInstance().saveUser(null);
+                JPushInterface.deleteAlias(this, PushMessageReceiver.USERALIAS);
+                ActivityManager.getInstance().finishAll();
+                startActivity(LoginActivity.class);
+                break;
+        }
     }
 
     private void onError() {

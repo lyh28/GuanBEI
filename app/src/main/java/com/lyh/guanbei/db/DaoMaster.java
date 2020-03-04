@@ -24,12 +24,12 @@ public class DaoMaster extends AbstractDaoMaster {
         BookDao.createTable(db, ifNotExists);
         DeleteBookDao.createTable(db, ifNotExists);
         DeleteRecordDao.createTable(db, ifNotExists);
+        ModelDao.createTable(db, ifNotExists);
+        NotificationDao.createTable(db, ifNotExists);
         RecordDao.createTable(db, ifNotExists);
+        SettingDao.createTable(db, ifNotExists);
         TagDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
-        ModelDao.createTable(db, ifNotExists);
-        SettingDao.createTable(db, ifNotExists);
-        NotificationDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -37,12 +37,12 @@ public class DaoMaster extends AbstractDaoMaster {
         BookDao.dropTable(db, ifExists);
         DeleteBookDao.dropTable(db, ifExists);
         DeleteRecordDao.dropTable(db, ifExists);
+        ModelDao.dropTable(db, ifExists);
+        NotificationDao.dropTable(db, ifExists);
         RecordDao.dropTable(db, ifExists);
+        SettingDao.dropTable(db, ifExists);
         TagDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
-        ModelDao.dropTable(db, ifExists);
-        SettingDao.dropTable(db, ifExists);
-        NotificationDao.dropTable(db, ifExists);
     }
 
     /**
@@ -64,12 +64,12 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(BookDao.class);
         registerDaoClass(DeleteBookDao.class);
         registerDaoClass(DeleteRecordDao.class);
+        registerDaoClass(ModelDao.class);
+        registerDaoClass(NotificationDao.class);
         registerDaoClass(RecordDao.class);
+        registerDaoClass(SettingDao.class);
         registerDaoClass(TagDao.class);
         registerDaoClass(UserDao.class);
-        registerDaoClass(ModelDao.class);
-        registerDaoClass(SettingDao.class);
-        registerDaoClass(NotificationDao.class);
     }
 
     public DaoSession newSession() {

@@ -48,6 +48,29 @@ public class UpdateUserPresenter extends BasePresenter<UpdateUserContract.IUpdat
     }
 
     @Override
+    public void resetPwd(String phone, String pwd) {
+        if(NetUtil.isNetWorkAvailable()){
+            final User user=new User();
+            user.setUser_phone(phone);
+            user.setUser_pwd(pwd);
+            getmModel().resetPwd(user, new ICallbackListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    getmView().onUpdateSuccess(user);
+                }
+
+                @Override
+                public void onFailed(String msg) {
+                    if(checkAttach())
+                        getmView().onUpdateFailed(msg);
+                }
+            });
+        }else
+            if(checkAttach())
+                getmView().onUpdateFailed("网络连接不可用");
+    }
+
+    @Override
     public void updateOther(User user) {
         if(NetUtil.isNetWorkAvailable()){
             getmModel().updateOther(user

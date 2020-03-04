@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lyh.guanbei.common.GuanBeiApplication;
 import com.lyh.guanbei.manager.ActivityManager;
-import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.ui.activity.UnlockActivity;
+import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.ArrayList;
@@ -36,22 +36,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
         //状态栏
         QMUIStatusBarHelper.translucent(this);
         QMUIStatusBarHelper.setStatusBarLightMode(this);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
     protected void onDestroy() {
         for (IPresenter iPresenter : mPresenterList)
             iPresenter.onDettach();
-        ActivityManager.getInstance().finishActivity();
+        ActivityManager.getInstance().finishActivity(this);
         super.onDestroy();
+        GuanBeiApplication.getRefWatcher().watch(this);
     }
-
-    protected void addPresenter(IPresenter iPresenter) {
+    @Override
+    public void addPresenter(IPresenter iPresenter) {
         mPresenterList.add(iPresenter);
     }
 

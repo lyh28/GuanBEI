@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitManager {
     private volatile static Retrofit sRetrofit;
     //Okhttp常量
-    private static final int TIMEOUT=3*1000;
+    private static final int TIMEOUT=5*1000;
 
     public static Retrofit getRetrofit(){
         if(sRetrofit==null){

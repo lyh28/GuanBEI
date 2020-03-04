@@ -7,31 +7,32 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.DBManager;
-import com.lyh.guanbei.mvp.contract.CommitRecordContract;
-import com.lyh.guanbei.mvp.model.CommitRecordModel;
+import com.lyh.guanbei.manager.RecordRepository;
+import com.lyh.guanbei.mvp.contract.InsertRecordContract;
+import com.lyh.guanbei.mvp.model.InsertRecordModel;
 import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.NetUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.ICommitRecordView, CommitRecordContract.ICommitRecordModel> implements CommitRecordContract.ICommitRecordPresenter {
+public class InsertRecordPresenter extends BasePresenter<InsertRecordContract.IInsertRecordView, InsertRecordContract.IInsertRecordModel> implements InsertRecordContract.IInsertRecordPresenter {
     private List<Record> recordList;
 
-    public CommitRecordPresenter() {
+    public InsertRecordPresenter() {
         super();
         recordList = new ArrayList<>();
     }
 
     @Override
-    public void commit() {
-        commit(recordList);
+    public void insert() {
+        insert(recordList);
     }
 
     @Override
-    public void commit(Record record) {
+    public void insert(Record record) {
         add(record);
-        commit(recordList);
+        insert(recordList);
     }
 
     @Override
@@ -41,23 +42,22 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
             recordList.add(record);
     }
 
-    @Override
-    public void commit(final List<Record> record) {
+    public void insert(final List<Record> record) {
         if (record == null || record.size() == 0) {
             if (recordList.size() != 0)
-                commit(recordList);
+                insert(recordList);
             return;
         }
-        getmModel().save(record);
+        getmModel().insertLocal(record);
         Book.updateBookSum(record);
-        commitService(record);
+        RecordRepository.getSingleton().addRecord(record);
+        insertService(record);
     }
 
-    @Override
-    public void commitService(final List<Record> record) {
+    public void insertService(final List<Record> record) {
         if (record == null || record.size() == 0) return;
         if (NetUtil.isNetWorkAvailable()) {
-            getmModel().commit(record, new ICallbackListener<List<Record>>() {
+            getmModel().insertService(record, new ICallbackListener<List<Record>>() {
                 @Override
                 public void onSuccess(List<Record> data) {
                     for (int i = 0; i < data.size(); i++) {
@@ -76,8 +76,8 @@ public class CommitRecordPresenter extends BasePresenter<CommitRecordContract.IC
     }
 
     @Override
-    public CommitRecordModel createModel() {
-        return new CommitRecordModel();
+    public InsertRecordModel createModel() {
+        return new InsertRecordModel();
     }
 
     //true 为合格

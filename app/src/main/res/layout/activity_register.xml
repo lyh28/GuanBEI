@@ -11,14 +11,14 @@
         android:id="@+id/activity_register_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/close"/>
+        android:src="@drawable/back"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="注册"
         android:padding="@dimen/dp_40"
         android:textSize="40sp"
-        android:gravity="center"/>
+        android:gravity="left"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,40 +34,27 @@
         style="@style/CustomEditTextStyle"
         android:padding="10dp"
         android:textSize="15sp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="@dimen/dp_40"
         android:layout_marginRight="@dimen/dp_40"
         android:inputType="number"
+        android:maxLength="11"
         android:hint="请输入手机号码"
         android:background="@drawable/corners_shape_normal_border"/>
-    <TextView
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="密码"
-        android:textSize="15sp"/>
-    <EditText
-        android:id="@+id/activity_register_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/CustomEditTextStyle"
-        android:padding="10dp"
-        android:textSize="15sp"
-        android:hint="请输入密码"
-        android:layout_marginLeft="@dimen/dp_40"
-        android:layout_marginRight="@dimen/dp_40"
-        android:background="@drawable/corners_shape_normal_border"/>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
     <Button
         android:id="@+id/activity_register_register"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginLeft="@dimen/dp_40"
-        android:layout_marginRight="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="注册"
-        android:padding="10dp"
         android:enabled="false"
+        android:text="手机验证"
+        android:padding="10dp"
         android:background="@drawable/button_selector_red_gray"/>
 </LinearLayout>

@@ -30,6 +30,8 @@ public interface UserServiceApi {
     Observable<BaseResponse<User>> updateIcon(@Part("userId") long id, @Part MultipartBody.Part icon);
     @POST("user/update")
     Observable<BaseResponse<User>> update(@Body User user);
+    @POST("user/resetPwd")
+    Observable<BaseResponse<String>> resetPwd(@Body User user);
     //查询
     @POST("user/queryById")
     Observable<BaseResponse<List<User>>> queryById(@Body List<Long> idList);

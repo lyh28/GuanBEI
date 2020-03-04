@@ -25,6 +25,8 @@ public class AskDialog extends Dialog {
 
     private String mTitleStr;
     private String mContentStr;
+    private String mEnsureStr;
+    private String mDismissStr;
     public AskDialog(@NonNull Context context) {
         super(context, R.style.CustomDialog);
         mContext=context;
@@ -56,6 +58,10 @@ public class AskDialog extends Dialog {
             mTitle.setText(mTitleStr);
         if(mContentStr!=null)
             mContent.setText(mContentStr);
+        if(mEnsureStr!=null)
+            mEnsure.setText(mEnsureStr);
+        if(mDismissStr!=null)
+            mCancel.setText(mDismissStr);
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +87,16 @@ public class AskDialog extends Dialog {
         return this;
     }
 
+    public AskDialog setEnsure(String mEnsureStr) {
+        this.mEnsureStr = mEnsureStr;
+        return this;
+    }
+
+    public AskDialog setDismiss(String mDismissStr) {
+        this.mDismissStr = mDismissStr;
+        return this;
+    }
+
     @Override
     public void dismiss() {
         if(mListener!=null)
@@ -88,8 +104,9 @@ public class AskDialog extends Dialog {
         super.dismiss();
     }
 
-    public void setListener(onClickListener mListener) {
+    public AskDialog setListener(onClickListener mListener) {
         this.mListener = mListener;
+        return this;
     }
 
     public interface onClickListener{

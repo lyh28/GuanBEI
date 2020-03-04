@@ -21,15 +21,15 @@ import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.Tag;
 import com.lyh.guanbei.common.Contact;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.mvp.contract.CommitRecordContract;
+import com.lyh.guanbei.manager.TagManager;
+import com.lyh.guanbei.mvp.contract.InsertRecordContract;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
-import com.lyh.guanbei.mvp.presenter.CommitRecordPresenter;
+import com.lyh.guanbei.mvp.presenter.InsertRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.UpdateRecordPresenter;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
 import com.lyh.guanbei.ui.widget.BottomDateDialog;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.KeyBoardUtil;
-import com.lyh.guanbei.manager.TagManager;
 import com.lyh.guanbei.util.LogUtil;
 
 import java.util.Calendar;
@@ -38,7 +38,7 @@ import java.util.List;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AddByMyselfActivity extends BaseActivity implements UpdateRecordContract.IUpdateRecordView, CommitRecordContract.ICommitRecordView, View.OnClickListener, RadioGroup.OnCheckedChangeListener, BottomDateDialog.onDoneListener {
+public class AddByMyselfActivity extends BaseActivity implements UpdateRecordContract.IUpdateRecordView, InsertRecordContract.IInsertRecordView, View.OnClickListener, RadioGroup.OnCheckedChangeListener, BottomDateDialog.onDoneListener {
     private RadioGroup mRadioGroup;
     private ImageView mBack;
     private ImageView mDone;
@@ -55,7 +55,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     private BottomBookDialog mDialog;
 
     private UpdateRecordPresenter updateRecordPresenter;
-    private CommitRecordPresenter commitRecordPresenter;
+    private InsertRecordPresenter insertRecordPresenter;
     private CategoryAdapter mCategoryAdapter;
     private KeyBoardUtil keyBoardUtil;
 
@@ -145,9 +145,9 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
             @Override
             public void addMore() {
                 if (status == INSERT_STATUS) {
-                    commitRecordPresenter.add(createRecord());
+                    insertRecordPresenter.add(createRecord());
                     //清空
-                    mAmount.getText().clear();
+                    mAmount.setText("0");
                     Toast.makeText(AddByMyselfActivity.this, "再来一笔", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AddByMyselfActivity.this, "当前不允许该操作", Toast.LENGTH_SHORT).show();
@@ -195,10 +195,10 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
 
     @Override
     public void createPresenters() {
-        commitRecordPresenter = new CommitRecordPresenter();
+        insertRecordPresenter = new InsertRecordPresenter();
         updateRecordPresenter = new UpdateRecordPresenter();
         addPresenter(updateRecordPresenter);
-        addPresenter(commitRecordPresenter);
+        addPresenter(insertRecordPresenter);
     }
 
     @Override
@@ -210,10 +210,14 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activity_add_myself_close:
-                commitRecordPresenter.commit();
+                insertRecordPresenter.insert();
                 finish();
                 break;
             case R.id.activity_add_myself_done:
+                if(!checkAmount()){
+                    Toast.makeText(this,"金额不能为0",Toast.LENGTH_SHORT).show();
+                    return ;
+                }
                 if (status == UPDATE_STATUS)
                     updateRecordPresenter.update(createRecord());
                 else if (status == EDIT_STATUS) {
@@ -222,7 +226,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
                     intent.putExtra("record", record);
                     setResult(RESULT_OK, intent);
                 } else
-                    commitRecordPresenter.commit(createRecord());
+                    insertRecordPresenter.insert(createRecord());
                 finish();
                 break;
             case R.id.activity_add_myself_date_view:
@@ -247,7 +251,6 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
 
     @Override
     public void onDone(String dateAndTime) {
-        LogUtil.logD("date  "+dateAndTime);
         date=dateAndTime;
         mDate.setText(dateAndTime.split(" ")[1]);
     }
@@ -269,7 +272,9 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         super.onPause();
         setRootViewFocus();
     }
-
+    private boolean checkAmount(){
+        return mAmount.getText().length()!=0&&Double.parseDouble(mAmount.getText().toString())!=0;
+    }
     private void setRootViewFocus() {
         mRootView.setFocusable(true);
         mRootView.setFocusableInTouchMode(true);
@@ -282,7 +287,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
             keyBoardUtil.hideKeyBoard();
             return;
         }
-        commitRecordPresenter.commit();
+        insertRecordPresenter.insert();
         super.onBackPressed();
     }
 
