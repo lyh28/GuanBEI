@@ -1,6 +1,5 @@
 package com.lyh.guanbei.ui.fragment;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +9,13 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.appbar.AppBarLayout;
-import com.lyh.guanbei.DataViewModel;
+import com.lyh.guanbei.Repository.DataViewModel;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.RecordSectionAdapter;
 import com.lyh.guanbei.base.BaseFragment;
-import com.lyh.guanbei.bean.Apk;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.http.APIManager;
-import com.lyh.guanbei.http.BaseObscriber;
 import com.lyh.guanbei.manager.ActivityManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
@@ -33,7 +29,6 @@ import com.lyh.guanbei.ui.activity.RecordDetailActivity;
 import com.lyh.guanbei.util.CustomOffsetChangeListener;
 import com.lyh.guanbei.util.DateUtil;
 import com.lyh.guanbei.util.LogUtil;
-import com.lyh.guanbei.util.Util;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.ArrayList;
@@ -43,10 +38,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BookPageFragment extends BaseFragment implements QueryRecordContract.IQueryRecordView, View.OnClickListener {
     private RecordSectionAdapter mRecordSectionAdapter;
@@ -140,10 +131,16 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
         //注册监听器
         final DataViewModel dataViewModel = ViewModelProviders.of(ActivityManager.getInstance().getMainActivity()).get(DataViewModel.class);
-        dataViewModel.getRecordRespository().observe(this, new Observer<List<Record>>() {
+        dataViewModel.getRecordRespository().observe(ActivityManager.getInstance().getMainActivity(), new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
                 mRecordSectionAdapter.setNewDatas(dataViewModel.getRecordRespository().getRecordLiveData(bookId));
+            }
+        });
+        dataViewModel.getBookRepository().observe(ActivityManager.getInstance().getMainActivity(), new Observer<Book>() {
+            @Override
+            public void onChanged(Book book) {
+                mBookName.setText(book.getBook_name());
             }
         });
     }

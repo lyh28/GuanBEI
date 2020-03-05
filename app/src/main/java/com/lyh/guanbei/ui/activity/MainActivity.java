@@ -15,7 +15,7 @@ import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.common.NetRestartService;
 import com.lyh.guanbei.manager.CustomNotificationManager;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.manager.RecordRepository;
+import com.lyh.guanbei.Repository.RecordRepository;
 import com.lyh.guanbei.mvp.contract.NetListenerContract;
 import com.lyh.guanbei.mvp.presenter.NetListenerPresenter;
 import com.lyh.guanbei.ui.fragment.BookPageFragment;

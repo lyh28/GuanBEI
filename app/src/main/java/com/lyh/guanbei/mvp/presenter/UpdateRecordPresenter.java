@@ -1,5 +1,6 @@
 package com.lyh.guanbei.mvp.presenter;
 
+import com.lyh.guanbei.Repository.RecordRepository;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
@@ -18,6 +19,7 @@ public class UpdateRecordPresenter extends BasePresenter<UpdateRecordContract.IU
         if (DBManager.isClientServer(record.getStatus())) {
             record.setStatus(DBManager.CLIENT_UPDATE_STATUS);
             getmModel().updateLocal(record);
+            RecordRepository.getSingleton().updateRecord(record);
             Book.updateBookSum(record.getBook_local_id());
             if (NetUtil.isNetWorkAvailable())
                 getmModel().updateService(record, new ICallbackListener<String>() {

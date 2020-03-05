@@ -7,7 +7,7 @@ import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.DBManager;
-import com.lyh.guanbei.manager.RecordRepository;
+import com.lyh.guanbei.Repository.RecordRepository;
 import com.lyh.guanbei.mvp.contract.InsertRecordContract;
 import com.lyh.guanbei.mvp.model.InsertRecordModel;
 import com.lyh.guanbei.util.LogUtil;

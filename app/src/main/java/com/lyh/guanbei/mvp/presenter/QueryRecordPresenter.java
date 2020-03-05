@@ -4,17 +4,14 @@ import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Record;
-import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.db.BookDao;
-import com.lyh.guanbei.db.UserDao;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.db.RecordDao;
-import com.lyh.guanbei.manager.RecordRepository;
+import com.lyh.guanbei.Repository.RecordRepository;
 import com.lyh.guanbei.mvp.contract.QueryRecordContract;
 import com.lyh.guanbei.mvp.model.QueryRecordModel;
 import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.NetUtil;
-import com.lyh.guanbei.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
