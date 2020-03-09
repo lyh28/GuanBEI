@@ -18,6 +18,7 @@ public class Tag {
     @Id(autoincrement = true)
     private Long local_id;
     private long tag_id;
+    private long userId;
     @Index
     private String name;
     private int iconId;
@@ -28,24 +29,33 @@ public class Tag {
     @Transient
     public static final int OUT = 2;
 
+    public Tag(String name, int iconId, int type,long userId) {
+        this.name = name;
+        this.iconId = iconId;
+        this.type = type;
+        this.userId=userId;
+    }
+
     public Tag(String name, int iconId, int type) {
         this.name = name;
         this.iconId = iconId;
         this.type = type;
     }
-
-    @Generated(hash = 1808180524)
-    public Tag(Long local_id, long tag_id, String name, int iconId, int type) {
+    @Generated(hash = 2025611693)
+    public Tag(Long local_id, long tag_id, long userId, String name, int iconId, int type) {
         this.local_id = local_id;
         this.tag_id = tag_id;
+        this.userId = userId;
         this.name = name;
         this.iconId = iconId;
         this.type = type;
     }
 
+
     @Generated(hash = 1605720318)
     public Tag() {
     }
+
 
     public String getName() {
         return name;
@@ -116,14 +126,14 @@ public class Tag {
         this.tag_id = tag_id;
     }
 
-    @Override
-    public String toString() {
-        return "Tag{" +
-                "local_id=" + local_id +
-                ", tag_id=" + tag_id +
-                ", name='" + name + '\'' +
-                ", iconId=" + iconId +
-                ", type=" + type +
-                '}';
+
+    public long getUserId() {
+        return this.userId;
     }
+
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
 }

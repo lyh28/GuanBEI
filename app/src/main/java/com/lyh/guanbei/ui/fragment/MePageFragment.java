@@ -171,7 +171,8 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
             mLoginView.setVisibility(View.GONE);
             mNameView.setVisibility(View.VISIBLE);
             //设置各种数据
-            Glide.with(getmActivity()).load(mUser.getUser_icon()).error(R.drawable.defaulticon).into(mIcon);
+            if(!"".equals(mUser.getUser_icon()))
+                Glide.with(getmActivity()).load(mUser.getUser_icon()).error(R.drawable.defaulticon).into(mIcon);
             mName.setText(mUser.getUser_name());
             mId.setText(mUser.getUser_id() + "");
         }
@@ -305,7 +306,7 @@ public class MePageFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void getVersionFailed(String msg) {
-
+        Toast.makeText(getmActivity(),msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override

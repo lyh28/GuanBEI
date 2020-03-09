@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -46,7 +47,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
     private View mOutView;
     private View mInView;
     private ImageView mFilter;
-    private ImageView mMore;
     private TextView mBookName;
     private View mBookView;
     private TextView mBudget;
@@ -75,7 +75,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
         mInView = mView.findViewById(R.id.fragment_book_inView);
         mBookView = mView.findViewById(R.id.fragment_book_nameView);
         mFilter = mView.findViewById(R.id.fragment_book_filter);
-        mMore = mView.findViewById(R.id.fragment_book_more);
         mBookName = mView.findViewById(R.id.fragment_book_name);
         mBudget = mView.findViewById(R.id.fragment_book_budget);
         mIn = mView.findViewById(R.id.fragment_book_inNum);
@@ -83,7 +82,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
 
         mFilter.setOnClickListener(this);
         mBookView.setOnClickListener(this);
-        mMore.setOnClickListener(this);
         mBudget.setOnClickListener(this);
         //设置间隔
         int marginTop = QMUIStatusBarHelper.getStatusbarHeight(getmActivity());
@@ -226,23 +224,6 @@ public class BookPageFragment extends BaseFragment implements QueryRecordContrac
         switch (v.getId()) {
             case R.id.fragment_book_filter:
                 startActivity(FilterActivity.class);
-                break;
-            case R.id.fragment_book_more:
-                LogUtil.logD("-------------user-------------");
-                List<User> user= DBManager.getInstance().getDaoSession().getUserDao().loadAll();
-                for(User u:user)
-                LogUtil.logD(u.toString());
-                LogUtil.logD("------------------------------");
-                LogUtil.logD("-------------book-------------");
-                List<Book> book=DBManager.getInstance().getDaoSession().getBookDao().loadAll();
-                for(Book u:book)
-                    LogUtil.logD(u.toString());
-                LogUtil.logD("------------------------------");
-                LogUtil.logD("-------------record-------------");
-                List<Record> record=DBManager.getInstance().getDaoSession().getRecordDao().loadAll();
-                for(Record u:record)
-                    LogUtil.logD(u.toString());
-                LogUtil.logD("------------------------------");
                 break;
             case R.id.fragment_book_budget:
                 startActivity(BudgetActivity.class);

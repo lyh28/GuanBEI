@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.lyh.guanbei.R;
+import com.lyh.guanbei.Repository.BookRepository;
 import com.lyh.guanbei.adapter.HomePageAdapter;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.User;
@@ -125,6 +126,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             CustomNotificationManager.initInPutNotification(this);
         //更新上次使用时间
         User.updateLastTime();
+        BookRepository.getSingleton().init();
         RecordRepository.getSingleton().init();
     }
 

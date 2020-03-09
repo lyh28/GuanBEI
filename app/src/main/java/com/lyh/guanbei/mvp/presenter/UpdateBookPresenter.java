@@ -2,6 +2,8 @@ package com.lyh.guanbei.mvp.presenter;
 
 import android.text.TextUtils;
 
+import com.lyh.guanbei.Repository.BookRepository;
+import com.lyh.guanbei.Repository.DataViewModel;
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
 import com.lyh.guanbei.bean.Book;
@@ -34,6 +36,7 @@ public class UpdateBookPresenter extends BasePresenter<UpdateBookContract.IUpdat
         final List<Book> serviceList=new ArrayList<>(bookList.size());
 
         for(Book book:bookList){
+            BookRepository.getSingleton().updateBook(book);
             if(DBManager.isClientServer(book.getStatus())){
                 book.setStatus(DBManager.CLIENT_UPDATE_STATUS);
                 serviceList.add(book);

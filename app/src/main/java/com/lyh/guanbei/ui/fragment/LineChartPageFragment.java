@@ -119,7 +119,6 @@ public class LineChartPageFragment extends BaseFragment implements RadioGroup.On
         initList();
         mRadioGroup.check(R.id.fragment_chart_page_line_week);
     }
-
     private void initList() {
         mAdapter = new LineChartAdapter(this);
         mAdapter.setOnItemClickListener(this);
@@ -298,12 +297,17 @@ public class LineChartPageFragment extends BaseFragment implements RadioGroup.On
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
-        refreshData();
     }
 
     @Override
     public void createPresenters() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtil.logD("line ondestory");
     }
 
     public String getType() {

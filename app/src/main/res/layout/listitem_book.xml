@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/left_right_margin">
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="@dimen/left_right_margin"
+    android:paddingRight="@dimen/left_right_margin">
     <ImageView
         android:id="@+id/listitem_book_delete"
         android:layout_gravity="center"
@@ -23,8 +26,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
-        android:layout_marginLeft="@dimen/left_right_margin"
-        android:layout_marginRight="@dimen/left_right_margin"
+        android:layout_margin="10dp"
         android:text="账本名"/>
     <TextView
         android:id="@+id/listitem_book_person"
@@ -49,20 +51,23 @@
     <LinearLayout
         android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
             android:id="@+id/listitem_book_in"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
             android:textColor="@color/colorBlack"
             android:textSize="10sp"
             android:text="总收入"/>
         <TextView
             android:id="@+id/listitem_book_out"
-            android:layout_marginTop="@dimen/left_right_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
             android:textColor="@color/colorBlack"
             android:textSize="10sp"
             android:text="总支出"/>

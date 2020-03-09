@@ -5,10 +5,12 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Model;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.ui.widget.AskDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
@@ -37,7 +39,7 @@ public class ModelDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initUi() {
-        mName=findViewById(R.id.activity_model_detail_name);
+        mName = findViewById(R.id.activity_model_detail_name);
         mTitle = findViewById(R.id.activity_model_detail_title);
         mDate = findViewById(R.id.activity_model_detail_date);
         mToWho = findViewById(R.id.activity_model_detail_towho);
@@ -96,8 +98,8 @@ public class ModelDetailActivity extends BaseActivity implements View.OnClickLis
             }
         } else {
             mDelete.setVisibility(View.GONE);
-            mModel=new Model();
-            mTitle.setText("新建muban");
+            mModel = new Model();
+            mTitle.setText("新建模板");
         }
     }
 
@@ -108,52 +110,69 @@ public class ModelDetailActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.activity_model_detail_name:
-                showEditTextDialog("模板名称", mName,getText(mName));
+                if (!checkDefault())
+                    showEditTextDialog("模板名称", mName, getText(mName));
                 break;
             case R.id.activity_model_detail_date:
-                showEditTextDialog("账单日期", mDate,getText(mDate));
+                if (!checkDefault())
+                    showEditTextDialog("账单日期", mDate, getText(mDate));
                 break;
             case R.id.activity_model_detail_towho:
-                showEditTextDialog("交易对象", mToWho,getText(mToWho));
+                if (!checkDefault())
+                    showEditTextDialog("交易对象", mToWho, getText(mToWho));
                 break;
             case R.id.activity_model_detail_type:
-                showEditTextDialog("收支", mType,getText(mType));
+                if (!checkDefault())
+                    showEditTextDialog("收支", mType, getText(mType));
                 break;
             case R.id.activity_model_detail_amount:
-                showEditTextDialog("金额", mAmount,getText(mAmount));
+                if (!checkDefault())
+                    showEditTextDialog("金额", mAmount, getText(mAmount));
                 break;
             case R.id.activity_model_detail_remark:
-                showEditTextDialog("备注", mRemark,getText(mRemark));
+                if (!checkDefault())
+                    showEditTextDialog("备注", mRemark, getText(mRemark));
                 break;
             case R.id.activity_model_detail_delete:
-                mDialog.show();
+                if (!checkDefault())
+                    mDialog.show();
                 break;
             case R.id.activity_model_detail_save:
-                saveData();
-                if (status == EDIT_STATUS) {
-                    DBManager.getInstance().getDaoSession().getModelDao().update(mModel);
-                }
-                else{
-                    Model.save(mModel);
-                }
+                if (!checkDefault()) {
+                    saveData();
+                    if (status == EDIT_STATUS) {
+                        DBManager.getInstance().getDaoSession().getModelDao().update(mModel);
+                    } else {
+                        Model.save(mModel);
+                    }
                     finish();
+                }
                 break;
         }
     }
 
+    private boolean checkDefault() {
+        boolean is = Model.isDefaultModel(mModel);
+        if (is)
+            Toast.makeText(this, "该模板为系统模板，不能进行操作", Toast.LENGTH_SHORT).show();
+        return is;
+    }
+
     private void saveData() {
         mModel.setName(mName.getText().toString());
+        mModel.setUserId(CustomSharedPreferencesManager.getInstance().getUser().getUser_id());
         mModel.setDate(mDate.getText().toString());
         mModel.setToWho(mToWho.getText().toString());
         mModel.setAmount_Type(mType.getText().toString());
         mModel.setAmount(mAmount.getText().toString());
         mModel.setRemark(mRemark.getText().toString());
     }
-    private String getText(TextView textView){
+
+    private String getText(TextView textView) {
         return textView.getText().toString();
     }
 
-    private void showEditTextDialog(String title, final TextView textview,String content) {
+    private void showEditTextDialog(String title, final TextView textview, String content) {
         final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(this);
         builder.setTitle(title)
                 .setDefaultText(content)

@@ -25,12 +25,13 @@ public class NotificationDao extends AbstractDao<Notification, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
-        public final static Property Content = new Property(2, String.class, "content", false, "CONTENT");
-        public final static Property Data = new Property(3, String.class, "data", false, "DATA");
-        public final static Property Date = new Property(4, String.class, "date", false, "DATE");
-        public final static Property Type = new Property(5, int.class, "type", false, "TYPE");
-        public final static Property Status = new Property(6, int.class, "status", false, "STATUS");
+        public final static Property UserId = new Property(1, long.class, "userId", false, "USER_ID");
+        public final static Property Title = new Property(2, String.class, "title", false, "TITLE");
+        public final static Property Content = new Property(3, String.class, "content", false, "CONTENT");
+        public final static Property Data = new Property(4, String.class, "data", false, "DATA");
+        public final static Property Date = new Property(5, String.class, "date", false, "DATE");
+        public final static Property Type = new Property(6, int.class, "type", false, "TYPE");
+        public final static Property Status = new Property(7, int.class, "status", false, "STATUS");
     }
 
 
@@ -47,12 +48,13 @@ public class NotificationDao extends AbstractDao<Notification, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"NOTIFICATION\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
-                "\"TITLE\" TEXT," + // 1: title
-                "\"CONTENT\" TEXT," + // 2: content
-                "\"DATA\" TEXT," + // 3: data
-                "\"DATE\" TEXT," + // 4: date
-                "\"TYPE\" INTEGER NOT NULL ," + // 5: type
-                "\"STATUS\" INTEGER NOT NULL );"); // 6: status
+                "\"USER_ID\" INTEGER NOT NULL ," + // 1: userId
+                "\"TITLE\" TEXT," + // 2: title
+                "\"CONTENT\" TEXT," + // 3: content
+                "\"DATA\" TEXT," + // 4: data
+                "\"DATE\" TEXT," + // 5: date
+                "\"TYPE\" INTEGER NOT NULL ," + // 6: type
+                "\"STATUS\" INTEGER NOT NULL );"); // 7: status
     }
 
     /** Drops the underlying database table. */
@@ -65,56 +67,58 @@ public class NotificationDao extends AbstractDao<Notification, Long> {
     protected final void bindValues(DatabaseStatement stmt, Notification entity) {
         stmt.clearBindings();
         stmt.bindLong(1, entity.getId());
+        stmt.bindLong(2, entity.getUserId());
  
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(2, title);
+            stmt.bindString(3, title);
         }
  
         String content = entity.getContent();
         if (content != null) {
-            stmt.bindString(3, content);
+            stmt.bindString(4, content);
         }
  
         String data = entity.getData();
         if (data != null) {
-            stmt.bindString(4, data);
+            stmt.bindString(5, data);
         }
  
         String date = entity.getDate();
         if (date != null) {
-            stmt.bindString(5, date);
+            stmt.bindString(6, date);
         }
-        stmt.bindLong(6, entity.getType());
-        stmt.bindLong(7, entity.getStatus());
+        stmt.bindLong(7, entity.getType());
+        stmt.bindLong(8, entity.getStatus());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Notification entity) {
         stmt.clearBindings();
         stmt.bindLong(1, entity.getId());
+        stmt.bindLong(2, entity.getUserId());
  
         String title = entity.getTitle();
         if (title != null) {
-            stmt.bindString(2, title);
+            stmt.bindString(3, title);
         }
  
         String content = entity.getContent();
         if (content != null) {
-            stmt.bindString(3, content);
+            stmt.bindString(4, content);
         }
  
         String data = entity.getData();
         if (data != null) {
-            stmt.bindString(4, data);
+            stmt.bindString(5, data);
         }
  
         String date = entity.getDate();
         if (date != null) {
-            stmt.bindString(5, date);
+            stmt.bindString(6, date);
         }
-        stmt.bindLong(6, entity.getType());
-        stmt.bindLong(7, entity.getStatus());
+        stmt.bindLong(7, entity.getType());
+        stmt.bindLong(8, entity.getStatus());
     }
 
     @Override
@@ -126,12 +130,13 @@ public class NotificationDao extends AbstractDao<Notification, Long> {
     public Notification readEntity(Cursor cursor, int offset) {
         Notification entity = new Notification( //
             cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // title
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // content
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // data
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // date
-            cursor.getInt(offset + 5), // type
-            cursor.getInt(offset + 6) // status
+            cursor.getLong(offset + 1), // userId
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // title
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // content
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // data
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // date
+            cursor.getInt(offset + 6), // type
+            cursor.getInt(offset + 7) // status
         );
         return entity;
     }
@@ -139,12 +144,13 @@ public class NotificationDao extends AbstractDao<Notification, Long> {
     @Override
     public void readEntity(Cursor cursor, Notification entity, int offset) {
         entity.setId(cursor.getLong(offset + 0));
-        entity.setTitle(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setContent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setData(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setDate(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setType(cursor.getInt(offset + 5));
-        entity.setStatus(cursor.getInt(offset + 6));
+        entity.setUserId(cursor.getLong(offset + 1));
+        entity.setTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setContent(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setData(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setDate(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setType(cursor.getInt(offset + 6));
+        entity.setStatus(cursor.getInt(offset + 7));
      }
     
     @Override

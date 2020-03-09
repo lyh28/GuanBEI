@@ -7,6 +7,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
 import com.lyh.guanbei.adapter.ModelAdapter;
 import com.lyh.guanbei.base.BaseActivity;
+import com.lyh.guanbei.bean.Model;
+import com.lyh.guanbei.db.ModelDao;
+import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,7 +61,7 @@ public class ModelActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initList(){
-        mAdapter.setNewData(DBManager.getInstance().getDaoSession().getModelDao().loadAll());
+        mAdapter.setNewData(Model.queryByUserId(CustomSharedPreferencesManager.getInstance().getUser().getUser_id()));
     }
     @Override
     public void onClick(View v) {

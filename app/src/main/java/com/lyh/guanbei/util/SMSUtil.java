@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SMSUtil {
-    private static final Uri SMS_INBOX = Uri.parse("content://sms/");
+    private static final Uri SMS_INBOX = Uri.parse("content://sms/inbox");
+
     public static List<SMS> getSmsFromPhone(Context context) {
         //查询联系人员
 //        SparseArray<String> friendMap=new SparseArray<>();
@@ -26,7 +27,7 @@ public class SMSUtil {
             return list;
         }
         while(cur.moveToNext()) {
-            String name = cur.getString(cur.getColumnIndex("subject"));//联系人姓名列表
+            String name = cur.getString(cur.getColumnIndex("address"));//联系人姓名列表
             String body = cur.getString(cur.getColumnIndex("body"));//短信内容
             long date=cur.getLong(cur.getColumnIndex("date"));
 //            String name=getName(nameId,friendMap);

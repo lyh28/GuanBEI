@@ -29,13 +29,13 @@ public class BookRepository extends LiveData<Book> {
         }
         return mSingleton;
     }
-    private void init(){
+    public void init(){
         books.clear();
         User user= CustomSharedPreferencesManager.getInstance().getUser();
         List<Long> bookIdList= Util.getLongFromData(user.getLocal_book_id());
         books=Book.query(BookDao.Properties.Local_id.in(bookIdList));
     }
-    private void updateBook(Book book){
+    public void updateBook(Book book){
         for(int i=0;i<books.size();i++){
             if(books.get(i).getLocal_id()==book.getLocal_id()){
                 books.set(i,book);

@@ -35,7 +35,7 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
     private CustomFloatingBtn mFloatingBtn;
     private BottomRecordDialog mDialog;
 
-    private Map<Integer, Record> chooseMap;
+    private Map<Integer, Record> chooseMap;     //列表的position
 
     @Override
     protected int getLayoutId() {
@@ -81,7 +81,6 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SMS sms = mSMSAdapter.getItem(position);
-                LogUtil.logD(sms.toString());
                 sms.setChoose(!sms.isChoose());
                 boolean isChoose=sms.isChoose();
                 if(isChoose){

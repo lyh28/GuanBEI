@@ -1,61 +1,30 @@
 package com.lyh.guanbei.ui.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lyh.guanbei.R;
-import com.lyh.guanbei.adapter.RecordAdapter;
 import com.lyh.guanbei.base.BaseActivity;
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.Model;
-import com.lyh.guanbei.bean.Record;
-import com.lyh.guanbei.bean.User;
-import com.lyh.guanbei.common.Contact;
-import com.lyh.guanbei.http.APIManager;
-import com.lyh.guanbei.http.BaseObscriber;
+import com.lyh.guanbei.db.ModelDao;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
-import com.lyh.guanbei.manager.DBManager;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
 import com.lyh.guanbei.util.FileUtil;
-import com.lyh.guanbei.util.LogUtil;
-import com.lyh.guanbei.util.excel.RecordExcel;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
+
+import androidx.annotation.Nullable;
 
 public class AddByExcelActivity extends BaseActivity implements View.OnClickListener {
     private TextView mModel;
@@ -115,13 +84,11 @@ public class AddByExcelActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initModel() {
-        modelList = DBManager.getInstance().getDaoSession().getModelDao().loadAll();
+        modelList = Model.queryByUserId(CustomSharedPreferencesManager.getInstance().getUser().getUser_id());
         if (modelList.size() != 0) {
             Model model = modelList.get(currentIndex);
             mModel.setText(model.getName());
             changeModel(model);
-        }else{
-            //处理没有的情况
         }
     }
 

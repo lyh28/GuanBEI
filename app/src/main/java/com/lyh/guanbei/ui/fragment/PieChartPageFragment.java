@@ -21,6 +21,7 @@ import com.lyh.guanbei.bean.Tag;
 import com.lyh.guanbei.db.RecordDao;
 import com.lyh.guanbei.ui.activity.DateChooseActivity;
 import com.lyh.guanbei.util.DateUtil;
+import com.lyh.guanbei.util.LogUtil;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 import java.util.ArrayList;
@@ -184,10 +185,14 @@ public class PieChartPageFragment extends BaseFragment implements View.OnClickLi
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtil.logD("pie ondestory");
+    }
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
-        refreshData();
     }
 
     @Override
@@ -210,7 +215,6 @@ public class PieChartPageFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void createPresenters() {
-
     }
 
     @Override

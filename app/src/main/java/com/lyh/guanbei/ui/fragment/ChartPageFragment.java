@@ -32,6 +32,7 @@ public class ChartPageFragment extends BaseFragment implements View.OnClickListe
     private View noDataView;
     private long bookId;
     private TextView mBookView;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_chart_page;
@@ -40,17 +41,22 @@ public class ChartPageFragment extends BaseFragment implements View.OnClickListe
     @Override
     protected void initUi() {
         mFragmentView = findViewById(R.id.fragment_chart_page_framelayout);
-        mBookView=findViewById(R.id.fragment_chart_page_book);
+        mBookView = findViewById(R.id.fragment_chart_page_book);
         mBookView.setOnClickListener(this);
-        mBookDialog=new BottomBookDialog(getmActivity(),mBookView);
+        mBookDialog = new BottomBookDialog(getmActivity(), mBookView);
         mBookDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 mPieFragment.setBookId(mBookDialog.getCurrBookId());
                 mLineFragment.setBookId(mBookDialog.getCurrBookId());
+
+                if(radioGroup.getCheckedRadioButtonId()==R.id.fragment_chart_page_line_btn)
+                    mLineFragment.refreshData();
+                else
+                    mPieFragment.refreshData();
             }
         });
-        rootView=findViewById(R.id.fragment_chart_rootview);
+        rootView = findViewById(R.id.fragment_chart_rootview);
         radioGroup = findViewById(R.id.fragment_chart_page_radiogroup);
         radioGroup.check(R.id.fragment_chart_page_pie_btn);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -67,7 +73,7 @@ public class ChartPageFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_chart_page_book:
                 mBookDialog.show();
                 break;
@@ -78,19 +84,19 @@ public class ChartPageFragment extends BaseFragment implements View.OnClickListe
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            if(Book.queryByLocalId(bookId)==null){
-                noDataView= LayoutInflater.from(getmActivity()).inflate(R.layout.fragment_book_page_nodata,null);
+            if (Book.queryByLocalId(bookId) == null) {
+                noDataView = LayoutInflater.from(getmActivity()).inflate(R.layout.fragment_book_page_nodata, null);
                 rootView.addView(noDataView);
-            }else{
-                if(noDataView!=null){
+            } else {
+                if (noDataView != null) {
                     initView();
                     rootView.removeView(noDataView);
-                    noDataView=null;
+                    noDataView = null;
                 }
-                if(radioGroup.getCheckedRadioButtonId()==R.id.fragment_chart_page_line_btn){
-                    if(mLineFragment!=null)
+                if (radioGroup.getCheckedRadioButtonId() == R.id.fragment_chart_page_line_btn) {
+                    if (mLineFragment != null)
                         mLineFragment.refreshData();
-                }else if(radioGroup.getCheckedRadioButtonId()==R.id.fragment_chart_page_pie_btn){
+                } else if (radioGroup.getCheckedRadioButtonId() == R.id.fragment_chart_page_pie_btn) {
                     if (mPieFragment != null)
                         mPieFragment.refreshData();
                 }
@@ -113,14 +119,16 @@ public class ChartPageFragment extends BaseFragment implements View.OnClickListe
             initView();
         }
     }
-    private void initView(){
+
+    private void initView() {
         mBookView.setText(Book.queryByLocalId(bookId).getBook_name());
         mPieFragment = new PieChartPageFragment(bookId);
         mPieFragment.setmActivity(getmActivity());
-        mLineFragment=new LineChartPageFragment(bookId);
+        mLineFragment = new LineChartPageFragment(bookId);
         mLineFragment.setmActivity(getmActivity());
         setFragment(mPieFragment);
     }
+
     private void initWindow() {
         View layout = findViewById(R.id.fragment_chart_page_toolbar);
         int margintop = QMUIDisplayHelper.getStatusBarHeight(getmActivity());

@@ -26,9 +26,10 @@ public class TagDao extends AbstractDao<Tag, Long> {
     public static class Properties {
         public final static Property Local_id = new Property(0, Long.class, "local_id", true, "_id");
         public final static Property Tag_id = new Property(1, long.class, "tag_id", false, "TAG_ID");
-        public final static Property Name = new Property(2, String.class, "name", false, "NAME");
-        public final static Property IconId = new Property(3, int.class, "iconId", false, "ICON_ID");
-        public final static Property Type = new Property(4, int.class, "type", false, "TYPE");
+        public final static Property UserId = new Property(2, long.class, "userId", false, "USER_ID");
+        public final static Property Name = new Property(3, String.class, "name", false, "NAME");
+        public final static Property IconId = new Property(4, int.class, "iconId", false, "ICON_ID");
+        public final static Property Type = new Property(5, int.class, "type", false, "TYPE");
     }
 
 
@@ -46,9 +47,10 @@ public class TagDao extends AbstractDao<Tag, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"TAG\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: local_id
                 "\"TAG_ID\" INTEGER NOT NULL ," + // 1: tag_id
-                "\"NAME\" TEXT," + // 2: name
-                "\"ICON_ID\" INTEGER NOT NULL ," + // 3: iconId
-                "\"TYPE\" INTEGER NOT NULL );"); // 4: type
+                "\"USER_ID\" INTEGER NOT NULL ," + // 2: userId
+                "\"NAME\" TEXT," + // 3: name
+                "\"ICON_ID\" INTEGER NOT NULL ," + // 4: iconId
+                "\"TYPE\" INTEGER NOT NULL );"); // 5: type
         // Add Indexes
         db.execSQL("CREATE INDEX " + constraint + "IDX_TAG_NAME ON \"TAG\"" +
                 " (\"NAME\" ASC);");
@@ -71,13 +73,14 @@ public class TagDao extends AbstractDao<Tag, Long> {
             stmt.bindLong(1, local_id);
         }
         stmt.bindLong(2, entity.getTag_id());
+        stmt.bindLong(3, entity.getUserId());
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(3, name);
+            stmt.bindString(4, name);
         }
-        stmt.bindLong(4, entity.getIconId());
-        stmt.bindLong(5, entity.getType());
+        stmt.bindLong(5, entity.getIconId());
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
@@ -89,13 +92,14 @@ public class TagDao extends AbstractDao<Tag, Long> {
             stmt.bindLong(1, local_id);
         }
         stmt.bindLong(2, entity.getTag_id());
+        stmt.bindLong(3, entity.getUserId());
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(3, name);
+            stmt.bindString(4, name);
         }
-        stmt.bindLong(4, entity.getIconId());
-        stmt.bindLong(5, entity.getType());
+        stmt.bindLong(5, entity.getIconId());
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
@@ -108,9 +112,10 @@ public class TagDao extends AbstractDao<Tag, Long> {
         Tag entity = new Tag( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // local_id
             cursor.getLong(offset + 1), // tag_id
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
-            cursor.getInt(offset + 3), // iconId
-            cursor.getInt(offset + 4) // type
+            cursor.getLong(offset + 2), // userId
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // name
+            cursor.getInt(offset + 4), // iconId
+            cursor.getInt(offset + 5) // type
         );
         return entity;
     }
@@ -119,9 +124,10 @@ public class TagDao extends AbstractDao<Tag, Long> {
     public void readEntity(Cursor cursor, Tag entity, int offset) {
         entity.setLocal_id(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setTag_id(cursor.getLong(offset + 1));
-        entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setIconId(cursor.getInt(offset + 3));
-        entity.setType(cursor.getInt(offset + 4));
+        entity.setUserId(cursor.getLong(offset + 2));
+        entity.setName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setIconId(cursor.getInt(offset + 4));
+        entity.setType(cursor.getInt(offset + 5));
      }
     
     @Override

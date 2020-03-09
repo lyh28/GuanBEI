@@ -43,8 +43,6 @@ public class GuanBeiApplication extends Application {
         DBManager.getInstance().getDaoSession().getTagDao().deleteAll();
         Tag.InsertPresetInList();
         Tag.InsertPresetOutList();
-        //模板init
-        Model.init();
 
         //LeakCanary
         refWatcher=setupLeakCanary();

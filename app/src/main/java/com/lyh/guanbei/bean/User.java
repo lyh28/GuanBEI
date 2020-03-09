@@ -86,6 +86,8 @@ public class User implements Serializable {
     }
 
     public String getUser_icon() {
+        if(this.user_icon==null||"".equals(user_icon))
+            return "";
         return Contact.FILRURL + this.user_icon;
     }
 

@@ -26,9 +26,15 @@ public class BookAdapter extends BaseQuickAdapter<Book, BaseViewHolder> {
         if (!isEditStatus) {
             helper.setGone(R.id.listitem_book_delete, false);
             helper.setVisible(R.id.listitem_book_edit, false);
+            helper.setGone(R.id.listitem_book_out,true);
+            helper.setGone(R.id.listitem_book_in,true);
+            helper.setGone(R.id.listitem_book_person,true);
         } else {
             helper.setVisible(R.id.listitem_book_delete, true);
             helper.setVisible(R.id.listitem_book_edit, true);
+            helper.setGone(R.id.listitem_book_out,false);
+            helper.setGone(R.id.listitem_book_in,false);
+            helper.setGone(R.id.listitem_book_person,false);
         }
         if (!isEditStatus)
             if (item.getLocal_id() == currentBookId) {

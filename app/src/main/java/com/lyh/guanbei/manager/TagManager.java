@@ -48,24 +48,26 @@ public class TagManager {
 
     //返回预置的收入List
     public static List<Tag> getPresetInList() {
+        long userId=CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         LinkedList<Tag> list = new LinkedList<>();
         for(int i=0;i<mInTag.length;i++){
-            list.add(new Tag(mInTag[i],mInTagId[i],Tag.IN));
+            list.add(new Tag(mInTag[i],mInTagId[i],Tag.IN,userId));
         }
         for(int i=0;i<mModelTag.length;i++){
-            list.add(new Tag(mModelTag[i],mModelId[i],Tag.IN));
+            list.add(new Tag(mModelTag[i],mModelId[i],Tag.IN,userId));
         }
         return list;
     }
 
     //返回预置的支出List
     public static List<Tag> getPresetOutList() {
+        long userId=CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         LinkedList<Tag> list = new LinkedList<>();
         for(int i=0;i<mOutTag.length;i++){
-            list.add(new Tag(mOutTag[i],mOutTagId[i],Tag.OUT));
+            list.add(new Tag(mOutTag[i],mOutTagId[i],Tag.OUT,userId));
         }
         for(int i=0;i<mModelTag.length;i++){
-            list.add(new Tag(mModelTag[i],mModelId[i],Tag.OUT));
+            list.add(new Tag(mModelTag[i],mModelId[i],Tag.OUT,userId));
         }
         return list;
     }
