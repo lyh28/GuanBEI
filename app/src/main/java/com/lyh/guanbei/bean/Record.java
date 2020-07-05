@@ -1,6 +1,8 @@
 package com.lyh.guanbei.bean;
 
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.DBManager;
@@ -19,9 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Record implements Serializable {
-    @Transient
-    public static final long serialVersionUID = 22222L;
+public class Record implements Parcelable {
     @Id(autoincrement = true)
     private Long local_id;
     @Index
@@ -160,26 +160,30 @@ public class Record implements Serializable {
     }
 
     private static final String FIRSTDATE = "select min(date) as date from record where user_id = ? and book_local_id = ?";
-    private static final String UPDATE_BOOKLOCALID="update record set book_local_id = ? where book_id = ?";
-    private static final String DATE_COLUMN="date";
-    public static void updateBookLocalId(String bookLocalId,String bookId){
-        DBManager.getInstance().getDaoSession().getDatabase().execSQL(UPDATE_BOOKLOCALID,new String[]{bookLocalId,bookId});
+    private static final String UPDATE_BOOKLOCALID = "update record set book_local_id = ? where book_id = ?";
+    private static final String DATE_COLUMN = "date";
+
+    public static void updateBookLocalId(String bookLocalId, String bookId) {
+        DBManager.getInstance().getDaoSession().getDatabase().execSQL(UPDATE_BOOKLOCALID, new String[]{bookLocalId, bookId});
     }
+
     public static String getFirstRecordDate(long book_id) {
-        long userId= CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
-        String[] args=new String[2];
-        args[0]=userId+"";
-        args[1]=book_id+"";
-        return getResFromSQL(FIRSTDATE,DATE_COLUMN,args);
+        long userId = CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
+        String[] args = new String[2];
+        args[0] = userId + "";
+        args[1] = book_id + "";
+        return getResFromSQL(FIRSTDATE, DATE_COLUMN, args);
     }
+
     private static String getResFromSQL(String sql, String columnName, String[] args) {
         Cursor c = DBManager.getInstance().getDaoSession().getDatabase().rawQuery(sql, args);
-        String res="";
+        String res = "";
         if (c.moveToFirst())
             res = c.getString(c.getColumnIndex(columnName));
         c.close();
         return res;
     }
+
     public int getStatus() {
         return this.status;
     }
@@ -245,4 +249,52 @@ public class Record implements Serializable {
                 ", status=" + status +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(local_id);
+        dest.writeLong(record_id);
+        dest.writeLong(user_id);
+        dest.writeLong(book_id);
+        dest.writeLong(book_local_id);
+        dest.writeString(date);
+        dest.writeDouble(amount);
+        dest.writeInt(amount_type);
+        dest.writeString(towho);
+        dest.writeString(remark);
+        dest.writeString(category);
+        dest.writeInt(status);
+    }
+
+    private Record(Parcel data) {
+        local_id=data.readLong();
+        record_id=data.readLong();
+        user_id=data.readLong();
+        book_id=data.readLong();
+        book_local_id=data.readLong();
+        date=data.readString();
+        amount=data.readDouble();
+        amount_type=data.readInt();
+        towho=data.readString();
+        remark=data.readString();
+        category=data.readString();
+        status=data.readInt();
+    }
+
+    public static final Parcelable.Creator<Record> CREATOR = new Parcelable.Creator<Record>() {
+        @Override
+        public Record createFromParcel(Parcel source) {
+            return new Record(source);
+        }
+
+        @Override
+        public Record[] newArray(int size) {
+            return new Record[size];
+        }
+    };
 }

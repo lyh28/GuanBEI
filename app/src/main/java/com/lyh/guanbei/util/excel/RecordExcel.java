@@ -91,15 +91,18 @@ public class RecordExcel {
             String str;
             if (headFilter != null) {
                 while ((str = bufferedReader.readLine()) != null) {
+                    LogUtil.logD(str);
                     if (headFilter.isToHead(str))
                         break;
                 }
             }
             //去掉头部后
             str = bufferedReader.readLine();
+            LogUtil.logD("头部 "+str);
             updateIndexs(str);
             //得到表头各标签索引
             while ((str = bufferedReader.readLine()) != null && !str.equals("")) {
+                LogUtil.logD(str);
                 res.add(getRecordFormLine(str));
                 LogUtil.logD(res.get(res.size() - 1).toString());
             }

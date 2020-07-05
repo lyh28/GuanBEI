@@ -12,30 +12,32 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitManager {
     private volatile static Retrofit sRetrofit;
     //Okhttp常量
-    private static final int TIMEOUT=5*1000;
+    private static final int TIMEOUT = 5 * 1000;
 
-    public static Retrofit getRetrofit(){
-        if(sRetrofit==null){
-            sRetrofit=createRetrofit();
+    public static Retrofit getRetrofit() {
+        if (sRetrofit == null) {
+            sRetrofit = createRetrofit();
         }
         return sRetrofit;
     }
-    private static Retrofit createRetrofit(){
-        synchronized (RetrofitManager.class){
-            if(sRetrofit==null){
-                OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                        .connectTimeout(TIMEOUT,TimeUnit.MILLISECONDS)
-                        .readTimeout(TIMEOUT,TimeUnit.MILLISECONDS)
-                        .writeTimeout(TIMEOUT,TimeUnit.MILLISECONDS)
-                        .build();
-                sRetrofit=new Retrofit.Builder()
-                        .client(okHttpClient)
-                        .baseUrl(Contact.BASEURL)
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+
+    private static Retrofit createRetrofit() {
+        if (sRetrofit == null)
+            synchronized (RetrofitManager.class) {
+                if (sRetrofit == null) {
+                    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                            .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                            .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                            .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                            .build();
+                    sRetrofit = new Retrofit.Builder()
+                            .client(okHttpClient)
+                            .baseUrl(Contact.BASEURL)
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                }
             }
-        }
         return sRetrofit;
     }
 }

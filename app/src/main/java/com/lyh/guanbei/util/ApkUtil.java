@@ -11,8 +11,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.core.content.FileProvider;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import okhttp3.ResponseBody;
 
 public class ApkUtil {
@@ -95,8 +103,10 @@ public class ApkUtil {
                 if (outFile != null) {
                     outFile.close();
                 }
+                LogUtil.logD("finally");
             }
         } catch (IOException e) {
+            LogUtil.logD("出错2");
             return false;
         }
     }

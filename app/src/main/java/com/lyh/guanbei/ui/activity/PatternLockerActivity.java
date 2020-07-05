@@ -32,6 +32,7 @@ public class PatternLockerActivity extends BaseActivity implements View.OnClickL
     private String mHit;
     private final int minN=4;
     private boolean isFirst;
+    private boolean isDone;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_pattern_locker;
@@ -110,6 +111,12 @@ public class PatternLockerActivity extends BaseActivity implements View.OnClickL
             mReset.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){

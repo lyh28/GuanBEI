@@ -141,7 +141,7 @@ public class UnLockActivity extends BaseActivity implements PatternLockerStatusL
     }
 
     @Override
-    protected boolean isLocked() {
+    public boolean isLocked() {
         return false;
     }
 }

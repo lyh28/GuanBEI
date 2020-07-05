@@ -115,7 +115,7 @@ public class RecordDetailActivity extends BaseActivity  implements DeleteRecordC
                     //跳转Activity
                     Bundle bundle=new Bundle();
                     bundle.putInt("status",AddByMyselfActivity.UPDATE_STATUS);
-                    bundle.putSerializable("record",record);
+                    bundle.putParcelable("record",record);
                     startActivity(AddByMyselfActivity.class,bundle);
                 }else{
                     showErrorDialog("你没有权限修改该账单");

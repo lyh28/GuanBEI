@@ -8,7 +8,7 @@
         android:layout_margin="@dimen/page_left_right_margin"
         android:layout_width="@dimen/small_icon_size"
         android:layout_height="@dimen/small_icon_size"
-        android:src="@mipmap/icon_more_operation_share_friend" />
+        android:src="@drawable/icon" />
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"

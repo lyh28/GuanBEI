@@ -1,5 +1,7 @@
 package com.lyh.guanbei.Repository;
 
+import android.util.LruCache;
+
 import com.lyh.guanbei.bean.Book;
 import com.lyh.guanbei.bean.User;
 import com.lyh.guanbei.db.BookDao;
@@ -42,6 +44,5 @@ public class BookRepository extends LiveData<Book> {
                 break;
             }
         }
-        postValue(book);
     }
 }

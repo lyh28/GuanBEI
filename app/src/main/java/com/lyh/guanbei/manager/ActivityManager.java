@@ -46,4 +46,7 @@ public class ActivityManager {
             activity = null;
         }
     }
+    public BaseActivity getTopActivity(){
+        return stack.peek();
+    }
 }

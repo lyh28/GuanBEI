@@ -8,6 +8,7 @@ import com.lyh.guanbei.bean.Model;
 import com.lyh.guanbei.bean.Tag;
 import com.lyh.guanbei.db.DaoMaster;
 import com.lyh.guanbei.manager.DBManager;
+import com.lyh.guanbei.util.ActivityLifecycleListener;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -29,6 +30,7 @@ public class GuanBeiApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        registerActivityLifecycleCallbacks(new ActivityLifecycleListener());
         //推送 可异步
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -43,7 +45,7 @@ public class GuanBeiApplication extends Application {
         DBManager.getInstance().getDaoSession().getTagDao().deleteAll();
         Tag.InsertPresetInList();
         Tag.InsertPresetOutList();
-
+        DBManager.getInstance().getDaoSession().getModelDao().loadAll();
         //LeakCanary
         refWatcher=setupLeakCanary();
     }

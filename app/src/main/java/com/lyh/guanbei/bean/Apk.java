@@ -1,6 +1,5 @@
 package com.lyh.guanbei.bean;
 
-import com.bumptech.glide.Glide;
 import com.lyh.guanbei.common.Contact;
 
 public class Apk {
@@ -12,7 +11,6 @@ public class Apk {
         this.version = version;
         this.path = path;
         this.size = size;
-        Glide.with().load().into()
     }
 
     public long getSize() {

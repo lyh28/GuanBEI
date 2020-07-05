@@ -1,8 +1,10 @@
 package com.lyh.guanbei.mvp.presenter;
 
 import android.app.IntentService;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.IBinder;
 
 import com.lyh.guanbei.base.BasePresenter;
 import com.lyh.guanbei.base.ICallbackListener;
@@ -11,6 +13,7 @@ import com.lyh.guanbei.manager.CustomNotificationManager;
 import com.lyh.guanbei.mvp.contract.ApkDownloadContract;
 import com.lyh.guanbei.mvp.model.ApkDownloadModel;
 import com.lyh.guanbei.util.ApkUtil;
+import com.lyh.guanbei.util.LogUtil;
 
 import java.io.File;
 import java.io.InputStream;
@@ -64,9 +67,9 @@ public class ApkDownloadPresenter extends BasePresenter<ApkDownloadContract.IApk
     public ApkDownloadContract.IApkDownloadModel createModel() {
         return new ApkDownloadModel();
     }
-    public static class DownloadService extends IntentService{
+    public static class DownloadService extends IntentService {
         public DownloadService(){
-            super("download");
+            super("Download");
         }
         @Override
         protected void onHandleIntent(@Nullable Intent intent) {
@@ -74,6 +77,19 @@ public class ApkDownloadPresenter extends BasePresenter<ApkDownloadContract.IApk
             if(done){
                 CustomNotificationManager.startDownloadApkDoneNotification(this,apk);
             }
+//            try {
+//                LogUtil.logD("start");
+//                Thread.sleep(10*1000);
+//                LogUtil.logD("end");
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        }
+
+        @Override
+        public void onDestroy() {
+            LogUtil.logD("下载服务销毁");
+            super.onDestroy();
         }
     }
 }

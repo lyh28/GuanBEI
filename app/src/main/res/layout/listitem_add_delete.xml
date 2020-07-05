@@ -5,8 +5,8 @@
     android:layout_marginBottom="15dp">
     <ImageView
         android:id="@+id/listitem_add_delete_img"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:src="@drawable/add"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/add_circle_normal"
         android:layout_gravity="center"/>
 </FrameLayout>

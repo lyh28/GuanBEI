@@ -105,7 +105,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
-    protected boolean isLocked() {
+    public boolean isLocked() {
         return false;
     }
 }

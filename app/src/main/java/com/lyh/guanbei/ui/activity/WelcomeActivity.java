@@ -93,7 +93,7 @@ public class WelcomeActivity extends BaseActivity implements QueryBookContract.I
         addPresenter(mQueryBookPresenter);
     }
     @Override
-    protected boolean isLocked() {
+    public boolean isLocked() {
         return false;
     }
 }

@@ -45,7 +45,7 @@ public class IndexActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected boolean isLocked() {
+    public boolean isLocked() {
         return false;
     }
 }

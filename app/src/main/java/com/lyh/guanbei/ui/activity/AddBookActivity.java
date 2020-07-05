@@ -16,6 +16,12 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.GenericLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+
 public class AddBookActivity extends BaseActivity implements InsertBookContract.IInsertBookView, View.OnClickListener {
     private EditText mName;
     private ImageView mClose;
@@ -34,7 +40,6 @@ public class AddBookActivity extends BaseActivity implements InsertBookContract.
 
         mClose.setOnClickListener(this);
         mDone.setOnClickListener(this);
-
     }
 
     @Override

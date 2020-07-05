@@ -17,6 +17,7 @@ import com.lyh.guanbei.bean.Record;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.mvp.contract.InsertRecordContract;
 import com.lyh.guanbei.mvp.presenter.InsertRecordPresenter;
+import com.lyh.guanbei.util.LogUtil;
 import com.lyh.guanbei.util.excel.RecordExcel;
 
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
     }
 
     private List<Record> parseExcel(String path) {
+        LogUtil.logD("文件  "+path);
         CustomSharedPreferencesManager customSharedPreferencesManager = CustomSharedPreferencesManager.getInstance();
         RecordExcel recordExcel = new RecordExcel(mModel)
                 .setBookLocalId(mBookLocalId).setUserId(customSharedPreferencesManager.getUser().getUser_id());
@@ -102,7 +104,7 @@ public class RecordListActivity extends BaseActivity implements View.OnClickList
                 editPosition = position;
                 Bundle bundle = new Bundle();
                 bundle.putInt("status", AddByMyselfActivity.EDIT_STATUS);
-                bundle.putSerializable("record", recordList.get(position));
+                bundle.putParcelable("record", recordList.get(position));
                 Intent intent = new Intent(this, AddByMyselfActivity.class);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, EDIT_CODE);

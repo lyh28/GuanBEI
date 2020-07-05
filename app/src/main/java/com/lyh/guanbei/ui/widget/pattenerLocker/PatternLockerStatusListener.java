@@ -1,8 +1,8 @@
 package com.lyh.guanbei.ui.widget.pattenerLocker;
 
-import com.bumptech.glide.load.engine.bitmap_recycle.IntegerArrayAdapter;
+        import com.bumptech.glide.load.engine.bitmap_recycle.IntegerArrayAdapter;
 
-import java.util.List;
+        import java.util.List;
 
 public interface PatternLockerStatusListener {
     void onStart(List<Integer> points);

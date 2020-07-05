@@ -18,8 +18,8 @@ public class TagManager {
     private static final String[] mOutTag = {
             "吃喝", "玩乐", "交通", "红包", "日用品", "服饰鞋包"
     };
-    private static final String[] mModelTag={"微信模板"};
-    private static final int[] mModelId={R.drawable.book_uncheck};
+    private static final String[] mModelTag={"微信模板","短信导入"};
+    private static final int[] mModelId={R.drawable.book_uncheck,R.drawable.sms};
     private static final int[] mInTagId = {
             R.drawable.red_package,
             R.drawable.salary,
@@ -48,31 +48,32 @@ public class TagManager {
 
     //返回预置的收入List
     public static List<Tag> getPresetInList() {
-        long userId=CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         LinkedList<Tag> list = new LinkedList<>();
         for(int i=0;i<mInTag.length;i++){
-            list.add(new Tag(mInTag[i],mInTagId[i],Tag.IN,userId));
-        }
-        for(int i=0;i<mModelTag.length;i++){
-            list.add(new Tag(mModelTag[i],mModelId[i],Tag.IN,userId));
+            list.add(new Tag(mInTag[i],mInTagId[i],Tag.IN,0));
         }
         return list;
     }
 
     //返回预置的支出List
     public static List<Tag> getPresetOutList() {
-        long userId=CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
         LinkedList<Tag> list = new LinkedList<>();
         for(int i=0;i<mOutTag.length;i++){
-            list.add(new Tag(mOutTag[i],mOutTagId[i],Tag.OUT,userId));
-        }
-        for(int i=0;i<mModelTag.length;i++){
-            list.add(new Tag(mModelTag[i],mModelId[i],Tag.OUT,userId));
+            list.add(new Tag(mOutTag[i],mOutTagId[i],Tag.OUT,0));
         }
         return list;
     }
-
+    private static int getIconByCategoryFromDefault(String name){
+        for(int i=0;i<mModelTag.length;i++){
+            if(mModelTag[i].equals(name))
+                return mModelId[i];
+        }
+        return -1;
+    }
     public static int getIconByCategory(String name, int type) {
+        int id;
+        id=getIconByCategoryFromDefault(name);
+        if(id!=-1)  return id;
         Tag tag = Tag.getTagByName(name, type);
         if (tag == null) {
             LogUtil.logD("name "+name +"  "+type);

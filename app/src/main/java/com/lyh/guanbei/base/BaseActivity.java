@@ -58,11 +58,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
 
     protected abstract void init();
 
-    protected void startActivity(Class activity) {
+    public void startActivity(Class activity) {
         startActivity(activity,new Bundle());
     }
 
-    protected void startActivity(Class activity, Bundle bundle) {
+    public void startActivity(Class activity, Bundle bundle) {
         Intent intent = new Intent(this, activity);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -77,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView{
             v.requestLayout();
         }
     }
-    protected boolean isLocked(){
+    public boolean isLocked(){
         return true;
     }
 }

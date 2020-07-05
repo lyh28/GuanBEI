@@ -169,13 +169,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onResume() {
         super.onResume();
-        if(isOpenFirst&&CustomSharedPreferencesManager.getInstance().getUser().getSetting().isLocked()&&isLocked()){
-            //手势密码解锁页
-            startActivity(UnLockActivity.class);
-        }
-        if(isOpenFirst){
-            isOpenFirst=false;
-        }
+
+//        if(isOpenFirst&&CustomSharedPreferencesManager.getInstance().getUser().getSetting().isLocked()&&isLocked()){
+//            //手势密码解锁页
+//            LogUtil.logD("启动"+isOpenFirst);
+//            isOpenFirst=false;
+//            startActivity(UnLockActivity.class);
+//        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isOpenFirst=true;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class CustomNotificationManager {
         RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.notification_layout);
         remoteView.setOnClickPendingIntent(R.id.notification_layout, pendingIntent);
         builder.setContent(remoteView);
-        builder.setSmallIcon(R.mipmap.icon_more_operation_share_friend);
+        builder.setSmallIcon(R.drawable.icon);
         return builder;
     }
     public static void startDownloadApkDoneNotification(Context context, File file){
@@ -84,7 +84,7 @@ public class CustomNotificationManager {
                 .setContentText("点击安装")
                 .setContentTitle("安装包下载完毕")
                 .setContentIntent(pendingIntent)
-            .setSmallIcon(R.mipmap.icon_more_operation_share_friend);
+            .setSmallIcon(R.drawable.icon);
         notificationManager.notify(101,builder.build());
     }
     public static class NotificationService extends Service {

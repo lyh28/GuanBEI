@@ -1,5 +1,8 @@
 package com.lyh.guanbei.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.lyh.guanbei.common.Contact;
 import com.lyh.guanbei.db.SettingDao;
 import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
@@ -21,7 +24,7 @@ import java.util.List;
 @Entity
 public class User implements Serializable {
     @Transient
-    public static final long serialVersionUID = 11111L;
+    private static final long serialVersionUID=1L;
     @Id(autoincrement = true)
     private long user_id;
     private String user_name;

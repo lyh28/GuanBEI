@@ -24,6 +24,7 @@ import com.lyh.guanbei.manager.CustomSharedPreferencesManager;
 import com.lyh.guanbei.manager.TagManager;
 import com.lyh.guanbei.mvp.contract.InsertRecordContract;
 import com.lyh.guanbei.mvp.contract.UpdateRecordContract;
+import com.lyh.guanbei.mvp.presenter.ApkDownloadPresenter;
 import com.lyh.guanbei.mvp.presenter.InsertRecordPresenter;
 import com.lyh.guanbei.mvp.presenter.UpdateRecordPresenter;
 import com.lyh.guanbei.ui.widget.BottomBookDialog;
@@ -161,7 +162,7 @@ public class AddByMyselfActivity extends BaseActivity implements UpdateRecordCon
         if (bundle != null) {
             //更新编辑状态
             status = bundle.getInt("status");
-            mRecord = (Record) bundle.getSerializable("record");
+            mRecord =  bundle.getParcelable("record");
             currBookId = mRecord.getBook_local_id();
             date=mRecord.getDate();
             if (!"".equals(mRecord.getDate()))

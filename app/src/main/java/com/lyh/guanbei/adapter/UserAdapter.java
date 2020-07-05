@@ -33,11 +33,11 @@ public class UserAdapter extends BaseMultiItemQuickAdapter<UserItemEntity, BaseV
                 break;
             case UserItemEntity.ADD:
                 ImageView imgAdd=helper.getView(R.id.listitem_add_delete_img);
-                Glide.with(mContext).load(R.drawable.add_circle_gray).into(imgAdd);
+                Glide.with(mContext).load(R.drawable.add_circle_normal).into(imgAdd);
                 break;
             case UserItemEntity.DELETE:
                 ImageView imgDel=helper.getView(R.id.listitem_add_delete_img);
-                Glide.with(mContext).load(R.drawable.delete_circle_gray).into(imgDel);
+                Glide.with(mContext).load(R.drawable.delete_circle_normal).into(imgDel);
                 break;
         }
     }

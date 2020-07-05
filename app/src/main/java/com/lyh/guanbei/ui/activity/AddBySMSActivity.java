@@ -3,6 +3,7 @@ package com.lyh.guanbei.ui.activity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -84,7 +85,7 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
                 sms.setChoose(!sms.isChoose());
                 boolean isChoose=sms.isChoose();
                 if(isChoose){
-                    chooseMap.put(position,createRecordBean());
+                    chooseMap.put(position,createRecordBean(sms));
                 }else
                     chooseMap.remove(position);
                 mSMSAdapter.notifyItemChanged(position);
@@ -95,7 +96,6 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         mSMSAdapter.setNewData(SMSUtil.getSmsFromPhone(this));
-
     }
 
     private Record createRecordBean() {
@@ -106,6 +106,13 @@ public class AddBySMSActivity extends BaseActivity implements View.OnClickListen
         return new Record(userId,book.getBook_id(),bookId, DateUtil.getNowDateTimeWithoutSecond(),""+random.nextInt(100)*50,1,"","","");
     }
 
+    private Record createRecordBean(SMS sms) {
+        LogUtil.logD(sms.toString());
+        long userId= CustomSharedPreferencesManager.getInstance().getUser().getUser_id();
+        long bookId=CustomSharedPreferencesManager.getInstance().getCurrBookId();
+        Book book=Book.queryByLocalId(bookId);
+        return new Record(userId,book.getBook_id(),bookId, sms.getDate(),"0",1,"",sms.getContent(),"短信导入");
+    }
     @Override
     public void createPresenters() {
 

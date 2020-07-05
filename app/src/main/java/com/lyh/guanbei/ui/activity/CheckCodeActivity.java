@@ -251,7 +251,7 @@ public class CheckCodeActivity extends BaseActivity implements View.OnClickListe
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
     @Override
-    protected boolean isLocked() {
+    public boolean isLocked() {
         return false;
     }
 }

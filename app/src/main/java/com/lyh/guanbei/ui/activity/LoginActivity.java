@@ -183,7 +183,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    protected boolean isLocked() {
+    public boolean isLocked() {
         return false;
     }
 }
